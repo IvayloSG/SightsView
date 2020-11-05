@@ -3,9 +3,9 @@ namespace SightsView.Data.Models
 {
     using System;
 
-    using SightsView.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using SightsView.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

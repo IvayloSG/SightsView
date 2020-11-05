@@ -1,0 +1,33 @@
+﻿namespace SightsView.Data.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using SightsView.Data.Common.Models;
+
+    public class Message : BaseDeletableModel<string>
+    {
+        public Message()
+        {
+            this.Id = Guid.NewGuid().ToString();
+            this.Replies = new HashSet<Reply>();
+        }
+
+        [Required]
+        public string SenderId { get; set; }
+
+        public virtual ApplicationUser Sender { get; set; }
+
+        [Required]
+        public string ReceiverId { get; set; }
+
+        public virtual ApplicationUser Receiver { get; set; }
+
+        [Required]
+        [MaxLength(500)]
+        public string Content { get; set; }
+
+        public virtual ICollection<Reply> Replies { get; set; }
+    }
+}

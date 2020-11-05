@@ -6,11 +6,11 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using SightsView.Data.Common.Models;
-    using SightsView.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using SightsView.Data.Common.Models;
+    using SightsView.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +25,30 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Creation> Creaions { get; set; }
+
+        public DbSet<Detail> Details { get; set; }
+
+        public DbSet<Equipment> Equipment { get; set; }
+
+        public DbSet<Follow> Follows { get; set; }
+
+        public DbSet<Like> Likes { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Reply> Replies { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<TagCreation> TagCreations { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
