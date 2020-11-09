@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using SightsView.Data.Common.Models;
-
     public class Like
     {
         [Required]

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class Message : BaseDeletableModel<string>
@@ -25,7 +26,7 @@
         public virtual ApplicationUser Receiver { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(DataValidation.MessageContentLength)]
         public string Content { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }

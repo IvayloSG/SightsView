@@ -7,6 +7,7 @@ namespace SightsView.Data.Models
 
     using Microsoft.AspNetCore.Identity;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -25,10 +26,10 @@ namespace SightsView.Data.Models
             this.ReceivedMessages = new HashSet<Message>();
         }
 
-        [MaxLength(30)]
+        [MaxLength(DataValidation.UserFirstNameLength)]
         public string FirstName { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(DataValidation.UserLastNameLength)]
         public string LastName { get; set; }
 
         public DateTime? Birthdate { get; set; }

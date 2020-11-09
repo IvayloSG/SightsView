@@ -3,19 +3,20 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class Equipment : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(30)]
+        [MaxLength(DataValidation.EquipmentBrandLength)]
         public string Brand { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(DataValidation.EquipmentModelLength)]
         public string Model { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(DataValidation.EquipmentAccessoariesLength)]
         public string Accessoaries { get; set; }
 
         public virtual ICollection<Creation> Creations { get; set; }

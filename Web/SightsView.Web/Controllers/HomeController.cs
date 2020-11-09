@@ -2,18 +2,13 @@
 {
     using System.Diagnostics;
 
-    using SightsView.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using SightsView.Web.ViewModels;
 
     public class HomeController : BaseController
     {
         public IActionResult Index()
-        {
-            return this.View();
-        }
-
-        public IActionResult Privacy()
         {
             return this.View();
         }

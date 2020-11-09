@@ -2,12 +2,13 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class Reply : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(500)]
+        [MaxLength(DataValidation.ReplyContentLength)]
         public string Content { get; set; }
 
         [Required]

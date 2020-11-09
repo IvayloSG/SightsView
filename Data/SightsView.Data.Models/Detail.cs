@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
+
     public class Detail
     {
         public Detail()
@@ -12,15 +14,16 @@
 
         public int Id { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DataValidation.DetailsAperatureLength)]
         public string Apereture { get; set; }
 
-        public int? ShutterSpeed { get; set; }
+        [MaxLength(DataValidation.DetailsShutterSpeedLength)]
+        public string ShutterSpeed { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DataValidation.DetailsISOLength)]
         public string ISO { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(DataValidation.DetailsResolutionLength)]
         public string Resolution { get; set; }
 
         public virtual ICollection<Creation> Creations { get; set; }

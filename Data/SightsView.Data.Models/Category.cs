@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
+
     public class Category
     {
         public Category()
@@ -13,7 +15,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(DataValidation.CategoryNameLength)]
         public string Name { get; set; }
 
         public virtual ICollection<Creation> Creations { get; set; }

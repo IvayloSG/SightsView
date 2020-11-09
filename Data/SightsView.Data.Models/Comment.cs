@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class Comment : BaseDeletableModel<string>
@@ -23,7 +24,7 @@
         public virtual Creation Creation { get; set; }
 
         [Required]
-        [MaxLength(255)]
+        [MaxLength(DataValidation.CommentContentLength)]
         public string Content { get; set; }
     }
 }

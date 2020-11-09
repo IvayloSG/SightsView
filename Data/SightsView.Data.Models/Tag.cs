@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using SightsView.Data.Common.Models;
+    using SightsView.Data.Common;
 
     public class Tag
     {
@@ -15,7 +15,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(40)]
+        [MaxLength(DataValidation.TagNameLength)]
         public string Name { get; set; }
 
         public virtual ICollection<TagCreation> Creations { get; set; }

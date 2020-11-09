@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
     public class Creation : BaseDeletableModel<string>
@@ -17,10 +18,10 @@
         }
 
         [Required]
-        [MaxLength(150)]
+        [MaxLength(DataValidation.CreationTitleLength)]
         public string Title { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(DataValidation.CreationDescriptionLength)]
         public string Description { get; set; }
 
         public bool IsPrivate { get; set; }

@@ -196,8 +196,8 @@ namespace SightsView.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -209,8 +209,8 @@ namespace SightsView.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -274,8 +274,8 @@ namespace SightsView.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -332,8 +332,8 @@ namespace SightsView.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -421,19 +421,20 @@ namespace SightsView.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Apereture")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("ISO")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Resolution")
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("ShutterSpeed")
-                        .HasColumnType("int");
+                    b.Property<string>("ISO")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Resolution")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("ShutterSpeed")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -448,13 +449,13 @@ namespace SightsView.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Accessoaries")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -467,8 +468,8 @@ namespace SightsView.Data.Migrations
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
