@@ -7,11 +7,10 @@
     using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
-    public class Message : BaseDeletableModel<string>
+    public class Message : BaseDeletableModel<int>
     {
         public Message()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Replies = new HashSet<Reply>();
         }
 

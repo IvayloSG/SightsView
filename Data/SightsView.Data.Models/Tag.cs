@@ -4,15 +4,14 @@
     using System.ComponentModel.DataAnnotations;
 
     using SightsView.Data.Common;
+    using SightsView.Data.Common.Models;
 
-    public class Tag
+    public class Tag : BaseModel<int>
     {
         public Tag()
         {
             this.Creations = new HashSet<TagCreation>();
         }
-
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(DataValidation.TagNameLength)]

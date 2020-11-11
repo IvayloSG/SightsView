@@ -4,9 +4,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using SightsView.Data.Common.Repositories;
-
     using Microsoft.EntityFrameworkCore;
+
+    using SightsView.Data.Common.Repositories;
 
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class

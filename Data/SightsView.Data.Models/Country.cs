@@ -4,16 +4,15 @@
     using System.ComponentModel.DataAnnotations;
 
     using SightsView.Data.Common;
+    using SightsView.Data.Common.Models;
 
-    public class Country
+    public class Country : BaseModel<int>
     {
         public Country()
         {
             this.Creations = new HashSet<Creation>();
             this.Creators = new HashSet<ApplicationUser>();
         }
-
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(DataValidation.CountryNameLength)]

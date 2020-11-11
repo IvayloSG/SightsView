@@ -6,6 +6,7 @@
         public const int UserLastNameLength = 50;
 
         public const int CategoryNameLength = 50;
+        public const int CategoryDescriptionLength = 500;
 
         public const int CommentContentLength = 255;
 

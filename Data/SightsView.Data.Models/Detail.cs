@@ -4,15 +4,14 @@
     using System.ComponentModel.DataAnnotations;
 
     using SightsView.Data.Common;
+    using SightsView.Data.Common.Models;
 
-    public class Detail
+    public class Detail : BaseModel<int>
     {
         public Detail()
         {
             this.Creations = new HashSet<Creation>();
         }
-
-        public int Id { get; set; }
 
         [MaxLength(DataValidation.DetailsAperatureLength)]
         public string Apereture { get; set; }

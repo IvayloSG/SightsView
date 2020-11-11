@@ -6,13 +6,8 @@
     using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
-    public class Comment : BaseDeletableModel<string>
+    public class Comment : BaseDeletableModel<int>
     {
-        public Comment()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
         [Required]
         public string ApplicationUserId { get; set; }
 

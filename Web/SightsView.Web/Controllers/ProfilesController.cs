@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class ProfileInformationsController : Controller
+    public class ProfilesController : Controller
     {
         public IActionResult Index()
         {
