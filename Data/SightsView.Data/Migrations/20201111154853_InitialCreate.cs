@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SightsView.Data.Migrations
 {
-    public partial class AddedCategoryDescription : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,8 @@ namespace SightsView.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
@@ -49,6 +51,8 @@ namespace SightsView.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -119,6 +123,8 @@ namespace SightsView.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 40, nullable: false)
                 },
                 constraints: table =>
@@ -543,6 +549,11 @@ namespace SightsView.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_IsDeleted",
+                table: "Categories",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ApplicationUserId",
                 table: "Comments",
                 column: "ApplicationUserId");
@@ -555,6 +566,11 @@ namespace SightsView.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_IsDeleted",
                 table: "Comments",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_IsDeleted",
+                table: "Countries",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -636,6 +652,11 @@ namespace SightsView.Data.Migrations
                 name: "IX_TagCreations_TagId",
                 table: "TagCreations",
                 column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tags_IsDeleted",
+                table: "Tags",
+                column: "IsDeleted");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,21 +1,32 @@
 ﻿@using SightsView.Web.ViewModels.Categories;
-@model AllCategoriesViewModel
+@model CategoriesAllViewModel
 @{
     this.ViewData["Title"] = "Category Page";
 }
 
-<h1 class="text-center">C A T E G O R I E S</h1>
+<h1 class="text-center text-dark">All Categories</h1>
+<br />
 
-        <div class="col-md-3">
-            <div class="categories">
-                <div class="category-name">
-                    <h3>Model.Name</h3>
-                </div>
-                <div class="category-description">
-                    <span>
-                       Model.Description
-                    </span>
+<div class="col-md-8 offset-2">
+    <a type="button" class="btn btn-secondary btn-block" asp-controller="Categories" asp-action="Add">Add Category</a>
+</div>
+<br />
+
+<div class="container">
+    <div class="row d-flex">
+        @foreach (var category in Model.AlphabeticalCategoryList)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-secondary rounded-lg">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@category.Name</h5>
+                        <p class="card-text">@category.Description</p>
+                        <a class="btn btn-light" onclick="return confirm('Are you sure you want to delete?');" asp-controller="Categories" asp-action="Delete" asp-route-id=@category.Id>Delete</a>
+                        <a class="btn btn-light float-right"  asp-controller="Categories" asp-action="Edit" asp-route-id=@category.Id>Edit</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+    </div>
+</div>
 

@@ -50,6 +50,8 @@ namespace SightsView.Data.Models
 
         public bool IsPhonelVisible { get; set; }
 
+        public int Reputation { get; set; }
+
         public virtual Country Country { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }

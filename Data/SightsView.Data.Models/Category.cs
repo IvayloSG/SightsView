@@ -6,7 +6,7 @@
     using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
-    public class Category : BaseModel<int>
+    public class Category : BaseDeletableModel<int>
     {
         public Category()
         {

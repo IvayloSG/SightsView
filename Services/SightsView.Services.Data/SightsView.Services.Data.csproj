@@ -24,8 +24,4 @@
     <ProjectReference Include="..\SightsView.Services.Mapping\SightsView.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\" />
-  </ItemGroup>
-
 </Project>

@@ -1,16 +1,82 @@
 ﻿namespace SightsView.Services.Data
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using SightsView.Data.Common.Repositories;
+    using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
 
     public class CategoriesService : ICategoriesService
     {
-        public CategoriesService(basere)
-        {
+        private readonly IDeletableEntityRepository<Category> categoryRepository;
 
+        public CategoriesService(IDeletableEntityRepository<Category> categoryRepository)
+        {
+            this.categoryRepository = categoryRepository;
+        }
+
+        public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()
+        {
+            var query = this.categoryRepository.AllAsNoTracking();
+
+            return await query.OrderBy(x => x.Name)
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task CreateCategoryAsync(string name, string description)
+        {
+            var category = new Category()
+            {
+                Name = name,
+                Description = description,
+            };
+
+            await this.categoryRepository.AddAsync(category);
+            await this.categoryRepository.SaveChangesAsync();
+        }
+
+        public async Task<T> GetCategoryByIdAsync<T>(int id)
+            => await this.categoryRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+        public async Task<bool> UpdateCategoryByIdAsync(int id, string name, string description)
+        {
+            var category = await this.categoryRepository.AllAsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (category == null)
+            {
+                return false;
+            }
+
+            category.Name = name;
+            category.Description = description;
+
+            this.categoryRepository.Update(category);
+            await this.categoryRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteCategoryByIdAsync(int id)
+        {
+            var category = await this.categoryRepository.AllAsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (category == null)
+            {
+                return false;
+            }
+
+            this.categoryRepository.Delete(category);
+            await this.categoryRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

@@ -2,17 +2,6 @@
 {
     using System.Reflection;
 
-    using SightsView.Data;
-    using SightsView.Data.Common;
-    using SightsView.Data.Common.Repositories;
-    using SightsView.Data.Models;
-    using SightsView.Data.Repositories;
-    using SightsView.Data.Seeding;
-    using SightsView.Services.Data;
-    using SightsView.Services.Mapping;
-    using SightsView.Services.Messaging;
-    using SightsView.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,6 +10,18 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
+    using SightsView.Data;
+    using SightsView.Data.Common;
+    using SightsView.Data.Common.Repositories;
+    using SightsView.Data.Models;
+    using SightsView.Data.Repositories;
+    using SightsView.Data.Seeding;
+    using SightsView.Services.Data;
+    using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
+    using SightsView.Services.Messaging;
+    using SightsView.Web.ViewModels;
 
     public class Startup
     {
@@ -64,6 +65,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
