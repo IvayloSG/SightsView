@@ -6,9 +6,9 @@
     using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 
-    public class Detail : BaseModel<int>
+    public class Details : BaseModel<int>
     {
-        public Detail()
+        public Details()
         {
             this.Creations = new HashSet<Creation>();
         }

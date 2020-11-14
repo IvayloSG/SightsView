@@ -53,7 +53,7 @@
 
         public int? DetailId { get; set; }
 
-        public virtual Detail Detail { get; set; }
+        public virtual Details Detail { get; set; }
 
         public virtual ICollection<Like> Likes { get; set; }
 

@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public interface ICategoriesService
     {
         Task<IEnumerable<T>> GetAllCategoriesAsync<T>();
@@ -14,5 +16,7 @@
         Task<bool> UpdateCategoryByIdAsync(int id, string name, string description);
 
         Task<bool> DeleteCategoryByIdAsync(int id);
+
+        Task<IList<SelectListItem>> GetSelectListCategoriesAsync();
     }
 }

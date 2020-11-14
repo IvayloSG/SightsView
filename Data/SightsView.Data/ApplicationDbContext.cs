@@ -34,7 +34,7 @@
 
         public DbSet<Creation> Creaions { get; set; }
 
-        public DbSet<Detail> Details { get; set; }
+        public DbSet<Details> Details { get; set; }
 
         public DbSet<Equipment> Equipment { get; set; }
 

@@ -57,9 +57,10 @@
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryEditInputModel input)
         {
+            var viewModel = await this.categoriesService.GetCategoryByIdAsync<CategoryViewModel>(input.Id);
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(viewModel);
             }
 
             var isUpdateSuccessful = await this.categoriesService.UpdateCategoryByIdAsync(input.Id, input.Name, input.Description);
@@ -67,7 +68,7 @@
             // TODO: To implement error when update is unsuccessful;
             if (!isUpdateSuccessful)
             {
-                return this.View();
+                return this.View(viewModel);
             }
 
             return this.RedirectToAction(nameof(this.Index));

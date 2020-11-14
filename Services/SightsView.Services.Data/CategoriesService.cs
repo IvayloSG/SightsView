@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     using SightsView.Data.Common.Repositories;
@@ -78,5 +78,16 @@
 
             return true;
         }
+
+        public async Task<IList<SelectListItem>> GetSelectListCategoriesAsync()
+            => await this.categoryRepository
+            .AllAsNoTracking()
+            .OrderBy(X => X.Name)
+            .Select(x => new SelectListItem()
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name,
+            })
+            .ToListAsync();
     }
 }
