@@ -36,6 +36,11 @@
             });
             allCategories.Add(new Category()
             {
+                Name = "Astro",
+                Description = "Photography of astronomical bodies and celestial events including stars, the moon, the sun, planets, asteroids, and galaxies.",
+            });
+            allCategories.Add(new Category()
+            {
                 Name = "Beauty",
                 Description = "Beauty photography focuses on bringing out the real beauty of the subjects and requires great talent and skill from the photographer. In order to capture the best beauty photographs, the proper combination of light along with complete trust and imagination from both the photographer and the model are absolutely essential.",
             });

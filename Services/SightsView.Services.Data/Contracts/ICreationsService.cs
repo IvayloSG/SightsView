@@ -6,6 +6,6 @@
 
     public interface ICreationsService
     {
-
+        string AddCreationInDbAsync(string title, string description, bool isPublic, int countryId, int categoryId, string userId, List<string> tags);
     }
 }

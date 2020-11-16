@@ -6,7 +6,7 @@
 
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -80,7 +80,8 @@
         }
 
         public async Task<IList<SelectListItem>> GetSelectListCategoriesAsync()
-            => await this.categoryRepository
+        {
+            var selectListItems = await this.categoryRepository
             .AllAsNoTracking()
             .OrderBy(X => X.Name)
             .Select(x => new SelectListItem()
@@ -89,5 +90,12 @@
                 Text = x.Name,
             })
             .ToListAsync();
+
+            var noCategoryOption = new SelectListItem(GlobalConstants.NoCategoryOption, 0.ToString());
+
+            selectListItems.Insert(0, noCategoryOption);
+
+            return selectListItems;
+        }
     }
 }

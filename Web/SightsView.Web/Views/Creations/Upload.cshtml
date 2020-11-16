@@ -10,6 +10,11 @@
 <form method="post" enctype="multipart/form-data">
 
     <div class="form-group col-md-6 offset-3">
+        <input asp-for="Creation" type="file" class="custom-file-input form-control" id="customFile">
+        <span asp-validation-for="Creation" class="text-danger"></span>
+        <label class="custom-file-label form-control text-center" for="customFile">Choose Creation</label>
+    </div>
+    <div class="form-group col-md-6 offset-3">
         <input asp-for="Title" placeholder="Title" class="form-control text-center" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
@@ -24,17 +29,13 @@
         </select>
     </div>
     <div class="form-group col-md-6 offset-3">
-        <select asp-for="Category" class="form-control text-center" asp-items="@((IEnumerable<SelectListItem>)this.ViewData["Categories"])"></select>
+        <select asp-for="Category" class="form-control text-center" asp-items="@Model.Categories"></select>
     </div>
     <div class="form-group col-md-6 offset-3">
-        <select asp-for="Country" class="form-control text-center" asp-items="@((IEnumerable<SelectListItem>)this.ViewData["Countries"])"></select>
+        <select asp-for="Country" class="form-control text-center" asp-items="@Model.Countries"></select>
     </div>
-    <div class="form-group col-md-6 offset-3">
-        <input asp-for="Creation" type="file" class="custom-file-input form-control" id="customFile">
-        <label class="custom-file-label form-control" for="customFile">Choose file</label>
-    </div>
-    <div class="form-group" id="TagsContainer">
-        <a asp-for="Tags" class="btn btn-success form-control col-md-6 offset-3" onclick="AddMoreTags()">Add Tags</a>
+    <div class="form-group col-md-6 offset-3 ">
+        <textarea asp-for="Tags" placeholder="Tags" class="form-control text-center"></textarea>
     </div>
     <input type="submit" class="btn btn-primary col-md-6 offset-3" />
 </form>
@@ -45,17 +46,6 @@
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-    </script>
-
-    <script>
-        var tagIndex = 0;
-        function AddMoreTags() {
-            $("#TagsContainer").
-                append("<div class='form-group text-center col-md-6 offset-3'>" +
-                    "<input class='form-control text-center' name='Tags[" + tagIndex + "].Tag Name' />" +
-                "<span asp-validation-for='Tags[" + tagIndex + "]' class='text - danger'></span></div>");
-            tagIndex++;
-        }
     </script>
 }
 

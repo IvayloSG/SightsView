@@ -28,6 +28,6 @@
 
         public const int ReplyContentLength = 500;
 
-        public const int TagNameLength = 40;
+        public const int TagNameLength = 400;
     }
 }

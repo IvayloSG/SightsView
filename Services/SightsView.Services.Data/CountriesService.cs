@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -32,9 +33,9 @@
             })
             .ToListAsync();
 
-            var missingCountryOption = new SelectListItem("No country", 0.ToString());
+            var noCountryOption = new SelectListItem(GlobalConstants.NoCountryOption, 0.ToString());
 
-            selectListItem.Insert(0, missingCountryOption);
+            selectListItem.Insert(0, noCountryOption);
 
             return selectListItem;
         }
