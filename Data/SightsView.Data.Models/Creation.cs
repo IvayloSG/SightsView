@@ -30,7 +30,7 @@
         public string StorageAddress { get; set; }
 
         [Required]
-        public string ResizedAddress { get; set; }
+        public string CreationDataUrl { get; set; }
 
         public int Views { get; set; }
 
@@ -51,9 +51,9 @@
 
         public virtual Equipment Equipment { get; set; }
 
-        public int? DetailId { get; set; }
+        public int? DetailsId { get; set; }
 
-        public virtual Details Detail { get; set; }
+        public virtual Details Details { get; set; }
 
         public virtual ICollection<Like> Likes { get; set; }
 

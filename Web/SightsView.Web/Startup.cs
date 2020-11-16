@@ -17,6 +17,8 @@
     using SightsView.Data.Models;
     using SightsView.Data.Repositories;
     using SightsView.Data.Seeding;
+    using SightsView.Services;
+    using SightsView.Services.Contracts;
     using SightsView.Services.Data;
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Mapping;
@@ -68,6 +70,9 @@
             services.AddTransient<ICreationsService, CreationsService>();
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IFilePathsService, FilePathsService>();
+            services.AddTransient<ITagsExtractingService, TagsExtractingService>();
+            services.AddTransient<ITagsService, TagsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,11 +110,11 @@
 
             app.UseEndpoints(
                 endpoints =>
-                    {
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapRazorPages();
-                    });
+                {
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
+                });
         }
     }
 }

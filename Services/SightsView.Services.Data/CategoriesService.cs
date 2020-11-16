@@ -97,5 +97,11 @@
 
             return selectListItems;
         }
+
+        public async Task<T> GetCategoryByNameAsync<T>(string name)
+            => await this.categoryRepository.AllAsNoTracking()
+            .Where(x => x.Name == name)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

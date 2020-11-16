@@ -13,6 +13,8 @@
 
         Task<T> GetCategoryByIdAsync<T>(int id);
 
+        Task<T> GetCategoryByNameAsync<T>(string name);
+
         Task<bool> UpdateCategoryByIdAsync(int id, string name, string description);
 
         Task<bool> DeleteCategoryByIdAsync(int id);

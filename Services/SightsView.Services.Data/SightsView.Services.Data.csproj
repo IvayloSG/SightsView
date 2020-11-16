@@ -23,7 +23,9 @@
     <ProjectReference Include="..\..\Data\SightsView.Data.Common\SightsView.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\SightsView.Data.Models\SightsView.Data.Models.csproj" />
     <ProjectReference Include="..\..\SightsView.Common\SightsView.Common.csproj" />
+    <ProjectReference Include="..\..\Web\SightsView.Web.ViewModels\SightsView.Web.ViewModels.csproj" />
     <ProjectReference Include="..\SightsView.Services.Mapping\SightsView.Services.Mapping.csproj" />
+    <ProjectReference Include="..\SightsView.Services\SightsView.Services.csproj" />
   </ItemGroup>
 
 </Project>

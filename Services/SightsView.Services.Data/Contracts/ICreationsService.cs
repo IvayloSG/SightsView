@@ -1,11 +1,23 @@
 ﻿namespace SightsView.Services.Data.Contracts
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Http;
+
+    using SightsView.Data.Models;
+    using SightsView.Web.ViewModels.Tags;
 
     public interface ICreationsService
     {
-        string AddCreationInDbAsync(string title, string description, bool isPublic, int countryId, int categoryId, string userId, List<string> tags);
+        Task<string> AddCreationInDbAsync(
+            string title,
+            string description,
+            bool isPrivate,
+            int? countryId,
+            int categoryId,
+            ApplicationUser user,
+            IFormFile creation,
+            IEnumerable<TagsViewModel> tags);
     }
 }
