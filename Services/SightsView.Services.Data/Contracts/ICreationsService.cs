@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Http;
 
     using SightsView.Data.Models;
+    using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Tags;
 
     public interface ICreationsService
@@ -19,5 +20,7 @@
             ApplicationUser user,
             IFormFile creation,
             IEnumerable<TagsViewModel> tags);
+
+        Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
     }
 }

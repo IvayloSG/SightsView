@@ -54,6 +54,10 @@
         [HttpPost]
         public async Task<IActionResult> Upload(CreationsUploadInputModel input)
         {
+            // TODO: Remove
+            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
             if (!this.ModelState.IsValid)
             {
                 input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
@@ -84,12 +88,19 @@
                 categoryId = otherCategory.Id;
             }
 
-            var tagNames = this.tagsExtractingService.GetTagsFromTagsArea(input.Tags);
+            var tagsInput = input.Tags;
+
+            if (tagsInput == null)
+            {
+                tagsInput = string.Empty;
+            }
+
+            var tagNames = this.tagsExtractingService.GetTagsFromTagsArea(tagsInput);
 
             await this.tagsService.CreateTagsAsync(tagNames);
             var tags = await this.tagsService.GetTagsByNameAsync(tagNames);
 
-            var filePath = this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
+            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
 
             return this.View(input);
         }

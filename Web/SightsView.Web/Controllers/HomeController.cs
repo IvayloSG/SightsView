@@ -6,18 +6,38 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels;
+    using SightsView.Web.ViewModels.Categories;
+    using SightsView.Web.ViewModels.Creations;
+    using SightsView.Web.ViewModels.Home;
 
     public class HomeController : Controller
     {
+        private readonly ICountriesService countriesService;
+        private readonly ICreationsService creationsService;
+
+        public HomeController(ICountriesService countriesService, ICreationsService creationsService)
+        {
+            this.countriesService = countriesService;
+            this.creationsService = creationsService;
+        }
+
         public async Task<IActionResult> Index()
         {
-            var image = await System.IO.File.ReadAllBytesAsync(@"C:\Users\Ivaylo\OneDrive\Desktop\Test\DSCN2113.jpg");
-            string imageBase64Data = Convert.ToBase64String(image);
-            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+            // TODO: Take categories count from config
+            int countOfCategories = 4;
+            int countOfCreations = 10;
+            var topCountries = await this.countriesService.GetCountriesWithMostCreationAsync(countOfCategories);
+            var creations = await this.creationsService.GetNumberRandomCreationsAsync(countOfCreations);
 
-            this.ViewData["byte"] = imageDataURL;
-            return this.View();
+            var viewModel = new HomeIndexViewModel()
+            {
+                CountriesWithMostImages = topCountries,
+                Creations = creations,
+            };
+
+            return this.View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

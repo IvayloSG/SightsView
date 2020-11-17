@@ -1,14 +1,18 @@
 ﻿namespace SightsView.Services.Data
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
-
+    using Microsoft.EntityFrameworkCore;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
+    using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Tags;
 
     public class CreationsService : ICreationsService
@@ -46,7 +50,7 @@
 
             var username = user.UserName;
 
-            var creationPath = this.filePathService.CreateFilePath(username, creation.Id, creation.Title,  inputCreation);
+            var creationPath = this.filePathService.CreateFilePath(username, creation.Id, creation.Title, inputCreation);
             creation.StorageAddress = creationPath;
 
             var creationDataUrl = await this.filePathService.GetFileSystemUrlAsync(creationPath, inputCreation);
@@ -54,15 +58,38 @@
 
             foreach (var tag in tags)
             {
-                await this.tagCreationRepository
-                    .AddAsync(new TagCreation()
+                var currenTag = new TagCreation()
                 {
                     CreationId = creation.Id,
                     TagId = tag.Id,
-                });
+                };
+
+                creation.Tags.Add(currenTag);
+            }
+
+            await this.creationsRepository.AddAsync(creation);
+            try
+            {
+                await this.creationsRepository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
             return creation.Id;
+        }
+
+        public async Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations)
+        {
+            return await this.creationsRepository.AllAsNoTracking()
+                 .Where(x => x.IsPrivate == false)
+                 .OrderBy(r => Guid.NewGuid()).Take(countOfCreations)
+                 .Select(x => new CreationsViewModel()
+                 {
+                     DataUrl = x.CreationDataUrl,
+                 })
+                 .ToListAsync();
         }
     }
 }

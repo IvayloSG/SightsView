@@ -20,5 +20,7 @@
         Task<bool> DeleteCategoryByIdAsync(int id);
 
         Task<IList<SelectListItem>> GetSelectListCategoriesAsync();
+
+        Task<IEnumerable<T>> GetCategoriesWithMostCreationsAsync<T>(int countOfCategories);
     }
 }

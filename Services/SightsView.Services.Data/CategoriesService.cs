@@ -6,6 +6,7 @@
 
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
+
     using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
@@ -103,5 +104,12 @@
             .Where(x => x.Name == name)
             .To<T>()
             .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetCategoriesWithMostCreationsAsync<T>(int countOfCategories)
+            => await this.categoryRepository.AllAsNoTracking()
+            .OrderByDescending(x => x.Creations.Count)
+            .To<T>()
+            .Take(countOfCategories)
+            .ToListAsync();
     }
 }

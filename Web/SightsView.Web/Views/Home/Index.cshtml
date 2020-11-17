@@ -1,44 +1,38 @@
-﻿@using SightsView.Common
+﻿@using SightsView.Web.ViewModels.Home
+@model HomeIndexViewModel;
 @{
-    this.ViewData["Title"] = "Home Page";    
+    this.ViewData["Title"] = "Home Page";
 }
 
+<br />
 
-<!-- Grid row -->
-<!-- Grid row -->
-<div class="gallery" id="gallery">
+<h1 class="text-dark text-center mb-lg-5">Welcome to SightsView</h1>
 
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 1">
-        <img class="img-fluid" src="@ViewData["byte"]" alt="Card image cap">
-    </div>
-    <!-- Grid column -->
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 1">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg" alt="Card image cap">
-    </div>
-    <!-- Grid column -->
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 2">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap">
-    </div>
-    <!-- Grid column -->
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 2">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap">
-    </div>
-    <!-- Grid column -->
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 1">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Vertical/mountain3.jpg" alt="Card image cap">
-    </div>
-    <!-- Grid column -->
-    <div class="mb-3 pics animation all 1">
-        <img class="img-fluid" src="https://c4.wallpaperflare.com/wallpaper/924/229/266/uss-wisconsin-bb-64-iowa-class-battleship-wallpaper-preview.jpg" alt="Card image cap">
-    </div>
+<br />
 
+<h4 class="text-dark">Most popular locations</h4>
+
+<div class="container">
+    <div class="row">
+        @foreach (var country in @Model.CountriesWithMostImages)
+        {
+            <div class="col-md-3 mb-3">
+                <div class="img-thumbnail">
+                    <img src="@country.DataURL" alt="..." class="img-thumbnail">
+                    <a asp-for class="btn btn-dark text-center col-md-12" asp-controller="Creation" asp-action="Upload" asp-route-id=@country.Id>@country.Name</a>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-<!-- Grid row -->
 
+<br />
 
-
+<div class="gallery" id="gallery">
+    @foreach (var creation in Model.Creations)
+    {
+        <div class="mb-3 pics animation all 1">
+            <img class="img-fluid" src="@creation.DataUrl" alt="Card image cap">
+        </div>
+    }
+</div>
