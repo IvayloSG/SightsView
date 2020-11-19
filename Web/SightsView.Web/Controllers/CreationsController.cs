@@ -1,6 +1,5 @@
 ﻿namespace SightsView.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,6 @@
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Categories;
     using SightsView.Web.ViewModels.Creations;
-    using SightsView.Web.ViewModels.Tags;
 
     public class CreationsController : Controller
     {
@@ -103,6 +101,15 @@
             var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
 
             return this.View(input);
+        }
+
+        public async Task<IActionResult> Load(string id)
+        {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            var viewModel = await this.creationsService.GetCreationByIdAsync(id, currentUser.Id);
+
+            return this.View(viewModel);
         }
     }
 }

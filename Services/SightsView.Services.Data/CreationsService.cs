@@ -80,6 +80,32 @@
             return creation.Id;
         }
 
+        public async Task<CreationsViewModel> GetCreationByIdAsync(string creationId, string userId)
+        {
+            var creation = await this.creationsRepository.AllAsNoTracking()
+                .Where(x => x.IsPrivate == false && x.Id == creationId)
+                .Select(x => new CreationsViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    DataUrl = x.CreationDataUrl,
+                    Likes = x.Likes.Count,
+                    Views = x.Views,
+                    CreatorId = x.CreatorId,
+                    CreatorName = x.Creator.UserName,
+                })
+                .FirstOrDefaultAsync();
+
+            if (creation.CreatorId != userId)
+            {
+                await this.IncreseCreationViewsAsync(creationId);
+                creation.Views++;
+            }
+
+            return creation;
+        }
+
         public async Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations)
         {
             return await this.creationsRepository.AllAsNoTracking()
@@ -87,9 +113,21 @@
                  .OrderBy(r => Guid.NewGuid()).Take(countOfCreations)
                  .Select(x => new CreationsViewModel()
                  {
+                     Id = x.Id,
                      DataUrl = x.CreationDataUrl,
                  })
                  .ToListAsync();
+        }
+
+        private async Task IncreseCreationViewsAsync(string creationId)
+        {
+            var creation = await this.creationsRepository.AllAsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == creationId);
+
+            creation.Views++;
+
+            this.creationsRepository.Update(creation);
+            await this.creationsRepository.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,40 @@
-﻿@{
+﻿@using SightsView.Web.ViewModels.Photographers
+@model PhotographersLIstViewModel;
+@{
     this.ViewData["Title"] = "Photographers";
 }
 
-<h1>PhotographersPage</h1>
+<ul class="nav nav-pills nav-fill nav-justified mt-md-n2 mb-5">
+
+    <li class="nav-item mr-1">
+        <a asp-controller="Photographers" asp-action="MostCreations" class="nav-link active bg-dark">Most Creations</a>
+    </li>
+
+    <li class="nav-item mr-1">
+        <a asp-controller="Photographers" asp-action="MostLikes" class="nav-link active bg-dark">Most Popular</a>
+    </li>
+
+    <li class="nav-item mr-1">
+        <a asp-controller="Photographers" asp-action="MostFollowers" class="nav-link active bg-dark">Most Followers</a>
+    </li>
+
+    <li class="nav-item">
+        <a asp-controller="Photographers" asp-action="Newest" class="nav-link active bg-dark">Newest</a>
+    </li>
+
+</ul>
+
+@foreach (var photographer in Model.PhotographersList)
+{
+    <div class="card mt-1">
+
+        <h5 class="card-header bg-dark text-white">@photographer.Username</h5>
+
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-dark">Follow</a>
+        </div>
+
+    </div>
+}

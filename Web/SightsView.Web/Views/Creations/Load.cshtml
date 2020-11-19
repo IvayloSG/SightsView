@@ -1,0 +1,38 @@
+﻿@using SightsView.Web.ViewModels.Creations
+@model CreationsViewModel
+@{
+    this.ViewData["Title"] = "Creation";
+}
+
+<div class="card mb-10 offset-1 mt-5">
+    <img class="card-img-top" src="@Model.DataUrl" alt="Card image cap">
+
+    <div class="card-body">
+
+        <div>
+            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark">@Model.CreatorName</a>
+            <span class="badge badge-pill badge-dark float-lg-right">Views: @Model.Views</span>
+            <h4 class="card-title text-lg-center">@Model.Title</h4>
+        </div>
+
+        <p class="card-text text">@Model.Description</p>
+
+        <div>
+            <button type="button" class="btn btn-dark float-right mb-lg-5">
+                Like <span class="badge badge-light">@Model.Likes</span>
+                <span class="sr-only">unread messages</span>
+            </button>
+        </div>
+
+        <a asp-for class="btn btn-dark text-center col-md-12" onclick="goBack()">Close</a>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+function goBack() {
+  window.history.back();
+}
+    </script>
+}

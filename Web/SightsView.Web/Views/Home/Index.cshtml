@@ -10,19 +10,30 @@
 
 <br />
 
-<h4 class="text-dark">Most popular locations</h4>
+<div class="card text-center bg-dark mb-lg-5">
+    <div class="card-header text-white text-center">
+        <h3>Most popular locations</h3>
+    </div>
 
-<div class="container">
-    <div class="row">
-        @foreach (var country in @Model.CountriesWithMostImages)
-        {
-            <div class="col-md-3 mb-3">
-                <div class="img-thumbnail">
-                    <img src="@country.DataURL" alt="..." class="img-thumbnail">
-                    <a asp-for class="btn btn-dark text-center col-md-12" asp-controller="Creation" asp-action="Upload" asp-route-id=@country.Id>@country.Name</a>
-                </div>
+    <div class="card-body bg-light">
+        <div class="container">
+            <div class="row">
+
+                @foreach (var country in @Model.CountriesWithMostImages)
+                {
+                    <div class="col-md-3 mb-3">
+                        <div class="img-thumbnail">
+                            <img src="@country.DataURL" alt="..." class="img-thumbnail">
+                            <a asp-for class="btn btn-dark text-center col-md-12" asp-controller="Countries" asp-action="Index" asp-route-id=@country.Id>@country.Name</a>
+                        </div>
+                    </div>
+                }
+
             </div>
-        }
+        </div>
+    </div>
+
+    <div class="card-footer text-muted bg-dark">
     </div>
 </div>
 
@@ -31,8 +42,28 @@
 <div class="gallery" id="gallery">
     @foreach (var creation in Model.Creations)
     {
+
         <div class="mb-3 pics animation all 1">
-            <img class="img-fluid" src="@creation.DataUrl" alt="Card image cap">
+            <a asp-controller="Creations" asp-action="Load" asp-route-id=@creation.Id>
+                <img class="img-fluid" src="@creation.DataUrl" alt="Card image cap">
+            </a>
         </div>
+
     }
 </div>
+
+@section Scripts {
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '.img', function () {
+            $('#modal .modal-body').html($('.img').clone()[0]);
+            $('#modal').modal('show');
+        })
+    </script>
+}

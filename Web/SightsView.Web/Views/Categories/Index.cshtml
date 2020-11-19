@@ -5,15 +5,18 @@
 }
 
 <br />
+
 <h1 class="text-center text-dark mb-lg-5">All Categories</h1>
 
 <div class="col-md-8 offset-2">
     <a type="button" class="btn btn-dark btn-block mb-lg-5" asp-controller="Categories" asp-action="Add">Add Category</a>
 </div>
+
 <br />
 
 <div class="container">
     <div class="row d-flex">
+
         @foreach (var category in Model.AlphabeticalCategoryList)
         {
             <div class="col-md-4 mb-3">
@@ -27,6 +30,7 @@
                 </div>
             </div>
         }
+
     </div>
 </div>
 

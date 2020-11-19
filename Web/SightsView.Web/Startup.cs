@@ -68,11 +68,12 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICreationsService, CreationsService>();
-            services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
-            services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<IPhotographersService, PhotographersService>();
+            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
         }
 

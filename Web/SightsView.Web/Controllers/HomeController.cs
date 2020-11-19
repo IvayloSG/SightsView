@@ -1,6 +1,5 @@
 ﻿namespace SightsView.Web.Controllers
 {
-    using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
 
@@ -8,8 +7,6 @@
 
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels;
-    using SightsView.Web.ViewModels.Categories;
-    using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Home;
 
     public class HomeController : Controller

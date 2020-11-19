@@ -22,5 +22,7 @@
             IEnumerable<TagsViewModel> tags);
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
+
+        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);
     }
 }

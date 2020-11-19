@@ -46,13 +46,13 @@ namespace SightsView.Data.Models
 
         public int? CountryId { get; set; }
 
+        public virtual Country Country { get; set; }
+
         public bool IsEmailVisible { get; set; }
 
         public bool IsPhonelVisible { get; set; }
 
         public int Reputation { get; set; }
-
-        public virtual Country Country { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
