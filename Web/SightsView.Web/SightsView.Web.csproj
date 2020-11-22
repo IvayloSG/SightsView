@@ -37,4 +37,10 @@
     <ProjectReference Include="..\SightsView.Web.Infrastructure\SightsView.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\SightsView.Web.ViewModels\SightsView.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\visibility.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -5,13 +5,18 @@
 }
 
 <div class="card mb-10 offset-1 mt-5">
-    <img class="card-img-top" src="@Model.DataUrl" alt="Card image cap">
+    <img class="card-img-top rounded" src="@Model.DataUrl" alt="Card image cap">
 
     <div class="card-body">
 
         <div>
             <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark">@Model.CreatorName</a>
-            <span class="badge badge-pill badge-dark float-lg-right">Views: @Model.Views</span>
+
+            <span class="badge badge-pill badge-light float-lg-right">
+                <img src="\visibility.png" alt="icon" style="width: 20px" />
+                @Model.Views
+            </span>
+
             <h4 class="card-title text-lg-center">@Model.Title</h4>
         </div>
 
@@ -19,7 +24,8 @@
 
         <div>
             <button type="button" class="btn btn-dark float-right mb-lg-5">
-                Like <span class="badge badge-light">@Model.Likes</span>
+                Like
+                <span class="badge badge-light">@Model.Likes</span>
                 <span class="sr-only">unread messages</span>
             </button>
         </div>
@@ -31,8 +37,8 @@
 
 @section Scripts {
     <script>
-function goBack() {
-  window.history.back();
-}
+        function goBack() {
+            window.history.back();
+        }
     </script>
 }
