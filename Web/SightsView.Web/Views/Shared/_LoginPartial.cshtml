@@ -8,7 +8,21 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Creations" asp-action="Upload">Upload</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark" href="#" id="nav-inner-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pofile</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="nav-inner-primary_dropdown_1">
+                <a class="dropdown-item text-white bg-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@(this.User.Identity.Name)</a>
+                <a class="dropdown-item" asp-area="" asp-controller="MySights" asp-action="Index">My Sight</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Profiles" asp-action="Index">About Me</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Profiles" asp-action="EditProfileInformation">Edit Profile</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
@@ -16,11 +30,7 @@
                 <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
             </li>
         }
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
+
     }
     else
     {

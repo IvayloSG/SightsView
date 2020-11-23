@@ -2,6 +2,7 @@
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -75,6 +76,13 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
+
+            var account = new Account(
+                this.configuration["Cloudinary:CloudName"],
+                this.configuration["Cloudinary:APIKey"],
+                this.configuration["Cloudinary:APISecret"]);
+            var cloudinary = new Cloudinary(account);
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@
         private readonly ICountriesService countriesService;
         private readonly ITagsService tagsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly Cloudinary cloudinary;
 
         public CreationsController(
             ITagsExtractingService tagsExtractingService,
@@ -26,6 +28,7 @@
             ICategoriesService categoriesService,
             ICountriesService countriesService,
             ITagsService tagsService,
+            Cloudinary cloudinary,
             UserManager<ApplicationUser> userManager)
         {
             this.creationsService = creationsService;
@@ -34,6 +37,7 @@
             this.userManager = userManager;
             this.tagsExtractingService = tagsExtractingService;
             this.tagsService = tagsService;
+            this.cloudinary = cloudinary;
         }
 
         [HttpGet]
@@ -98,7 +102,7 @@
             await this.tagsService.CreateTagsAsync(tagNames);
             var tags = await this.tagsService.GetTagsByNameAsync(tagNames);
 
-            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
+            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags, this.cloudinary);
 
             return this.View(input);
         }

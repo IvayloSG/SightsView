@@ -1,8 +1,6 @@
 ﻿namespace SightsView.Web.ViewModels.Photographers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     public class PhotographersViewModel
     {
@@ -12,13 +10,17 @@
 
         public string Country { get; set; }
 
-        public int Creations { get; set; }
+        public int CreationsCount { get; set; }
 
         public int LikedCreations { get; set; }
 
         public int Followers { get; set; }
 
         public int Reputation
-            => this.Creations + this.Followers + this.LikedCreations;
+            => this.CreationsCount + this.Followers + this.LikedCreations;
+
+        public string BestCreationsUrl { get; set; }
+
+        public string RunnerupCreationsUrl { get; set; }
     }
 }

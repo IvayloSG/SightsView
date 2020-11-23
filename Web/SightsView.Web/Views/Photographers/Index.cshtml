@@ -33,17 +33,43 @@
                 @photographer.Username
                 <a class="badge badge-pill badge-light float-lg-right">Reputation: @photographer.Reputation</a>
             </h5>
-
         </div>
 
         <div class="card-body">
-            <a href="#" class="btn btn-dark">Follow</a>
 
-            <span class="badge badge-pill badge-light float-lg-right">
+            <div></div>
+
+            <span>
+                <a href="#" class="btn btn-dark">Follow</a>
+            </span>
+
+            <span class="row col-md-9 offset-3 float-lg-right">
+
+                @if (photographer.BestCreationsUrl != null)
+                {
+                    <span class="img-thumbnail col-md-3 offset-6 float-lg-right">
+                        <img src="@photographer.BestCreationsUrl" alt="..." class="img-thumbnail">
+                    </span>
+                }
+
+                @if (photographer.RunnerupCreationsUrl != null)
+                {
+                    <span class="img-thumbnail col-md-3 offset- 9 float-lg-right">
+                        <img src="@photographer.RunnerupCreationsUrl" alt="..." class="img-thumbnail">
+                    </span>
+                }
+
+            </span>
+
+            <span class="badge badge-pill badge-light">
                 <img src="\follow.png" alt="icon" style="width: 20px" />
                 @photographer.Followers
+
+                <img src="\like.png" alt="icon" style="width: 20px" />
+                @photographer.LikedCreations
             </span>
+
         </div>
 
-</div>
+    </div>
 }

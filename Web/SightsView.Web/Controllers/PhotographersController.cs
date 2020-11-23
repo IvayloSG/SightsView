@@ -23,8 +23,9 @@
         public async Task<IActionResult> Index()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetAllPhotographersAsync(currentUser.Id);
+            var photographersList = await this.photographersService.GetAllPhotographersAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {
@@ -37,8 +38,9 @@
         public async Task<IActionResult> MostCreations()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetPhotographersWithMostCreationsAsync(currentUser.Id);
+            var photographersList = await this.photographersService.GetPhotographersWithMostCreationsAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {
@@ -51,8 +53,9 @@
         public async Task<IActionResult> MostLikes()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetPhotographersWithMostLikesAsync(currentUser.Id);
+            var photographersList = await this.photographersService.GetPhotographersWithMostLikesAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {
@@ -65,8 +68,9 @@
         public async Task<IActionResult> MostFollowers()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetPhotographersWithMostFollowersAsync(currentUser.Id);
+            var photographersList = await this.photographersService.GetPhotographersWithMostFollowersAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {
@@ -79,8 +83,9 @@
         public async Task<IActionResult> Newest()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetPhotographersWithMostNewestAsync(currentUser.Id);
+            var photographersList = await this.photographersService.GetPhotographersWithMostNewestAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {

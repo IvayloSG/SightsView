@@ -24,7 +24,7 @@
         {
             // TODO: Take categories count from config
             int countOfCategories = 4;
-            int countOfCreations = 10;
+            int countOfCreations = 20;
             var topCountries = await this.countriesService.GetCountriesWithMostCreationAsync(countOfCategories);
             var creations = await this.creationsService.GetNumberRandomCreationsAsync(countOfCreations);
 

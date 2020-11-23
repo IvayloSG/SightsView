@@ -2,16 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
-    using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Tags;
 
@@ -36,7 +37,8 @@
             int categoryId,
             ApplicationUser user,
             IFormFile inputCreation,
-            IEnumerable<TagsViewModel> tags)
+            IEnumerable<TagsViewModel> tags,
+            Cloudinary cloudinary)
         {
             var creation = new Creation()
             {
@@ -50,11 +52,12 @@
 
             var username = user.UserName;
 
-            var creationPath = this.filePathService.CreateFilePath(username, creation.Id, creation.Title, inputCreation);
-            creation.StorageAddress = creationPath;
+            var extension = Path.GetExtension(inputCreation.FileName);
+            var creationName = creation.Id + "_" + creation.Title + extension;
 
-            var creationDataUrl = await this.filePathService.GetFileSystemUrlAsync(creationPath, inputCreation);
-            creation.CreationDataUrl = creationDataUrl;
+            var creationCloudUrl = await CloudinaryService.UploadToCloudAsync(cloudinary, inputCreation, creationName, username);
+            creation.StorageAddress = creationCloudUrl;
+            creation.CreationDataUrl = creationCloudUrl;
 
             foreach (var tag in tags)
             {

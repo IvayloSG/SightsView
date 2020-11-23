@@ -29,9 +29,20 @@
                 Id = x.Id,
                 Username = x.UserName,
                 Country = x.Country.Name,
-                Creations = x.Creations.Count,
-                LikedCreations = x.Creations.SelectMany(y => y.Likes).Count(),
+                CreationsCount = x.Creations.Count,
+                LikedCreations = x.Creations
+                    .SelectMany(y => y.Likes)
+                    .Count(),
                 Followers = x.Followers.Count,
+                BestCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().CreationDataUrl,
             })
             .Take(15)
             .ToListAsync();
@@ -45,9 +56,20 @@
                 Id = x.Id,
                 Username = x.UserName,
                 Country = x.Country.Name,
-                Creations = x.Creations.Count,
-                LikedCreations = x.Creations.SelectMany(y => y.Likes).Count(),
+                CreationsCount = x.Creations.Count,
+                LikedCreations = x.Creations
+                    .SelectMany(y => y.Likes)
+                    .Count(),
                 Followers = x.Followers.Count,
+                BestCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().CreationDataUrl,
             })
             .Take(15)
             .ToListAsync();
@@ -61,9 +83,20 @@
                 Id = x.Id,
                 Username = x.UserName,
                 Country = x.Country.Name,
-                Creations = x.Creations.Count,
-                LikedCreations = x.Creations.SelectMany(y => y.Likes).Count(),
+                CreationsCount = x.Creations.Count,
+                LikedCreations = x.Creations
+                    .SelectMany(y => y.Likes)
+                    .Count(),
                 Followers = x.Followers.Count,
+                BestCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().CreationDataUrl,
             })
             .Take(15)
             .ToListAsync();
@@ -77,9 +110,20 @@
                 Id = x.Id,
                 Username = x.UserName,
                 Country = x.Country.Name,
-                Creations = x.Creations.Count,
-                LikedCreations = x.Creations.SelectMany(y => y.Likes).Count(),
+                CreationsCount = x.Creations.Count,
+                LikedCreations = x.Creations
+                    .SelectMany(y => y.Likes)
+                    .Count(),
                 Followers = x.Followers.Count,
+                BestCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().CreationDataUrl,
             })
             .Take(15)
             .ToListAsync();
@@ -93,9 +137,20 @@
                 Id = x.Id,
                 Username = x.UserName,
                 Country = x.Country.Name,
-                Creations = x.Creations.Count,
-                LikedCreations = x.Creations.SelectMany(y => y.Likes).Count(),
+                CreationsCount = x.Creations.Count,
+                LikedCreations = x.Creations
+                    .SelectMany(y => y.Likes)
+                    .Count(),
                 Followers = x.Followers.Count,
+                BestCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsUrl = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().CreationDataUrl,
             })
             .Take(15)
             .ToListAsync();
