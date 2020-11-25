@@ -1,11 +1,14 @@
 ﻿namespace SightsView.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    using SightsView.Data;
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
@@ -21,6 +24,7 @@
         private readonly ITagsService tagsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly Cloudinary cloudinary;
+        private readonly ApplicationDbContext db;
 
         public CreationsController(
             ITagsExtractingService tagsExtractingService,
@@ -107,11 +111,12 @@
             return this.View(input);
         }
 
+        [Authorize]
         public async Task<IActionResult> Load(string id)
         {
-            var currentUser = await this.userManager.GetUserAsync(this.User);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = await this.creationsService.GetCreationByIdAsync(id, currentUser.Id);
+            var viewModel = await this.creationsService.GetCreationByIdAsync(id, userId);
 
             return this.View(viewModel);
         }

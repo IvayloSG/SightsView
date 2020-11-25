@@ -32,7 +32,7 @@
 
         public DbSet<Country> Countries { get; set; }
 
-        public DbSet<Creation> Creaions { get; set; }
+        public DbSet<Creation> Creations { get; set; }
 
         public DbSet<Details> Details { get; set; }
 

@@ -25,6 +25,6 @@
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
-        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);
+        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);     
     }
 }

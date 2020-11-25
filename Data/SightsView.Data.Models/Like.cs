@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Like
+    using SightsView.Data.Common.Models;
+
+    public class Like : BaseDeletableModel<int>
     {
         [Required]
         public string ApplicationUserId { get; set; }

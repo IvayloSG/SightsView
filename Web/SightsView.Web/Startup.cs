@@ -57,6 +57,10 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(this.configuration);
 
@@ -76,6 +80,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
+            services.AddTransient<ILikesService, LikesService>();
 
             var account = new Account(
                 this.configuration["Cloudinary:CloudName"],

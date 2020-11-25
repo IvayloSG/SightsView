@@ -17,28 +17,29 @@
                 @Model.Views
             </span>
 
+            <hr />
+
             <h4 class="card-title text-lg-center">@Model.Title</h4>
         </div>
 
-        <p class="card-text text">@Model.Description</p>
+        <p class="card-text text mb-lg-3">@Model.Description</p>
+
+        <hr />
 
         <div>
-            <button type="button" class="btn btn-dark float-right mb-lg-5">
-                Like
-                <span class="badge badge-light">@Model.Likes</span>
-                <span class="sr-only">unread messages</span>
+            <a asp-for class="btn btn-dark text-center col-md-11" onclick="goBack()">Close</a>
+
+            <button asp-for class="btn btn-dark float-right" onclick="likeAction()">
+                <img src="~/heart.png" alt="icon" style="width: 20px" />
+                <span id="likes" class="badge badge-light">@Model.Likes</span>
             </button>
         </div>
 
-        <a asp-for class="btn btn-dark text-center col-md-12" onclick="goBack()">Close</a>
-
     </div>
+
+    <input id="creationId" type="hidden" value="@Model.Id" />
 </div>
 
 @section Scripts {
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <script asp-append-version="true" src="~/js/likes.js"></script>
 }
