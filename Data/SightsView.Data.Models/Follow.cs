@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Follow
+    using SightsView.Data.Common.Models;
+
+    public class Follow : BaseDeletableModel<int>
     {
         [Required]
         public string FollowedId { get; set; }

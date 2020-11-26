@@ -21,12 +21,18 @@
         private readonly IDeletableEntityRepository<Creation> creationsRepository;
         private readonly IRepository<TagCreation> tagCreationRepository;
         private readonly IFilePathsService filePathService;
+        private readonly Cloudinary cloudinary;
 
-        public CreationsService(IDeletableEntityRepository<Creation> creationsRepository, IRepository<TagCreation> tagCreationRepository, IFilePathsService filePathService)
+        public CreationsService(
+            IDeletableEntityRepository<Creation> creationsRepository,
+            IRepository<TagCreation> tagCreationRepository,
+            IFilePathsService filePathService,
+            Cloudinary cloudinary)
         {
             this.creationsRepository = creationsRepository;
             this.tagCreationRepository = tagCreationRepository;
             this.filePathService = filePathService;
+            this.cloudinary = cloudinary;
         }
 
         public async Task<string> AddCreationInDbAsync(
@@ -37,8 +43,7 @@
             int categoryId,
             ApplicationUser user,
             IFormFile inputCreation,
-            IEnumerable<TagsViewModel> tags,
-            Cloudinary cloudinary)
+            IEnumerable<TagsViewModel> tags)
         {
             var creation = new Creation()
             {
@@ -54,10 +59,12 @@
 
             var extension = Path.GetExtension(inputCreation.FileName);
             var creationName = creation.Id + "_" + creation.Title + extension;
+            creationName = creationName.Replace("&", "And");
 
-            var creationCloudUrl = await CloudinaryService.UploadToCloudAsync(cloudinary, inputCreation, creationName, username);
-            creation.StorageAddress = creationCloudUrl;
-            creation.CreationDataUrl = creationCloudUrl;
+            var cloudinaryUploadResponse = await CloudinaryService.UploadToCloudAsync(this.cloudinary, inputCreation, creationName, username);
+            creation.StorageAddress = cloudinaryUploadResponse.CreationDataUrl;
+            creation.CreationDataUrl = cloudinaryUploadResponse.CreationDataUrl;
+            creation.CloudPublicId = cloudinaryUploadResponse.PublicId;
 
             foreach (var tag in tags)
             {
@@ -71,16 +78,27 @@
             }
 
             await this.creationsRepository.AddAsync(creation);
-            try
-            {
-                await this.creationsRepository.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            await this.creationsRepository.SaveChangesAsync();
 
             return creation.Id;
+        }
+
+        public async Task<bool> DeleteCreationAsync(string creationId, string userId)
+        {
+            var creation = await this.creationsRepository.All()
+                 .FirstOrDefaultAsync(x => x.Id == creationId);
+
+            if (creation.CreatorId != userId)
+            {
+                return false;
+            }
+
+            await CloudinaryService.DeleteFileAsync(this.cloudinary, creation.CloudPublicId);
+
+            this.creationsRepository.Delete(creation);
+            await this.creationsRepository.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<CreationsViewModel> GetCreationByIdAsync(string creationId, string userId)
@@ -120,7 +138,7 @@
                      DataUrl = x.CreationDataUrl,
                  })
                  .ToListAsync();
-        }      
+        }
 
         private async Task IncreseCreationViewsAsync(string creationId)
         {

@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\SightsView.Web.ViewModels\SightsView.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

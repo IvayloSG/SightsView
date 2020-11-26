@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
 
     using SightsView.Data.Models;
@@ -20,11 +19,12 @@
             int categoryId,
             ApplicationUser user,
             IFormFile creation,
-            IEnumerable<TagsViewModel> tags,
-            Cloudinary cloudinary);
+            IEnumerable<TagsViewModel> tags);
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
-        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);     
+        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);
+
+        Task<bool> DeleteCreationAsync(string creationId, string userId);
     }
 }

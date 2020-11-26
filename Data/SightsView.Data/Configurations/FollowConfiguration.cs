@@ -8,8 +8,6 @@
     {
         public void Configure(EntityTypeBuilder<Follow> follow)
         {
-            follow.HasKey(k => new { k.FollowerId, k.FollowedId });
-
             follow.HasOne(f => f.Followed)
                 .WithMany(u => u.Followers)
                 .HasForeignKey(f => f.FollowedId);

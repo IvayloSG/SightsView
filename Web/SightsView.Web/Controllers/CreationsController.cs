@@ -3,7 +3,6 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -23,8 +22,6 @@
         private readonly ICountriesService countriesService;
         private readonly ITagsService tagsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly Cloudinary cloudinary;
-        private readonly ApplicationDbContext db;
 
         public CreationsController(
             ITagsExtractingService tagsExtractingService,
@@ -32,7 +29,6 @@
             ICategoriesService categoriesService,
             ICountriesService countriesService,
             ITagsService tagsService,
-            Cloudinary cloudinary,
             UserManager<ApplicationUser> userManager)
         {
             this.creationsService = creationsService;
@@ -41,10 +37,10 @@
             this.userManager = userManager;
             this.tagsExtractingService = tagsExtractingService;
             this.tagsService = tagsService;
-            this.cloudinary = cloudinary;
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Upload()
         {
 
@@ -58,6 +54,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Upload(CreationsUploadInputModel input)
         {
             // TODO: Remove
@@ -106,7 +103,7 @@
             await this.tagsService.CreateTagsAsync(tagNames);
             var tags = await this.tagsService.GetTagsByNameAsync(tagNames);
 
-            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags, this.cloudinary);
+            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
 
             return this.View(input);
         }
@@ -120,5 +117,16 @@
 
             return this.View(viewModel);
         }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var deleteResponse = await this.creationsService.DeleteCreationAsync(id, userId);
+
+            return this.RedirectToAction("Index", "Home");
+        }
+
     }
 }

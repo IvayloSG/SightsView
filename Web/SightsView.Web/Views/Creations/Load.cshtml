@@ -9,20 +9,30 @@
 
     <div class="card-body">
 
-        <div>
-            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark">@Model.CreatorName</a>
+        <div class="text-center">
+
+            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark float-lg-left mb-3">@Model.CreatorName</a>
 
             <span class="badge badge-pill badge-light float-lg-right">
                 <img src="\visibility.png" alt="icon" style="width: 20px" />
                 @Model.Views
             </span>
 
-            <hr />
-
-            <h4 class="card-title text-lg-center">@Model.Title</h4>
+            @if (this.User.Identity.Name == Model.CreatorName)
+            {
+                <a class="btn-sm btn-dark" onclick="return confirm('Are you sure you want to delete?');" asp-controller="Creations" asp-action="Delete" asp-route-id=@Model.Id>Delete</a>
+                <a class="btn-sm btn-dark" asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Id>Edit</a>
+            }
         </div>
+        
+        <hr />
 
-        <p class="card-text text mb-lg-3">@Model.Description</p>
+        <div>
+
+            <h3 class="card-title text-lg-center font-weight-bold">@Model.Title</h3>
+
+            <p class="card-text text mb-lg-3">@Model.Description</p>
+        </div>
 
         <hr />
 
@@ -39,6 +49,8 @@
 
     <input id="creationId" type="hidden" value="@Model.Id" />
 </div>
+
+<form method="post" id="antiForgeryForm"></form>
 
 @section Scripts {
     <script asp-append-version="true" src="~/js/likes.js"></script>

@@ -3,7 +3,9 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Likes;
 
@@ -19,7 +21,7 @@
         }
 
         [HttpPost]
-        [IgnoreAntiforgeryToken]
+        [Authorize]
         public async Task<PostLikeResponseModel> Like(LikesInputModel input)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

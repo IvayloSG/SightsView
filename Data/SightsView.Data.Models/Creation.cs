@@ -32,6 +32,8 @@
         [Required]
         public string CreationDataUrl { get; set; }
 
+        public string CloudPublicId { get; set; }
+
         public int Views { get; set; }
 
         [Required]

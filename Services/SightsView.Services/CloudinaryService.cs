@@ -1,17 +1,18 @@
 ﻿namespace SightsView.Services
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Http;
+    using SightsView.Web.ViewModels.Cloudinary;
 
     public static class CloudinaryService
     {
-        public static async Task<string> UploadToCloudAsync(Cloudinary cloudinary, IFormFile file, string fileName, string username)
+        public static async Task<CloudinaryUploadResponseModel> UploadToCloudAsync(Cloudinary cloudinary, IFormFile file, string fileName, string username)
         {
-            // TODO: Remove hardcoded buffersize
             await using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
 
@@ -24,7 +25,17 @@
             };
 
             var uploadResult = await cloudinary.UploadAsync(imageUpload);
-            return uploadResult?.SecureUri.AbsoluteUri;
+
+            var response = new CloudinaryUploadResponseModel()
+            {
+                CreationDataUrl = uploadResult.SecureUrl.AbsoluteUri,
+                PublicId = uploadResult.PublicId,
+                FullPublicId = uploadResult.FullyQualifiedPublicId,
+            };
+            return response;
         }
+
+        public static async Task DeleteFileAsync(Cloudinary cloudinary, string publicId)
+            => await cloudinary.DeleteResourcesAsync(publicId);
     }
 }
