@@ -37,7 +37,7 @@
                  {
                      Id = x.Id,
                      Name = x.Name,
-                     DataURL = this.randomiseService.GetRandomElement<Creation>(x.Creations.ToList()).CreationDataUrl,
+                     DataURL = this.randomiseService.GetRandomElement<Creation>(x.Creations.Where(x => x.IsPrivate == false).ToList()).CreationDataUrl,
                  })
                  .Take(countriesCount)
                  .ToListAsync();

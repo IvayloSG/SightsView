@@ -4,12 +4,9 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<br />
-<hr />
-
 <h1 class="text-dark text-center mb-lg-5">Welcome to SightsView</h1>
 
-<br />
+<hr />
 
 <div class="card text-center bg-dark mb-lg-5">
     <div class="card-header text-white text-center">
@@ -47,7 +44,7 @@
 
         <div class="mb-3 pics animation all 1">
             <a asp-controller="Creations" asp-action="Load" asp-route-id=@creation.Id>
-                <img class="img-fluid" src="@creation.DataUrl" alt="Card image cap">
+                <img class="img-fluid" src="@creation.CreationDataUrl" alt="Card image cap">
             </a>
         </div>
 

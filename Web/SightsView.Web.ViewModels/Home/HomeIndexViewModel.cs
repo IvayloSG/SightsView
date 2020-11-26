@@ -9,6 +9,7 @@
     {
         public IEnumerable<CountriesViewModel> CountriesWithMostImages { get; set; }
 
+        // TODO: Change ViewModel not to have more properties that shown
         public IEnumerable<CreationsViewModel> Creations { get; set; }
     }
 }

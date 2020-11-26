@@ -23,8 +23,12 @@
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
-        Task<CreationsViewModel> GetCreationByIdAsync(string id, string userId);
+        Task<T> GetCreationByIdAsync<T>(string id);
 
         Task<bool> DeleteCreationAsync(string creationId, string userId);
+
+        Task IncreseCreationViewsAsync(string creationId);
+
+        Task<bool> EditCreationByIdAsync(string creationId, string title, string description, bool isPrivate, int? categoryId, int? countryId, string userId);
     }
 }

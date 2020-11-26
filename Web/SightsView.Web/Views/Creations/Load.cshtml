@@ -5,20 +5,20 @@
 }
 
 <div class="card mb-10 offset-1 mt-5">
-    <img class="card-img-top rounded" src="@Model.DataUrl" alt="Card image cap">
+    <img class="card-img-top rounded" src="@Model.CreationDataUrl" alt="Card image cap">
 
     <div class="card-body">
 
         <div class="text-center">
 
-            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark float-lg-left mb-3">@Model.CreatorName</a>
+            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark float-lg-left mb-3">@Model.CreatorUserName</a>
 
             <span class="badge badge-pill badge-light float-lg-right">
                 <img src="\visibility.png" alt="icon" style="width: 20px" />
                 @Model.Views
             </span>
 
-            @if (this.User.Identity.Name == Model.CreatorName)
+            @if (this.User.Identity.Name == Model.CreatorUserName)
             {
                 <a class="btn-sm btn-dark" onclick="return confirm('Are you sure you want to delete?');" asp-controller="Creations" asp-action="Delete" asp-route-id=@Model.Id>Delete</a>
                 <a class="btn-sm btn-dark" asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Id>Edit</a>
@@ -41,7 +41,7 @@
 
             <button asp-for class="btn btn-dark float-right" onclick="likeAction()">
                 <img src="~/heart.png" alt="icon" style="width: 20px" />
-                <span id="likes" class="badge badge-light">@Model.Likes</span>
+                <span id="likes" class="badge badge-light">@Model.LikesCount</span>
             </button>
         </div>
 

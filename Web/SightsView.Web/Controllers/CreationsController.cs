@@ -113,9 +113,72 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = await this.creationsService.GetCreationByIdAsync(id, userId);
+            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+
+            if (viewModel.CreatorId != userId)
+            {
+                viewModel.Views++;
+                await this.creationsService.IncreseCreationViewsAsync(id);
+            }
 
             return this.View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(id);
+
+            viewModel.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+            viewModel.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(CreationsEditInputModel input)
+        {
+            // TODO: remove SelectListItemCreation after final routing
+            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+            if (!this.ModelState.IsValid)
+            {
+                input = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(input.Id);
+
+                input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+                input.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+                return this.View(input);
+            }
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool isPrivate = false;
+            if (input.Privacy.ToLower() == "private")
+            {
+                isPrivate = true;
+            }
+
+            int? categoryId = null;
+            if (input.CategoryName != null)
+            {
+                categoryId = int.Parse(input.CategoryName);
+            }
+
+            int? countryId = null;
+            if (input.CategoryName != null)
+            {
+                countryId = int.Parse(input.CountryName);
+            }
+
+            var response = await this.creationsService.EditCreationByIdAsync(input.Id, input.Title, input.Description, isPrivate, categoryId, countryId, userId);
+
+            return this.View(input);
         }
 
         [Authorize]

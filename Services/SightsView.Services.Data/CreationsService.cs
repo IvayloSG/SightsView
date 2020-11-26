@@ -13,6 +13,7 @@
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Tags;
 
@@ -101,28 +102,42 @@
             return true;
         }
 
-        public async Task<CreationsViewModel> GetCreationByIdAsync(string creationId, string userId)
+        public async Task<bool> EditCreationByIdAsync(string creationId, string title, string description, bool isPrivate, int? categoryId, int? countryId, string userId)
         {
-            var creation = await this.creationsRepository.AllAsNoTracking()
-                .Where(x => x.IsPrivate == false && x.Id == creationId)
-                .Select(x => new CreationsViewModel()
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                    DataUrl = x.CreationDataUrl,
-                    Likes = x.Likes.Count,
-                    Views = x.Views,
-                    CreatorId = x.CreatorId,
-                    CreatorName = x.Creator.UserName,
-                })
-                .FirstOrDefaultAsync();
+            var creation = await this.creationsRepository.All()
+                 .FirstOrDefaultAsync(x => x.Id == creationId);
 
             if (creation.CreatorId != userId)
             {
-                await this.IncreseCreationViewsAsync(creationId);
-                creation.Views++;
+                return false;
             }
+
+            creation.Title = title;
+            creation.Description = description;
+            creation.IsPrivate = isPrivate;
+
+            if (categoryId != null)
+            {
+                creation.CategoryId = (int)categoryId;
+            }
+
+            if (creation.CountryId != null)
+            {
+                creation.CountryId = (int)countryId;
+            }
+
+            this.creationsRepository.Update(creation);
+            await this.creationsRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<T> GetCreationByIdAsync<T>(string creationId)
+        {
+            var creation = await this.creationsRepository.AllAsNoTracking()
+                .Where(x => x.Id == creationId)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
             return creation;
         }
@@ -135,12 +150,12 @@
                  .Select(x => new CreationsViewModel()
                  {
                      Id = x.Id,
-                     DataUrl = x.CreationDataUrl,
+                     CreationDataUrl = x.CreationDataUrl,
                  })
                  .ToListAsync();
         }
 
-        private async Task IncreseCreationViewsAsync(string creationId)
+        public async Task IncreseCreationViewsAsync(string creationId)
         {
             var creation = await this.creationsRepository.AllAsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == creationId);

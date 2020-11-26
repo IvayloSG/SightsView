@@ -7,6 +7,10 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+* {
+    font-family: 'Goldman', cursive;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

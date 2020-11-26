@@ -1,25 +1,24 @@
 ﻿namespace SightsView.Web.ViewModels.Creations
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using SightsView.Data.Models;
+    using SightsView.Services.Mapping;
 
-    public class CreationsViewModel
+    public class CreationsViewModel : IMapFrom<Creation>
     {
         public string Id { get; set; }
 
-        public string DataUrl { get; set; }
+        public string CreationDataUrl { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public int? Views { get; set; }
+        public int Views { get; set; }
 
-        public int Likes { get; set; }
+        public int LikesCount { get; set; }
 
         public string CreatorId { get; set; }
 
-        public string CreatorName { get; set; }
+        public string CreatorUserName { get; set; }
     }
 }
