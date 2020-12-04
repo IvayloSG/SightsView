@@ -4,13 +4,12 @@
     this.ViewData["Title"] = "Creation";
 }
 
-<div class="card mb-10 offset-1 mt-5">
+<div class="card col-md-10 offset-1 mt-5">
     <img class="card-img-top rounded" src="@Model.CreationDataUrl" alt="Card image cap">
 
     <div class="card-body">
 
         <div class="text-center">
-
             <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.CreatorId" class="badge badge-dark float-lg-left mb-3">@Model.CreatorUserName</a>
 
             <span class="badge badge-pill badge-light float-lg-right">
@@ -18,17 +17,24 @@
                 @Model.Views
             </span>
 
+            <a asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Id class="badge badge-pill badge-light float-lg-right">
+                <img src="~/camera.png" alt="icon" style="width: 20px" />
+            </a>
+
+            <a asp-controller="Details" asp-action="Index" asp-route-id=@Model.Id class="badge badge-pill badge-light float-lg-right">
+                <img src="~/info.png" alt="icon" style="width: 20px" />
+            </a>
+
             @if (this.User.Identity.Name == Model.CreatorUserName)
             {
                 <a class="btn-sm btn-dark" onclick="return confirm('Are you sure you want to delete?');" asp-controller="Creations" asp-action="Delete" asp-route-id=@Model.Id>Delete</a>
                 <a class="btn-sm btn-dark" asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Id>Edit</a>
             }
         </div>
-        
+
         <hr />
 
         <div>
-
             <h3 class="card-title text-lg-center font-weight-bold">@Model.Title</h3>
 
             <p class="card-text text mb-lg-3">@Model.Description</p>
@@ -37,17 +43,32 @@
         <hr />
 
         <div>
-            <a asp-for class="btn btn-dark text-center col-md-11" onclick="goBack()">Close</a>
+            <a asp-for class="btn btn-dark text-center col-md-5" onclick="goBack()">Close</a>
 
             <button asp-for class="btn btn-dark float-right" onclick="likeAction()">
                 <img src="~/heart.png" alt="icon" style="width: 20px" />
                 <span id="likes" class="badge badge-light">@Model.LikesCount</span>
             </button>
+
+            <a asp-controller="Comments" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-dark text-center col-md-5 float-lg-right">Comment</a>
         </div>
 
     </div>
 
     <input id="creationId" type="hidden" value="@Model.Id" />
+</div>
+
+<hr />
+
+<div class="card col-md-10 offset-1">
+    <div class="card-header">
+        Featured
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
 </div>
 
 <form method="post" id="antiForgeryForm"></form>

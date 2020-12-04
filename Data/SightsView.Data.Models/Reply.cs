@@ -12,8 +12,13 @@
         public string Content { get; set; }
 
         [Required]
-        public string MessageId { get; set; }
+        public int CommentId { get; set; }
 
-        public virtual Message Message { get; set; }
+        public virtual Comment Comment { get; set; }
+
+        [Required]
+        public string ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

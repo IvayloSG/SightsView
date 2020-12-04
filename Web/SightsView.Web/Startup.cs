@@ -81,6 +81,7 @@
             services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<ICommentsService, CommentsService>();
 
             var account = new Account(
                 this.configuration["Cloudinary:CloudName"],

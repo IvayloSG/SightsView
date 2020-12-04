@@ -19,6 +19,8 @@
         [MaxLength(DataValidation.EquipmentAccessoariesLength)]
         public string Accessoaries { get; set; }
 
+        public string Notes { get; set; }
+
         public virtual ICollection<Creation> Creations { get; set; }
     }
 }

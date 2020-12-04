@@ -1,6 +1,7 @@
 ﻿namespace SightsView.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using SightsView.Data.Common;
@@ -8,6 +9,11 @@
 
     public class Comment : BaseDeletableModel<int>
     {
+        public Comment()
+        {
+            this.Replies = new HashSet<Reply>();
+        }
+
         [Required]
         public string ApplicationUserId { get; set; }
 
@@ -20,6 +26,9 @@
 
         [Required]
         [MaxLength(DataValidation.CommentContentLength)]
+
         public string Content { get; set; }
+
+        public virtual ICollection<Reply> Replies { get; set; }
     }
 }

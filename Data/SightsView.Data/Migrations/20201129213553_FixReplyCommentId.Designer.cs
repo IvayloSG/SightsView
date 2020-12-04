@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SightsView.Data;
 
 namespace SightsView.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201129213553_FixReplyCommentId")]
+    partial class FixReplyCommentId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -659,10 +661,6 @@ namespace SightsView.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("CommentId")
                         .HasColumnType("int");
 
@@ -684,8 +682,6 @@ namespace SightsView.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CommentId");
 
@@ -919,12 +915,6 @@ namespace SightsView.Data.Migrations
 
             modelBuilder.Entity("SightsView.Data.Models.Reply", b =>
                 {
-                    b.HasOne("SightsView.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Replies")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("SightsView.Data.Models.Comment", "Comment")
                         .WithMany("Replies")
                         .HasForeignKey("CommentId")

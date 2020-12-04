@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SightsView.Data;
 
 namespace SightsView.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201129173033_MakeReplyCommentRelation")]
+    partial class MakeReplyCommentRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -659,12 +661,9 @@ namespace SightsView.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<string>("CommentId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -680,16 +679,22 @@ namespace SightsView.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MessageId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("CommentId");
-
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MessageId");
+
+                    b.HasIndex("MessageId1");
 
                     b.ToTable("Replies");
                 });
@@ -919,17 +924,13 @@ namespace SightsView.Data.Migrations
 
             modelBuilder.Entity("SightsView.Data.Models.Reply", b =>
                 {
-                    b.HasOne("SightsView.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("SightsView.Data.Models.Message", null)
                         .WithMany("Replies")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("MessageId");
 
-                    b.HasOne("SightsView.Data.Models.Comment", "Comment")
-                        .WithMany("Replies")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.HasOne("SightsView.Data.Models.Comment", "Message")
+                        .WithMany()
+                        .HasForeignKey("MessageId1");
                 });
 
             modelBuilder.Entity("SightsView.Data.Models.TagCreation", b =>

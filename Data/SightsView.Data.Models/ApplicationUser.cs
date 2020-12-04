@@ -24,6 +24,7 @@ namespace SightsView.Data.Models
             this.Followers = new HashSet<Follow>();
             this.SentMessages = new HashSet<Message>();
             this.ReceivedMessages = new HashSet<Message>();
+            this.Replies = new HashSet<Reply>();
         }
 
         [MaxLength(DataValidation.UserFirstNameLength)]
@@ -63,6 +64,8 @@ namespace SightsView.Data.Models
         public virtual ICollection<Creation> Creations { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Reply> Replies { get; set; }
 
         public virtual ICollection<Follow> Follows { get; set; }
 
