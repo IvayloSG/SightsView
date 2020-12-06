@@ -7,36 +7,39 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using SightsView.Data;
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Categories;
+    using SightsView.Web.ViewModels.Comments;
     using SightsView.Web.ViewModels.Creations;
 
     public class CreationsController : Controller
     {
-        private readonly ITagsExtractingService tagsExtractingService;
-        private readonly ICreationsService creationsService;
         private readonly ICategoriesService categoriesService;
+        private readonly ICommentsService comentsService;
         private readonly ICountriesService countriesService;
+        private readonly ICreationsService creationsService;
+        private readonly ITagsExtractingService tagsExtractingService;
         private readonly ITagsService tagsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public CreationsController(
-            ITagsExtractingService tagsExtractingService,
-            ICreationsService creationsService,
             ICategoriesService categoriesService,
+            ICommentsService commentsService,
             ICountriesService countriesService,
+            ICreationsService creationsService,
+            ITagsExtractingService tagsExtractingService,
             ITagsService tagsService,
             UserManager<ApplicationUser> userManager)
         {
-            this.creationsService = creationsService;
             this.categoriesService = categoriesService;
+            this.comentsService = commentsService;
             this.countriesService = countriesService;
-            this.userManager = userManager;
+            this.creationsService = creationsService;
             this.tagsExtractingService = tagsExtractingService;
             this.tagsService = tagsService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -113,13 +116,21 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
 
-            if (viewModel.CreatorId != userId)
+            if (creationViewModel.CreatorId != userId)
             {
-                viewModel.Views++;
+                creationViewModel.Views++;
                 await this.creationsService.IncreseCreationViewsAsync(id);
             }
+
+            var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
+
+            var viewModel = new CreationsLoadViewModel()
+            {
+                Creation = creationViewModel,
+                Comments = comments,
+            };
 
             return this.View(viewModel);
         }

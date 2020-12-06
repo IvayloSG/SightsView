@@ -1,0 +1,23 @@
+﻿@using SightsView.Web.ViewModels.Comments;
+@model CommentsEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Comment Page";
+}
+
+<br />
+<h1 class="text-center text-dark mb-lg-5">Add Comment</h1>
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="Content" placeholder="@Model.Content" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Save Changes</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

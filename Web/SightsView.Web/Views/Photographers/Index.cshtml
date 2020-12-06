@@ -30,7 +30,7 @@
 
         <div class="card-header bg-dark">
             <h5 class="bg-dark text-white mt-2">
-                @photographer.Username
+                <a asp-controller="Profiles" asp-action="Index" asp-route-id="@photographer.Id" class="text-white">@photographer.Username</a>
                 <a class="badge badge-pill badge-light float-lg-right">Reputation: @photographer.Reputation</a>
             </h5>
         </div>

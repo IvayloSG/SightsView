@@ -1,0 +1,25 @@
+﻿@using SightsView.Web.ViewModels.Replies;
+@model RepliesAddInputModel
+@{
+    this.ViewData["Title"] = "Add comment";
+}
+
+<br />
+<h1 class="text-center text-dark mb-lg-5">Add Reply</h1>
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="Content" placeholder="Comment" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <input asp-for="CommentId" hidden />
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Add Comment</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -82,6 +82,7 @@
             services.AddTransient<IRandomiseService, RandomiseService>();
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IRepliesService, RepliesService>();
 
             var account = new Account(
                 this.configuration["Cloudinary:CloudName"],

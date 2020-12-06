@@ -1,6 +1,9 @@
 ﻿namespace SightsView.Web.ViewModels.Replies
 {
-    public class RepliesAllViewModel
+    using SightsView.Data.Models;
+    using SightsView.Services.Mapping;
+
+    public class RepliesAllViewModel : IMapFrom<Reply>
     {
         public int Id { get; set; }
 

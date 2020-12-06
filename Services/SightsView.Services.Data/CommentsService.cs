@@ -52,14 +52,38 @@
             return true;
         }
 
-        public async Task<IEnumerable<CommentsAllViewModel>> GetAllCommentsForCreation(string creationId)
+        public async Task<bool> EditCommentAsync(int commentId, string commentContent, string userId)
+        {
+            var comment = await this.commentsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == commentId);
+
+            if (comment == null || comment.ApplicationUserId != userId)
+            {
+                return false;
+            }
+
+            comment.Content = commentContent;
+
+            this.commentsRepository.Update(comment);
+            await this.commentsRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<IEnumerable<T>> GetAllCommentsForCreationAsync<T>(string creationId)
         {
             var comments = await this.commentsRepository.AllAsNoTracking()
                 .Where(x => x.CreationId == creationId)
-                .To<CommentsAllViewModel>()
+                .To<T>()
                 .ToListAsync();
 
             return comments;
         }
+
+        public async Task<T> GetCommentsByIdAsync<T>(int commentId)
+            => await this.commentsRepository.All()
+            .Where(x => x.Id == commentId)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

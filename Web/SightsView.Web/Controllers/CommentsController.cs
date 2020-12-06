@@ -3,7 +3,9 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Comments;
 
@@ -33,6 +35,36 @@
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             await this.commentsService.AddCommentAsync(input.Content, input.CreationId, userId);
+
+            return this.RedirectToAction();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await this.commentsService.DeleteCommentAsync(id, userId);
+
+            return this.RedirectToAction();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var viewModel = await this.commentsService.GetCommentsByIdAsync<CommentsEditViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(CommentsEditViewModel input)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await this.commentsService.EditCommentAsync(input.Id, input.Content, userId);
 
             return this.RedirectToAction();
         }
