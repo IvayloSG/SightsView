@@ -8,6 +8,7 @@
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
 
     public class RepliesService : IRepliesService
     {
@@ -46,5 +47,29 @@
 
             return true;
         }
+
+        public async Task<bool> EditReplyAsync(int replyId, string content, string userId)
+        {
+            var comment = await this.repliesRepository.All()
+     .FirstOrDefaultAsync(x => x.Id == replyId);
+
+            if (comment == null || comment.ApplicationUserId != userId)
+            {
+                return false;
+            }
+
+            comment.Content = content;
+
+            this.repliesRepository.Update(comment);
+            await this.repliesRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<T> GetReplyByIdAsync<T>(int replyId)
+            => await this.repliesRepository.All()
+            .Where(x => x.Id == replyId)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

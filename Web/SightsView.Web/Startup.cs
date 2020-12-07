@@ -71,8 +71,10 @@
 
             // Application services
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICreationsService, CreationsService>();
+            services.AddTransient<IDetailsService, DetailsService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();
@@ -81,7 +83,6 @@
             services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
             services.AddTransient<ILikesService, LikesService>();
-            services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IRepliesService, RepliesService>();
 
             var account = new Account(

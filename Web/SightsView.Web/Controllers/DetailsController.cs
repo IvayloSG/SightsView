@@ -7,9 +7,18 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using SightsView.Services.Data.Contracts;
+
     public class DetailsController : Controller
     {
-        public IActionResult Index(string id)
+        private readonly IDetailsService detailsService;
+
+        public DetailsController(IDetailsService detailsService)
+        {
+            this.detailsService = detailsService;
+        }
+
+        public async Task<IActionResult> Add(string id)
         {
             return this.View();
         }

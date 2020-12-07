@@ -142,6 +142,16 @@
             return creation;
         }
 
+        public async Task<T> GetDetailsAsync<T>(string creationId)
+        {
+            var details = await this.creationsRepository.AllAsNoTracking()
+                .Where(x => x.Id == creationId)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return details;
+        }
+
         public async Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations)
         {
             return await this.creationsRepository.AllAsNoTracking()

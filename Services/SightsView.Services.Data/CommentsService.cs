@@ -36,20 +36,22 @@
             await this.commentsRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteCommentAsync(int commentId, string userId)
+        public async Task<string> DeleteCommentAsync(int commentId, string userId)
         {
             var comment = await this.commentsRepository.AllAsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == commentId);
 
             if (comment == null || userId != comment.ApplicationUserId)
             {
-                return false;
+                return null;
             }
 
             this.commentsRepository.Delete(comment);
             await this.commentsRepository.SaveChangesAsync();
 
-            return true;
+            var creationId = comment.CreationId;
+
+            return creationId;
         }
 
         public async Task<bool> EditCommentAsync(int commentId, string commentContent, string userId)

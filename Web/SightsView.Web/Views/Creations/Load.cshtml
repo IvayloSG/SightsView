@@ -17,11 +17,11 @@
                 @Model.Creation.Views
             </span>
 
-            <a asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
+            <a asp-controller="Equipment" asp-action="Index" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
                 <img src="~/camera.png" alt="icon" style="width: 20px" />
             </a>
 
-            <a asp-controller="Details" asp-action="Index" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
+            <a asp-controller="Creations" asp-action="Details" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
                 <img src="~/info.png" alt="icon" style="width: 20px" />
             </a>
 
@@ -76,12 +76,14 @@
         <div class="mb-2">
             @if (this.User.Identity.Name == comment.ApplicationUserUserName)
             {
-                <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" class="btn btn-dark mx-1 col-md-3" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
-                <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-dark col-md-3">Edit</a>
+                <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" class="btn-sm btn-dark mx-1" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="btn-sm btn-dark">Edit</a>
             }
 
-            <a asp-controller="Replies" asp-action="Add" asp-route-id="@comment.Id" class="btn btn-dark mx-1 col-md-3 float-lg-right">Reply</a>
+            <a asp-controller="Replies" asp-action="Add" asp-route-id="@comment.Id" class="btn-sm btn-dark mx-1 col-md-3 text-center float-lg-right">Reply</a>
         </div>
+
+        <hr />
 
         @foreach (var reply in comment.Replies)
         {
@@ -99,8 +101,8 @@
                 <div class="mb-2">
                     @if (this.User.Identity.Name == reply.ApplicationUserUserName)
                     {
-                        <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="btn btn-dark col-md-3 float-lg-right">Edit</a>
-                        <a asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="btn btn-dark mx-1 col-md-3 float-lg-right" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                        <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="btn-sm btn-dark float-lg-right">Edit</a>
+                        <a asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="btn-sm btn-dark mx-1 float-lg-right" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                     }
                 </div>
             </div>

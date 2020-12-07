@@ -1,4 +1,4 @@
-﻿namespace SightsView.Web.ViewModels.Comments
+﻿namespace SightsView.Web.ViewModels.Replies
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -6,14 +6,12 @@
     using SightsView.Data.Models;
     using SightsView.Services.Mapping;
 
-    public class CommentsEditViewModel : IMapFrom<Comment>
+    public class RepliesEditViewModel : IMapFrom<Reply>
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(1000, ErrorMessage = GlobalConstants.CommentContentLengthError, MinimumLength = 1)]
+        [StringLength(1000, ErrorMessage = GlobalConstants.RepliesContentLengthError, MinimumLength = 1)]
         public string Content { get; set; }
-
-        public string CreationId { get; set; }
     }
 }

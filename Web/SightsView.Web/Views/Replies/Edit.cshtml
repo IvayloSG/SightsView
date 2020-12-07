@@ -1,5 +1,5 @@
-﻿@using SightsView.Web.ViewModels.Comments;
-@model CommentsEditViewModel
+﻿@using SightsView.Web.ViewModels.Replies;
+@model RepliesEditViewModel
 @{
     this.ViewData["Title"] = "Edit Comment Page";
 }
@@ -13,8 +13,6 @@
         <textarea asp-for="Content" placeholder="@Model.Content" class="form-control text-center" rows="5"></textarea>
         <span asp-validation-for="Content" class="text-danger"></span>
     </div>
-
-    <input asp-for="CreationId" hidden />
 
     <button type="submit" class="btn btn-dark col-md-4 offset-4">Save Changes</button>
 

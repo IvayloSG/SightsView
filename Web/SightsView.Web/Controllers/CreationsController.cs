@@ -42,6 +42,121 @@
             this.userManager = userManager;
         }
 
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var deleteResponse = await this.creationsService.DeleteCreationAsync(id, userId);
+
+            return this.RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(string id)
+        {
+            var viewModel = await this.creationsService.GetDetailsAsync<CreationsDetailsViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(id);
+
+            viewModel.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+            viewModel.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(CreationsEditInputModel input)
+        {
+            // TODO: remove SelectListItemCreation after final routing
+            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+            if (!this.ModelState.IsValid)
+            {
+                input = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(input.Id);
+
+                input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
+                input.Countries = await this.countriesService.GetSelectListCountriesAsync();
+
+                return this.View(input);
+            }
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool isPrivate = false;
+            if (input.Privacy.ToLower() == "private")
+            {
+                isPrivate = true;
+            }
+
+            int? categoryId = null;
+            if (input.CategoryName != null)
+            {
+                categoryId = int.Parse(input.CategoryName);
+            }
+
+            int? countryId = null;
+            if (input.CategoryName != null)
+            {
+                countryId = int.Parse(input.CountryName);
+            }
+
+            var response = await this.creationsService.EditCreationByIdAsync(input.Id, input.Title, input.Description, isPrivate, categoryId, countryId, userId);
+
+            return this.View(input);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Load(string id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+
+            if (creationViewModel.CreatorId != userId)
+            {
+                creationViewModel.Views++;
+                await this.creationsService.IncreseCreationViewsAsync(id);
+            }
+
+            var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
+
+            var viewModel = new CreationsLoadViewModel()
+            {
+                Creation = creationViewModel,
+                Comments = comments,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> LoadRedirect(string id)
+        {
+            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+
+            var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
+
+            var viewModel = new CreationsLoadViewModel()
+            {
+                Creation = creationViewModel,
+                Comments = comments,
+            };
+
+            return this.View("Load", viewModel);
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Upload()
@@ -110,97 +225,5 @@
 
             return this.View(input);
         }
-
-        [Authorize]
-        public async Task<IActionResult> Load(string id)
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
-
-            if (creationViewModel.CreatorId != userId)
-            {
-                creationViewModel.Views++;
-                await this.creationsService.IncreseCreationViewsAsync(id);
-            }
-
-            var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
-
-            var viewModel = new CreationsLoadViewModel()
-            {
-                Creation = creationViewModel,
-                Comments = comments,
-            };
-
-            return this.View(viewModel);
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Edit(string id)
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(id);
-
-            viewModel.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
-            viewModel.Countries = await this.countriesService.GetSelectListCountriesAsync();
-
-            return this.View(viewModel);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Edit(CreationsEditInputModel input)
-        {
-            // TODO: remove SelectListItemCreation after final routing
-            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
-            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
-
-            if (!this.ModelState.IsValid)
-            {
-                input = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(input.Id);
-
-                input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
-                input.Countries = await this.countriesService.GetSelectListCountriesAsync();
-
-                return this.View(input);
-            }
-
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            bool isPrivate = false;
-            if (input.Privacy.ToLower() == "private")
-            {
-                isPrivate = true;
-            }
-
-            int? categoryId = null;
-            if (input.CategoryName != null)
-            {
-                categoryId = int.Parse(input.CategoryName);
-            }
-
-            int? countryId = null;
-            if (input.CategoryName != null)
-            {
-                countryId = int.Parse(input.CountryName);
-            }
-
-            var response = await this.creationsService.EditCreationByIdAsync(input.Id, input.Title, input.Description, isPrivate, categoryId, countryId, userId);
-
-            return this.View(input);
-        }
-
-        [Authorize]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var deleteResponse = await this.creationsService.DeleteCreationAsync(id, userId);
-
-            return this.RedirectToAction("Index", "Home");
-        }
-
     }
 }

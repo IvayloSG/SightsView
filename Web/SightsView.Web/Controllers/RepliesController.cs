@@ -52,5 +52,25 @@
 
             return this.RedirectToAction();
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var viewModel = await this.repliesService.GetReplyByIdAsync<RepliesEditViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(RepliesEditViewModel input)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await this.repliesService.EditReplyAsync(input.Id, input.Content, userId);
+
+            return this.RedirectToAction();
+        }
     }
 }

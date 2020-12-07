@@ -21,6 +21,8 @@
             IFormFile creation,
             IEnumerable<TagsViewModel> tags);
 
+        Task<T> GetDetailsAsync<T>(string creationId);
+
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
         Task<T> GetCreationByIdAsync<T>(string id);

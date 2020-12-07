@@ -22,9 +22,6 @@
         [MaxLength(DataValidation.DetailsISOLength)]
         public string ISO { get; set; }
 
-        [MaxLength(DataValidation.DetailsResolutionLength)]
-        public string Resolution { get; set; }
-
         public string TipAndTricks { get; set; }
 
         public virtual ICollection<Creation> Creations { get; set; }

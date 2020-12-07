@@ -1,9 +1,9 @@
 ﻿namespace SightsView.Web.ViewModels.Settings
 {
+    using AutoMapper;
+
     using SightsView.Data.Models;
     using SightsView.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

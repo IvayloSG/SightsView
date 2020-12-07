@@ -36,7 +36,7 @@
 
             await this.commentsService.AddCommentAsync(input.Content, input.CreationId, userId);
 
-            return this.RedirectToAction();
+            return this.RedirectToAction("LoadRedirect", "Creations", new { id = input.CreationId });
         }
 
         [Authorize]
@@ -44,9 +44,14 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = await this.commentsService.DeleteCommentAsync(id, userId);
+            var creationId = await this.commentsService.DeleteCommentAsync(id, userId);
 
-            return this.RedirectToAction();
+            if (creationId == null)
+            {
+                return this.RedirectToAction();
+            }
+
+            return this.RedirectToAction("LoadRedirect", "Creations", new { id = creationId });
         }
 
         [HttpGet]
@@ -66,7 +71,7 @@
 
             var result = await this.commentsService.EditCommentAsync(input.Id, input.Content, userId);
 
-            return this.RedirectToAction();
+            return this.RedirectToAction("LoadRedirect", "Creations", new { id = input.CreationId });
         }
     }
 }
