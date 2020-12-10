@@ -9,28 +9,29 @@
 
         public string CreatorId { get; set; }
 
+        public string CreatorUserName { get; set; }
+
         public int? DetailsId { get; set; }
 
-        public string DetailsAppereture { get; set; }
+        public string DetailsApereture { get; set; }
 
         public string DetailsShutterSpeed { get; set; }
 
         public string DetailsIso { get; set; }
 
-        public string DetailsTipsAndTricks { get; set; }
-
+        public string DetailsTipAndTricks { get; set; }
 
         // Rendering Properties
-        public string ApperetureView
-            => this.DetailsAppereture == null ? "N/A" : this.DetailsAppereture;
+        public string AperetureView
+            => this.DetailsApereture ?? "N/A";
 
         public string ShutterSpeedView
-            => this.DetailsShutterSpeed == null ? "N/A" : this.DetailsShutterSpeed;
+            => this.DetailsShutterSpeed ?? "N/A";
 
         public string IsoView
-           => this.DetailsIso == null ? "N/A" : this.DetailsIso;
+           => this.DetailsIso ?? "N/A";
 
         public string NotesView
-           => this.DetailsTipsAndTricks == null ? string.Empty : this.DetailsTipsAndTricks;
+           => this.DetailsTipAndTricks ?? string.Empty;
     }
 }

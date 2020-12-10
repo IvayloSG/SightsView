@@ -25,8 +25,4 @@
     <ProjectReference Include="..\..\SightsView.Common\SightsView.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Details\" />
-  </ItemGroup>
-
 </Project>

@@ -55,7 +55,15 @@
         [Authorize]
         public async Task<IActionResult> Details(string id)
         {
-            var viewModel = await this.creationsService.GetDetailsAsync<CreationsDetailsViewModel>(id);
+            var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsDetailsViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Equipment(string id)
+        {
+            var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsEquipmentViewModel>(id);
 
             return this.View(viewModel);
         }
@@ -66,7 +74,7 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(id);
+            var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsEditInputModel>(id);
 
             viewModel.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
             viewModel.Countries = await this.countriesService.GetSelectListCountriesAsync();
@@ -84,7 +92,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input = await this.creationsService.GetCreationByIdAsync<CreationsEditInputModel>(input.Id);
+                input = await this.creationsService.GetCreationModelByIdAsync<CreationsEditInputModel>(input.Id);
 
                 input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
                 input.Countries = await this.countriesService.GetSelectListCountriesAsync();
@@ -122,7 +130,7 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+            var creationViewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsViewModel>(id);
 
             if (creationViewModel.CreatorId != userId)
             {
@@ -144,7 +152,7 @@
         [Authorize]
         public async Task<IActionResult> LoadRedirect(string id)
         {
-            var creationViewModel = await this.creationsService.GetCreationByIdAsync<CreationsViewModel>(id);
+            var creationViewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsViewModel>(id);
 
             var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
 
@@ -161,7 +169,6 @@
         [Authorize]
         public async Task<IActionResult> Upload()
         {
-
             var viewModel = new CreationsUploadInputModel()
             {
                 Categories = await this.categoriesService.GetSelectListCategoriesAsync(),

@@ -15,21 +15,21 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">f/</div>
                 </div>
-                <input type="text" class="form-control bg-white" id="inlineFormInputGroupUsername" placeholder="@Model.ApperetureView" readonly>
+                <input type="text" class="form-control bg-white" placeholder="@Model.AperetureView" readonly>
             </div>
 
             <div class="input-group col-md-2">
                 <div class="input-group-prepend">
                     <div class="input-group-text">SS</div>
                 </div>
-                <input type="text" class="form-control bg-white" id="inlineFormInputGroupUsername" placeholder="@Model.ShutterSpeedView" readonly>
+                <input type="text" class="form-control bg-white" placeholder="@Model.ShutterSpeedView" readonly>
             </div>
 
             <div class="input-group col-md-2">
                 <div class="input-group-prepend">
                     <div class="input-group-text">Iso</div>
                 </div>
-                <input type="text" class="form-control bg-white" id="inlineFormInputGroupUsername" placeholder="@Model.IsoView" readonly>
+                <input type="text" class="form-control bg-white" placeholder="@Model.IsoView" readonly>
             </div>
         </div>
 
@@ -37,15 +37,18 @@
             <textarea placeholder="@Model.NotesView" class="form-control input-group-text bg-white text-center" rows="5" readonly></textarea>
         </div>
 
-        <div class="form-row">
-            @if (Model.DetailsId == null)
-            {
-                <button asp-controller="Details" asp-action="Add" asp-route-id=@Model.Id class="btn btn-dark col-md-4 offset-4">Add</button>
-            }
-            else
-            {
-                <button asp-controller="Details" asp-action="Edit" asp-route-id=@Model.DetailsId class="btn btn-dark col-md-4 mx-1">Edit</button>
-            }
-        </div>
+        @if (this.User.Identity.Name == Model.CreatorUserName)
+        {
+            <div class="form-row">
+                @if (Model.DetailsId == null)
+                {
+                    <button asp-controller="Details" asp-action="Add" asp-route-id=@Model.Id class="btn btn-dark col-md-4 offset-4">Add</button>
+                }
+                else
+                {
+                    <button asp-controller="Details" asp-action="Edit" asp-route-id=@Model.Id class="btn btn-dark col-md-4 offset-4">Edit</button>
+                }
+            </div>
+        }
     </div>
 </form>

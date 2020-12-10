@@ -1,0 +1,42 @@
+﻿@using SightsView.Web.ViewModels.Details;
+@model DetailsEditInputModel
+@{
+    this.ViewData["Title"] = "Edit Details Page";
+}
+
+<br />
+<hr />
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input asp-for="Id" hidden />
+
+    <input asp-for="CreatorId" hidden />
+
+    <input asp-for="DetailsId" hidden />
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="DetailsApereture" placeholder="@Model.PlaceholderAppereture" class="form-control text-center" />
+        <span asp-validation-for="DetailsApereture" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="DetailsShutterSpeed" placeholder="@Model.PlaceholderShutterSpeed" class="form-control text-center" />
+        <span asp-validation-for="DetailsShutterSpeed" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="DetailsIso" placeholder="@Model.PlaceholderIso" class="form-control text-center" />
+        <span asp-validation-for="DetailsIso" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="DetailsTipAndTricks" placeholder="@Model.DetailsTipAndTricks" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="DetailsTipAndTricks" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Save Changes</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

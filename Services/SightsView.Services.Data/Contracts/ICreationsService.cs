@@ -21,11 +21,13 @@
             IFormFile creation,
             IEnumerable<TagsViewModel> tags);
 
-        Task<T> GetDetailsAsync<T>(string creationId);
+        Task AddDetailsToCreationAsync(string creationId, int detailsId);
+
+        Task AddEquipmentToCreationAsync(string creationId, int equipmentId);
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
-        Task<T> GetCreationByIdAsync<T>(string id);
+        Task<T> GetCreationModelByIdAsync<T>(string id);
 
         Task<bool> DeleteCreationAsync(string creationId, string userId);
 

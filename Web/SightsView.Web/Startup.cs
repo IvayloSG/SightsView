@@ -75,6 +75,7 @@
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICreationsService, CreationsService>();
             services.AddTransient<IDetailsService, DetailsService>();
+            services.AddTransient<IEquipmentsService, EquipmentsService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();

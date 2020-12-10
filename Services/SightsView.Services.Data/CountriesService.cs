@@ -46,10 +46,8 @@
             }
             catch (System.Exception e)
             {
-
                 throw new System.Exception(e.Message);
             }
-
         }
 
         public async Task<IList<SelectListItem>> GetSelectListCountriesAsync()

@@ -84,7 +84,7 @@
         {
             var selectListItems = await this.categoryRepository
             .AllAsNoTracking()
-            .OrderBy(X => X.Name)
+            .OrderBy(x => x.Name)
             .Select(x => new SelectListItem()
             {
                 Value = x.Id.ToString(),

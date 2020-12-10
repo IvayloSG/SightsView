@@ -74,7 +74,6 @@
             .Take(15)
             .ToListAsync();
 
-
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostFollowersAsync(string currentUserId)
              => await this.photographersRepository.AllAsNoTracking()
             .Where(x => x.Id != currentUserId)

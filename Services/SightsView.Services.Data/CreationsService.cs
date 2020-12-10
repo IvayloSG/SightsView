@@ -9,9 +9,9 @@
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
-    using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Creations;
@@ -20,19 +20,13 @@
     public class CreationsService : ICreationsService
     {
         private readonly IDeletableEntityRepository<Creation> creationsRepository;
-        private readonly IRepository<TagCreation> tagCreationRepository;
-        private readonly IFilePathsService filePathService;
         private readonly Cloudinary cloudinary;
 
         public CreationsService(
             IDeletableEntityRepository<Creation> creationsRepository,
-            IRepository<TagCreation> tagCreationRepository,
-            IFilePathsService filePathService,
             Cloudinary cloudinary)
         {
             this.creationsRepository = creationsRepository;
-            this.tagCreationRepository = tagCreationRepository;
-            this.filePathService = filePathService;
             this.cloudinary = cloudinary;
         }
 
@@ -84,6 +78,28 @@
             return creation.Id;
         }
 
+        public async Task AddDetailsToCreationAsync(string creationId, int detailsId)
+        {
+            var creation = await this.creationsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == creationId);
+
+            creation.DetailsId = detailsId;
+
+            this.creationsRepository.Update(creation);
+            await this.creationsRepository.SaveChangesAsync();
+        }
+
+        public async Task AddEquipmentToCreationAsync(string creationId, int equipmentId)
+        {
+            var creation = await this.creationsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == creationId);
+
+            creation.EquipmentId = equipmentId;
+
+            this.creationsRepository.Update(creation);
+            await this.creationsRepository.SaveChangesAsync();
+        }
+
         public async Task<bool> DeleteCreationAsync(string creationId, string userId)
         {
             var creation = await this.creationsRepository.All()
@@ -132,25 +148,11 @@
             return true;
         }
 
-        public async Task<T> GetCreationByIdAsync<T>(string creationId)
-        {
-            var creation = await this.creationsRepository.AllAsNoTracking()
+        public async Task<T> GetCreationModelByIdAsync<T>(string creationId)
+          => await this.creationsRepository.AllAsNoTracking()
                 .Where(x => x.Id == creationId)
                 .To<T>()
                 .FirstOrDefaultAsync();
-
-            return creation;
-        }
-
-        public async Task<T> GetDetailsAsync<T>(string creationId)
-        {
-            var details = await this.creationsRepository.AllAsNoTracking()
-                .Where(x => x.Id == creationId)
-                .To<T>()
-                .FirstOrDefaultAsync();
-
-            return details;
-        }
 
         public async Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations)
         {

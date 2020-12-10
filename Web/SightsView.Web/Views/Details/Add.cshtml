@@ -1,0 +1,38 @@
+﻿@using SightsView.Web.ViewModels.Details;
+@model DetailsAddInputModel
+@{
+    this.ViewData["Title"] = "Add Details Page";
+}
+
+<br />
+<hr />
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input asp-for="CreationId" hidden />
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="Apereture" placeholder="Appereture" class="form-control text-center" />
+        <span asp-validation-for="Apereture" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="ShutterSpeed" placeholder="Shutter Speed" class="form-control text-center" />
+        <span asp-validation-for="ShutterSpeed" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="Iso" placeholder="ISO" class="form-control text-center" />
+        <span asp-validation-for="Iso" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="Notes" placeholder="Notes" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Add</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

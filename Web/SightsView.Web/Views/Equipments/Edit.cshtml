@@ -1,0 +1,42 @@
+﻿@using SightsView.Web.ViewModels.Equipments;
+@model EquipmentsEditInputModel
+@{
+    this.ViewData["Title"] = "Edit Equipment Page";
+}
+
+<br />
+<hr />
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    <input asp-for="Id" hidden />
+
+    <input asp-for="CreatorId" hidden />
+
+    <input asp-for="EquipmentId" hidden />
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="EquipmentBrand" placeholder="@Model.PlaceholderBrand" class="form-control text-center" />
+        <span asp-validation-for="EquipmentBrand" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <input asp-for="EquipmentModel" placeholder="@Model.PlaceholderModel" class="form-control text-center" />
+        <span asp-validation-for="EquipmentModel" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="EquipmentAccessoaries" placeholder="@Model.PlaceholderAccessoaries" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="EquipmentAccessoaries" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="EquipmentNotes" placeholder="@Model.PlaceholderNotes" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="EquipmentNotes" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Save Changes</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
