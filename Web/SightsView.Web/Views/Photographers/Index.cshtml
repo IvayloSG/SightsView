@@ -40,7 +40,10 @@
             <div></div>
 
             <span>
-                <a href="#" class="btn btn-dark">Follow</a>
+                <a asp-for data-id="@photographer.Id" class="btn btn-dark">
+                    Follow
+                    <input id="followedId" type="hidden" value="@photographer.Username" />
+                </a>
             </span>
 
             <span class="row col-md-9 float-lg-right">
@@ -63,13 +66,19 @@
 
             <span class="badge badge-pill badge-light">
                 <img src="\follow.png" alt="icon" style="width: 20px" />
-                @photographer.Followers
+                <span id="@photographer.Id">@photographer.Followers</span>
 
                 <img src="\like.png" alt="icon" style="width: 20px" />
                 @photographer.LikedCreations
             </span>
 
         </div>
-
     </div>
 }
+
+<form method="post" id="antiForgeryForm"></form>
+
+@section Scripts {
+    <script asp-append-version="true" src="~/js/follows.js"></script>
+}
+
