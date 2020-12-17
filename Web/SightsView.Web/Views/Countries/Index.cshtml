@@ -1,14 +1,25 @@
-﻿@{
+﻿@using SightsView.Web.ViewModels.Countries;
+@model CountriesCreationsViewModel
+@{
     this.ViewData["Title"] = "Country";
 }
 
-<h1>Country creations list</h1>
-<button class="btn btn-outline-primary" onclick="goBack()">Go Back to Previous Page</button>
+<div class="text-dark text-center mb-lg-5">
+    <h1>@Model.Name</h1>
+</div>
 
-@section Scripts {
-    <script>
-function goBack() {
-  window.history.back();
-}
-    </script>
-}
+<hr />
+
+<div class="gallery" id="gallery">
+    @foreach (var creation in Model.Creations)
+    {
+        <div class="pics mb-3 animation all 1">
+            <a asp-controller="Creations" asp-action="Load" asp-route-id=@creation.Id>
+                <img class="img-fluid" src="@creation.CreationDataUrl" alt="Card image cap">
+                <div class="carousel-caption">
+                    <h1>Example headline.</h1>
+                </div>
+            </a>
+        </div>
+    }
+</div>

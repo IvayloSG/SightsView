@@ -15,6 +15,8 @@
 
         Task<T> GetCategoryByNameAsync<T>(string name);
 
+        Task<IEnumerable<T>> GetTopCategoriesAsync<T>(int categoryCount);
+
         Task<bool> UpdateCategoryByIdAsync(int id, string name, string description);
 
         Task<bool> DeleteCategoryByIdAsync(int id);

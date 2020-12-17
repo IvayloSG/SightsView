@@ -6,6 +6,8 @@
 
         public const string AdministratorRoleName = "Administrator";
 
+        public const int CreationsPerPage = 30;
+
         // Fixxed string messages
         public const string NoCountryOption = "Chose country";
         public const string NoCategoryOption = "Chose category for your creation";

@@ -111,5 +111,12 @@
             .To<T>()
             .Take(countOfCategories)
             .ToListAsync();
+
+        public async Task<IEnumerable<T>> GetTopCategoriesAsync<T>(int categoryCount)
+            => await this.categoryRepository.AllAsNoTracking()
+            .OrderByDescending(x => x.Creations.Count())
+            .Take(categoryCount)
+            .To<T>()
+            .ToListAsync();
     }
 }

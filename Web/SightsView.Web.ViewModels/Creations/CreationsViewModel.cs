@@ -20,5 +20,7 @@
         public string CreatorId { get; set; }
 
         public string CreatorUserName { get; set; }
+
+        public string CountryName { get; set; }
     }
 }

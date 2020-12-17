@@ -1,8 +1,9 @@
 ﻿namespace SightsView.Data.Models
 {
+    using SightsView.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
 
-    public class TagCreation
+    public class TagCreation : BaseDeletableModel<int>
     {
         [Required]
         public int TagId { get; set; }

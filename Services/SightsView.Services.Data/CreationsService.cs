@@ -148,11 +148,46 @@
             return true;
         }
 
+        public async Task<IEnumerable<T>> GetCreationByCountryAsync<T>(int countryId, int creationsCount)
+            => await this.creationsRepository.AllAsNoTracking()
+            .Where(x => x.IsPrivate == false && x.CountryId == countryId)
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>()
+            .ToListAsync();
+
         public async Task<T> GetCreationModelByIdAsync<T>(string creationId)
           => await this.creationsRepository.AllAsNoTracking()
                 .Where(x => x.Id == creationId)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetCreationsByNameOrTagAsync<T>(string keyWord, int creationsCount)
+           => await this.creationsRepository.AllAsNoTracking()
+                .Where(x => x.IsPrivate == false && (x.Title.ToLower().Contains(keyWord.ToLower()) || x.Tags.Any(x => x.Tag.Name.ToLower().Contains(keyWord.ToLower()))))
+                .Distinct()
+                .Take(creationsCount)
+                .To<T>()
+                .ToListAsync();
+
+        public async Task<IEnumerable<T>> GetNewestCreationsByCategoryAsync<T>(int? categoryId, int creationsCount)
+        {
+            if (categoryId == null)
+            {
+                return await this.creationsRepository.AllAsNoTracking()
+                    .Where(x => x.IsPrivate == false)
+                     .OrderByDescending(x => x.CreatedOn)
+                     .Take(creationsCount)
+                     .To<T>()
+                     .ToListAsync();
+            }
+
+            return await this.creationsRepository.AllAsNoTracking()
+                .Where(x => x.CategoryId == categoryId && x.IsPrivate == false)
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(creationsCount)
+                .To<T>()
+                .ToListAsync();
+        }
 
         public async Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations)
         {

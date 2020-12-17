@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using SightsView.Common;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels;
     using SightsView.Web.ViewModels.Home;
@@ -24,7 +24,7 @@
         {
             // TODO: Take categories count from config
             int countOfCategories = 4;
-            int countOfCreations = 20;
+            int countOfCreations = GlobalConstants.CreationsPerPage;
             var topCountries = await this.countriesService.GetCountriesWithMostCreationAsync(countOfCategories);
             var creations = await this.creationsService.GetNumberRandomCreationsAsync(countOfCreations);
 
