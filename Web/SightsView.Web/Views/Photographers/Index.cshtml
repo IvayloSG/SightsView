@@ -30,7 +30,12 @@
 
         <div class="card-header bg-dark">
             <h5 class="bg-dark text-white mt-2">
+                <a asp-controller="Messages" asp-action="Send" asp-route-id=@photographer.Id class="mx-2">
+                    <img src="\sendmessage.png" alt="icon" style="width: 30px" />
+                </a>
+                 
                 <a asp-controller="Profiles" asp-action="Index" asp-route-id="@photographer.Id" class="text-white">@photographer.Username</a>
+
                 <a class="badge badge-pill badge-light float-lg-right">Reputation: @photographer.Reputation</a>
             </h5>
         </div>

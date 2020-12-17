@@ -1,0 +1,28 @@
+﻿@using SightsView.Web.ViewModels.Messages;
+@model MessagesSendInputModel
+@{
+    this.ViewData["Title"] = "Send message";
+}
+
+<br />
+
+<div class="text-dark text-center">
+    <h1>Message</h1>
+</div>
+
+<hr />
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+
+    <div class="form-group col-md-6 offset-3">
+        <textarea asp-for="Content" placeholder="Message" class="form-control text-center" rows="5"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-dark col-md-4 offset-4">Send Message</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
