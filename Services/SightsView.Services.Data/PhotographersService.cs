@@ -9,6 +9,7 @@
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
+    using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Photographers;
 
     // TODO: Remove hardcoded values
@@ -46,6 +47,12 @@
             })
             .Take(15)
             .ToListAsync();
+
+        public async Task<T> GetPhotographerByIdAsync<T>(string photographerId)
+            => await this.photographersRepository.All()
+            .Where(x => x.Id == photographerId)
+            .To<T>()
+            .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostCreationsAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()

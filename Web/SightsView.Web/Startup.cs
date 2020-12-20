@@ -75,6 +75,7 @@
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICreationsService, CreationsService>();
             services.AddTransient<IDetailsService, DetailsService>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<IEquipmentsService, EquipmentsService>();
             services.AddTransient<IFollowsService, FollowsService>();
             services.AddTransient<IMessagesService, MessagesService>();
@@ -82,7 +83,6 @@
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IPhotographersService, PhotographersService>();
-            services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IFilePathsService, FilePathsService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
             services.AddTransient<ILikesService, LikesService>();

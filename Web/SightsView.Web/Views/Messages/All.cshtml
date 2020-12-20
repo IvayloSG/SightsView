@@ -1,0 +1,24 @@
+﻿@using SightsView.Web.ViewModels.Messages;
+@model ConversationsListViewModel
+@{
+    this.ViewData["Title"] = "Conversations";
+}
+
+<br />
+
+<div class="text-dark text-center">
+    <h1>Conversations</h1>
+</div>
+
+<hr />
+
+<ul class="list-group col-md-12">
+    @foreach (var conversation in @Model.Conversations)
+    {
+        <a asp-controller="Messages" asp-action="Load" asp-route-id=@conversation.PeerId>
+            <li class="list-group-item bg-dark text-white mb-1">
+                @conversation.PeerUsername
+            </li>
+        </a>
+    }
+</ul>
