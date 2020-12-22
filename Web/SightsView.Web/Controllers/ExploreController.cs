@@ -42,7 +42,7 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Search(ExploreIndexViewModel input)
         {
             if (string.IsNullOrWhiteSpace(input.SearchInput))

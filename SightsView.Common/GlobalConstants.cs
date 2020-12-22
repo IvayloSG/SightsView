@@ -12,7 +12,15 @@
         public const string NoCountryOption = "Chose country";
         public const string NoCategoryOption = "Chose category for your creation";
 
+        public const string ConfirmationMailSubject = "Please confirm your email";
+        public const string MailFrom = "sightsview@gmail.com";
+        public const string MailFromName = "SightsView.Common";
+
         // Validations
+        public const string UserNameLengthError = "Username length must be between 2 and 100 characters.";
+        public const string UserPasswordLengthError = "Password must be atleast 6 characters.";
+        public const string UserPasswordAndConfirmPasswordMismatch = "Password and Connfirm Passwort do not match.";
+
         public const string CategoryNameLengthError = "Name length must be between 3 and 50 characters.";
         public const string CategoryDescriptionLengthError = "Name length must be between 3 and 500 characters.";
 

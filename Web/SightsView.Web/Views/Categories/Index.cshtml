@@ -25,7 +25,7 @@
                         <h5 class="card-title text-center">@category.Name</h5>
                         <p class="card-text">@category.Description</p>
                         <a asp-controller="Categories" asp-action="Delete" asp-route-id=@category.Id class="btn btn-light" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
-                        <a  asp-controller="Categories" asp-action="Edit" asp-route-id=@category.Id class="btn btn-light float-right">Edit</a>
+                        <a asp-controller="Categories" asp-action="Edit" asp-route-id=@category.Id class="btn btn-light float-right">Edit</a>
                     </div>
                 </div>
             </div>
@@ -33,4 +33,3 @@
 
     </div>
 </div>
-

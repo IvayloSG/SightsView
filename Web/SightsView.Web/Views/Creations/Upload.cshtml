@@ -4,49 +4,56 @@
     this.ViewData["Title"] = "Upload Creation";
 }
 
-<div class="container">
-    <br />
-    <h1 class="text-center text-dark mb-lg-5">Share your creation</h1>
+<br />
+
+<div class="text-dark text-center">
+    <h1>Share your creation</h1>
+</div>
+
+<hr />
+
+<div class="container col-md-6 justify-content-center">
 
     <form method="post" enctype="multipart/form-data">
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <input asp-for="Creation" type="file" class="custom-file-input form-control" id="customFile">
             <span asp-validation-for="Creation" class="text-danger"></span>
-            <label class="custom-file-label form-control text-center" for="customFile">Choose Creation</label>
+            <label class="custom-file-label form-control" for="customFile">Choose Creation</label>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <input asp-for="Title" placeholder="Title" class="form-control text-center" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <textarea asp-for="Description" placeholder="Description" class="form-control text-center" rows="10"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <select asp-for="Privacy" class="form-control text-center">
                 <option>Public</option>
                 <option>Private</option>
             </select>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <select asp-for="Category" class="form-control text-center" asp-items="@Model.Categories"></select>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <select asp-for="Country" class="form-control text-center" asp-items="@Model.Countries"></select>
         </div>
 
-        <div class="form-group col-md-6 offset-3 ">
+        <div class="form-group">
             <textarea asp-for="Tags" placeholder="Tags" class="form-control text-center"></textarea>
         </div>
 
-        <input value="Upload" type="submit" class="btn btn-dark col-md-6 offset-3" />
-
+        <div class="form-group">
+            <button type="submit" class="btn btn-block btn-dark">Upload</button>
+        </div>
     </form>
 </div>
 

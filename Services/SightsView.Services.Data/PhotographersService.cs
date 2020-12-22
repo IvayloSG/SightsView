@@ -24,7 +24,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetAllPhotographersAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId)
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .Select(x => new PhotographersViewModel()
             {
                 Id = x.Id,
@@ -56,7 +56,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostCreationsAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId)
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .OrderByDescending(x => x.Creations.Count)
             .Select(x => new PhotographersViewModel()
             {
@@ -83,7 +83,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostFollowersAsync(string currentUserId)
              => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId)
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .OrderByDescending(x => x.Followers.Count)
             .Select(x => new PhotographersViewModel()
             {
@@ -110,7 +110,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostLikesAsync(string currentUserId)
               => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId)
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .OrderByDescending(x => x.Creations.SelectMany(y => y.Likes).Count())
             .Select(x => new PhotographersViewModel()
             {
@@ -137,7 +137,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostNewestAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId)
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .OrderByDescending(x => x.CreatedOn)
             .Select(x => new PhotographersViewModel()
             {

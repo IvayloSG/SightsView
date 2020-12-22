@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using SightsView.Common;
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Messaging;
     using SightsView.Web.ViewModels.Messages;
@@ -97,7 +97,7 @@
 
             var emailSubject = $"New message from {senderName}";
 
-            // await this.emailSender.SendEmailAsync("sightsview@gmail.com", "SightsView.com", "receiver.Email", emailSubject, sb.ToString());
+            await this.emailSender.SendEmailAsync(GlobalConstants.MailFrom, GlobalConstants.MailFromName, receiver.Email, emailSubject, sb.ToString());
             return this.View();
         }
     }

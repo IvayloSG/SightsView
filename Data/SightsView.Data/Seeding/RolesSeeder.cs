@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using SightsView.Common;
-    using SightsView.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using SightsView.Common;
+    using SightsView.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {
