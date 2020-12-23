@@ -50,6 +50,19 @@
             }
         }
 
+        public async Task<string> GetCountryNameByIdAsync(int id)
+        {
+            var country = await this.countriesRepository.AllAsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (country == null)
+            {
+                return null;
+            }
+
+            return country.Name;
+        }
+
         public async Task<IList<SelectListItem>> GetSelectListCountriesAsync()
         {
             var selectListItem = await this.countriesRepository

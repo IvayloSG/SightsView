@@ -27,13 +27,13 @@
 
         Task<IEnumerable<T>> GetCreationsByNameOrTagAsync<T>(string keyWord, int creationsCount);
 
-        Task<IEnumerable<T>> GetCreationByCountryAsync<T>(int countryId, int creationsCount);
+        Task<IEnumerable<T>> GetCreationByCountryAsync<T>(int countryId, int pageNumber, int creationsCount);
 
         Task<IEnumerable<CreationsViewModel>> GetNumberRandomCreationsAsync(int countOfCreations);
 
         Task<T> GetCreationModelByIdAsync<T>(string id);
 
-        Task<IEnumerable<T>> GetNewestCreationsByCategoryAsync<T>(int? categoryId, int creationsCount);
+        Task<IEnumerable<T>> GetNewestCreationsByCategoryAsync<T>(int? categoryId, int pageNumber, int creationsCount);
 
         Task<bool> DeleteCreationAsync(string creationId, string userId);
 

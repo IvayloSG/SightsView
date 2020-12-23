@@ -12,5 +12,7 @@
         Task<IList<SelectListItem>> GetSelectListCountriesAsync();
 
         Task<IEnumerable<CountriesViewModel>> GetCountriesWithMostCreationAsync(int countriesCount);
+
+        Task<string> GetCountryNameByIdAsync(int id);
     }
 }

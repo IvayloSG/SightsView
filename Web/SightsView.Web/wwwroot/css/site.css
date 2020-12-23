@@ -16,6 +16,7 @@ a.navbar-brand {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -25,6 +26,7 @@ html {
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
 }
@@ -49,6 +51,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -87,7 +90,7 @@ hr {
         -webkit-transform: scale(1);
         -ms-transform: scale(1);
         transform: scale(1);
-    } 
+    }
 
 @media (max-width: 450px) {
     .gallery {
@@ -140,3 +143,8 @@ hr {
         text-align: center;
         border-right: 1px solid rgba(0,0,0,0.2);
     }
+
+.img-thumbnail {
+    height: 200px;
+    width: 100%;
+}

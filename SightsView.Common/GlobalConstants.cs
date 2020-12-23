@@ -6,7 +6,7 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const int CreationsPerPage = 30;
+        public const int CreationsPerPage = 10;
 
         // Fixxed string messages
         public const string NoCountryOption = "Chose country";
@@ -18,6 +18,7 @@
 
         // Validations
         public const string UserNameLengthError = "Username length must be between 2 and 100 characters.";
+        public const string UserNamesLengthError = "Name length must be between 2 and 50 characters.";
         public const string UserPasswordLengthError = "Password must be atleast 6 characters.";
         public const string UserPasswordAndConfirmPasswordMismatch = "Password and Connfirm Passwort do not match.";
 

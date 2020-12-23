@@ -16,8 +16,6 @@
     <div>
         <section>
             <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="form-group">
@@ -77,7 +75,7 @@
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
                                     //<button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                    <button type="submit" class="btn btn-block btn-lg btn-social btn-facebook" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                    <button type="submit" class="btn btn-block btn-social btn-facebook" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
                                         <i class="fa fa-facebook fa-fw"></i>
                                         Sign in with Facebook
                                     </button>

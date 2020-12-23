@@ -31,7 +31,9 @@
 
             var creationsCount = GlobalConstants.CreationsPerPage;
 
-            var creations = await this.creationsService.GetNewestCreationsByCategoryAsync<CreationsViewModel>(currentCategory, creationsCount);
+            var currentPage = 1;
+
+            var creations = await this.creationsService.GetNewestCreationsByCategoryAsync<CreationsViewModel>(currentCategory, currentPage, creationsCount);
 
             var viewModel = new ExploreIndexViewModel()
             {

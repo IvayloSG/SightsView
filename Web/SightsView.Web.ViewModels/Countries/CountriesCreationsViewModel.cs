@@ -6,8 +6,8 @@
 
     public class CountriesCreationsViewModel
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public IEnumerable<CreationsViewModel> Creations { get; set; }
+        public string Name { get; set; }
     }
 }

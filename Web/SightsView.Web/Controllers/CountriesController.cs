@@ -12,25 +12,22 @@
 
     public class CountriesController : Controller
     {
-        private readonly ICreationsService creationsService;
+        private readonly ICountriesService countriesService;
 
-        public CountriesController(ICreationsService creationsService)
+        public CountriesController(ICountriesService countriesService)
         {
-            this.creationsService = creationsService;
+            this.countriesService = countriesService;
         }
 
         [Authorize]
         public async Task<IActionResult> Index(int id)
         {
-            var creationsCount = 30;
-            var creations = await this.creationsService.GetCreationByCountryAsync<CreationsViewModel>(id, creationsCount);
-
-            var countryName = creations.FirstOrDefault().CountryName;
+            var name = await this.countriesService.GetCountryNameByIdAsync(id);
 
             var viewModel = new CountriesCreationsViewModel()
             {
-                Name = countryName,
-                Creations = creations,
+                Id = id,
+                Name = name,
             };
 
             return this.View(viewModel);
