@@ -1,5 +1,6 @@
 ﻿namespace SightsView.Services.Data
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@
 
                 if (equipment == null)
                 {
-                    return false;
+                    throw new NullReferenceException();
                 }
 
                 if (brand != null)

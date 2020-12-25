@@ -5,33 +5,40 @@
 }
 
 <br />
+
+<div class="text-dark text-center">
+    <h1>Add Equipment</h1>
+</div>
+
 <hr />
 
-<form method="post" enctype="application/x-www-form-urlencoded">
-    <input asp-for="CreationId" hidden />
+<div class="container col-md-6 justify-content-center">
+    <form method="post" enctype="application/x-www-form-urlencoded">
+        <input asp-for="CreationId" hidden />
 
-    <div class="form-group col-md-6 offset-3">
-        <input asp-for="Brand" placeholder="Brand" class="form-control text-center" />
-        <span asp-validation-for="Brand" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <input asp-for="Brand" placeholder="Brand" class="form-control text-center" />
+            <span asp-validation-for="Brand" class="text-danger"></span>
+        </div>
 
-    <div class="form-group col-md-6 offset-3">
-        <input asp-for="Model" placeholder="Model" class="form-control text-center" />
-        <span asp-validation-for="Model" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <input asp-for="Model" placeholder="Model" class="form-control text-center" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
 
-    <div class="form-group col-md-6 offset-3">
-        <input asp-for="Accessoaries" placeholder="Accessoaries" class="form-control text-center" />
-        <span asp-validation-for="Accessoaries" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <input asp-for="Accessoaries" placeholder="Accessoaries" class="form-control text-center" />
+            <span asp-validation-for="Accessoaries" class="text-danger"></span>
+        </div>
 
-    <div class="form-group col-md-6 offset-3">
-        <textarea asp-for="Notes" placeholder="Notes" class="form-control text-center" rows="5"></textarea>
-        <span asp-validation-for="Notes" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <textarea asp-for="Notes" placeholder="Notes" class="form-control text-center" rows="5"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-dark col-md-4 offset-4">Add</button>
-</form>
+        <button type="submit" class="btn btn-dark col-8 offset-2">Add</button>
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -8,7 +8,6 @@
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Common;
     using SightsView.Services.Data.Contracts;
-    using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Details;
 
     public class DetailsController : Controller
@@ -39,6 +38,10 @@
         {
             if (!this.ModelState.IsValid)
             {
+                var viewModel = new DetailsAddInputModel()
+                {
+                    CreationId = input.CreationId,
+                };
                 return this.View();
             }
 
@@ -67,6 +70,11 @@
         public async Task<IActionResult> Edit(string id)
         {
             var viewModel = await this.creationsService.GetCreationModelByIdAsync<DetailsEditInputModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CreationNotFound, id));
+            }
 
             return this.View(viewModel);
         }
@@ -74,27 +82,35 @@
         [HttpPost]
         public async Task<IActionResult> Edit(DetailsEditInputModel input)
         {
-            var viewModel = await this.creationsService.GetCreationModelByIdAsync<DetailsEditInputModel>(input.Id);
-            if (!this.ModelState.IsValid)
+            try
             {
-                return this.View(viewModel);
+                var viewModel = await this.creationsService.GetCreationModelByIdAsync<DetailsEditInputModel>(input.Id);
+
+                if (!this.ModelState.IsValid)
+                {
+                    return this.View(viewModel);
+                }
+
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId != input.CreatorId)
+                {
+                    return this.BadRequest();
+                }
+
+                if (input.DetailsId == null)
+                {
+                    return this.RedirectToAction(nameof(this.Add), new { id = input.Id });
+                }
+
+                var isUpdateSuccessful = await this.detailsService.UpdateDetailsAsync(input.DetailsId, input.DetailsApereture, input.DetailsShutterSpeed, input.DetailsIso, input.DetailsTipAndTricks);
+
+                return this.RedirectToAction("Details", "Creations", new { id = input.Id });
             }
-
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (userId != input.CreatorId)
+            catch (NullReferenceException nre)
             {
-                return this.BadRequest();
+                return this.BadRequest(nre.Message);
             }
-
-            if (input.DetailsId == null)
-            {
-                return this.RedirectToAction(nameof(this.Add), new { id = input.Id });
-            }
-
-            var isUpdateSuccessful = await this.detailsService.UpdateDetailsAsync(input.DetailsId, input.DetailsApereture, input.DetailsShutterSpeed, input.DetailsIso, input.DetailsTipAndTricks);
-
-            return this.RedirectToAction("Details", "Creations", new { id = input.Id });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace SightsView.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@
             return details.Id;
         }
 
-        public async Task<T> GetDetailsByCreationId<T>(string creationId)
+        public async Task<T> GetDetailsByCreationIdAsync<T>(string creationId)
             => await this.detailsRepository.AllAsNoTracking()
                .Where(x => x.Creations.Select(c => c.Id == creationId).FirstOrDefault())
                .To<T>()
@@ -43,46 +44,38 @@
 
         public async Task<bool> UpdateDetailsAsync(int? id, string apereture, string shutterSpeed, string iso, string notes)
         {
-            try
+            var details = await this.detailsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (details == null)
             {
-                var details = await this.detailsRepository.All()
-              .FirstOrDefaultAsync(x => x.Id == id);
-
-                if (details == null)
-                {
-                    return false;
-                }
-
-                if (apereture != null)
-                {
-                    details.Apereture = apereture;
-                }
-
-                if (shutterSpeed != null)
-                {
-                    details.ShutterSpeed = shutterSpeed;
-                }
-
-                if (iso != null)
-                {
-                    details.ISO = iso;
-                }
-
-                if (notes != null)
-                {
-                    details.TipAndTricks = notes;
-                }
-
-                this.detailsRepository.Update(details);
-                await this.detailsRepository.SaveChangesAsync();
-
-                return true;
+                throw new NullReferenceException();
             }
-            catch (System.Exception e)
+
+            if (apereture != null)
             {
-                var message = e.Message;
-                throw;
+                details.Apereture = apereture;
             }
+
+            if (shutterSpeed != null)
+            {
+                details.ShutterSpeed = shutterSpeed;
+            }
+
+            if (iso != null)
+            {
+                details.ISO = iso;
+            }
+
+            if (notes != null)
+            {
+                details.TipAndTricks = notes;
+            }
+
+            this.detailsRepository.Update(details);
+            await this.detailsRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

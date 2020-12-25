@@ -9,6 +9,10 @@
 
         public string CreatorId { get; set; }
 
+        public int CategoryId { get; set; }
+
+        public int CountryId { get; set; }
+
         public string StorageAddress { get; set; }
 
         public string CreationDataUrl { get; set; }

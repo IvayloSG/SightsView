@@ -4,7 +4,7 @@
 
     public interface IDetailsService
     {
-        Task<T> GetDetailsByCreationId<T>(string creationId);
+        Task<T> GetDetailsByCreationIdAsync<T>(string creationId);
 
         Task<int> AddDetailsAsync(string apereture, string shutterSpeed, string iso, string notes);
 
