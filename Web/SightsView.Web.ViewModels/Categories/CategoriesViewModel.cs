@@ -3,7 +3,7 @@
     using SightsView.Data.Models;
     using SightsView.Services.Mapping;
 
-    public class CategoryViewModel : IMapFrom<Category>
+    public class CategoriesViewModel : IMapFrom<Category>
     {
         public int Id { get; set; }
 

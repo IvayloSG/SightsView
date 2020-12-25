@@ -10,10 +10,9 @@ function onClickLoad() {
 
 function loadAction() {
     let antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
-    let countryId = Number(document.getElementById("countryId").defaultValue);
-    //let pageNumber = Number(document.getElementById("pageNumber").defaultValue);
+    let elementId = Number(document.getElementById("elementId").defaultValue);
     let data = {
-        countryId: countryId,
+        elementId: elementId,
         pageNumber: pageNumber,
     };
     $.ajax({

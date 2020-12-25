@@ -9,7 +9,7 @@
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -30,7 +30,7 @@
             this.cloudinary = cloudinary;
         }
 
-        public async Task<string> AddCreationInDbAsync(
+        public async Task<string> AddCreationAsync(
             string title,
             string description,
             bool isPrivate,
@@ -38,7 +38,8 @@
             int categoryId,
             ApplicationUser user,
             IFormFile inputCreation,
-            IEnumerable<TagsViewModel> tags)
+            IEnumerable<TagsViewModel> tags,
+            bool isTest = false)
         {
             var creation = new Creation()
             {
@@ -56,10 +57,13 @@
             var creationName = creation.Id + "_" + creation.Title + extension;
             creationName = creationName.Replace("&", "And");
 
-            var cloudinaryUploadResponse = await CloudinaryService.UploadToCloudAsync(this.cloudinary, inputCreation, creationName, username);
-            creation.StorageAddress = cloudinaryUploadResponse.CreationDataUrl;
-            creation.CreationDataUrl = cloudinaryUploadResponse.CreationDataUrl;
-            creation.CloudPublicId = cloudinaryUploadResponse.PublicId;
+            if (!isTest)
+            {
+                var cloudinaryUploadResponse = await CloudinaryService.UploadToCloudAsync(this.cloudinary, inputCreation, creationName, username);
+                creation.StorageAddress = cloudinaryUploadResponse.CreationDataUrl;
+                creation.CreationDataUrl = cloudinaryUploadResponse.CreationDataUrl;
+                creation.CloudPublicId = cloudinaryUploadResponse.PublicId;
+            }
 
             foreach (var tag in tags)
             {
@@ -82,6 +86,11 @@
         {
             var creation = await this.creationsRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == creationId);
+            if (creation == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CommentNotFound, creationId));
+            }
 
             creation.DetailsId = detailsId;
 
@@ -105,7 +114,13 @@
             var creation = await this.creationsRepository.All()
                  .FirstOrDefaultAsync(x => x.Id == creationId);
 
-            if (creation.CreatorId != userId)
+            if (creation == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CommentNotFound, creationId));
+            }
+
+            if (userId != creation.CreatorId)
             {
                 return false;
             }
@@ -122,6 +137,11 @@
         {
             var creation = await this.creationsRepository.All()
                  .FirstOrDefaultAsync(x => x.Id == creationId);
+            if (creation == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CreationNotFound, creationId));
+            }
 
             if (creation.CreatorId != userId)
             {
@@ -137,7 +157,7 @@
                 creation.CategoryId = (int)categoryId;
             }
 
-            if (creation.CountryId != null)
+            if (countryId != null)
             {
                 creation.CountryId = (int)countryId;
             }
@@ -170,6 +190,20 @@
                 .Take(creationsCount)
                 .To<T>()
                 .ToListAsync();
+
+        public async Task<string> GetCreatorIdByCreationIdAsync(string creationId)
+        {
+            var creation = await this.creationsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == creationId);
+            if (creation == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CommentNotFound, creationId));
+            }
+
+            var creatorId = creation.CreatorId;
+            return creatorId;
+        }
 
         public async Task<IEnumerable<T>> GetNewestCreationsByCategoryAsync<T>(int? categoryId, int pageNumber, int creationsCount)
         {
@@ -208,8 +242,13 @@
 
         public async Task IncreseCreationViewsAsync(string creationId)
         {
-            var creation = await this.creationsRepository.AllAsNoTracking()
+            var creation = await this.creationsRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == creationId);
+            if (creation == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CreationNotFound, creationId));
+            }
 
             creation.Views++;
 

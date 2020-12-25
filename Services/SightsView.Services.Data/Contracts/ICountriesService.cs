@@ -9,10 +9,10 @@
 
     public interface ICountriesService
     {
-        Task<IList<SelectListItem>> GetSelectListCountriesAsync();
-
         Task<IEnumerable<CountriesViewModel>> GetCountriesWithMostCreationAsync(int countriesCount);
 
         Task<string> GetCountryNameByIdAsync(int id);
+
+        Task<IList<SelectListItem>> GetSelectListCountriesAsync();
     }
 }

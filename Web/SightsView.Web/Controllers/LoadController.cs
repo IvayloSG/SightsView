@@ -32,10 +32,10 @@
         [Authorize]
         public async Task<LoadResponseModel> LoadMore(LoadInputModel input)
         {
-            // TOD: Constant value
+            // TODO: Constant value
             var creationsCount = GlobalConstants.CreationsPerPage;
 
-            var creations = await this.creationsService.GetCreationByCountryAsync<CreationsViewModel>(input.CountryId, input.PageNumber, creationsCount);
+            var creations = await this.creationsService.GetCreationByCountryAsync<CreationsViewModel>(input.ElementId, input.PageNumber, creationsCount);
 
             return new LoadResponseModel { Creations = creations };
         }

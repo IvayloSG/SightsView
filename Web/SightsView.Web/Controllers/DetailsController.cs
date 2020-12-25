@@ -1,11 +1,12 @@
 ﻿namespace SightsView.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using SightsView.Common;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Details;
@@ -41,11 +42,25 @@
                 return this.View();
             }
 
-            var detailsId = await this.detailsService.AddDetailsAsync(input.Apereture, input.ShutterSpeed, input.Iso, input.Notes);
+            try
+            {
+                var creatorId = await this.creationsService.GetCreatorIdByCreationIdAsync(input.CreationId);
+                var currentUserID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (creatorId != currentUserID)
+                {
+                    return this.BadRequest(ExceptionMessages.InvalidUser);
+                }
 
-            await this.creationsService.AddDetailsToCreationAsync(input.CreationId, detailsId);
+                var detailsId = await this.detailsService.AddDetailsAsync(input.Apereture, input.ShutterSpeed, input.Iso, input.Notes);
 
-            return this.RedirectToAction("Details", "Creations", new { id = input.CreationId });
+                await this.creationsService.AddDetailsToCreationAsync(input.CreationId, detailsId);
+
+                return this.RedirectToAction("Details", "Creations", new { id = input.CreationId });
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.NotFound(nre.Message);
+            }
         }
 
         [HttpGet]

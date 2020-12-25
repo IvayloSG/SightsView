@@ -13,7 +13,5 @@
         public int CommentId { get; set; }
 
         public string ApplicationUserId { get; set; }
-
-
     }
 }

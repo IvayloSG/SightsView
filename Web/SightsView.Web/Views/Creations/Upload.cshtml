@@ -13,12 +13,11 @@
 <hr />
 
 <div class="container col-md-6 justify-content-center">
-
     <form method="post" enctype="multipart/form-data">
-
         <div class="form-group">
-            <input asp-for="Creation" type="file" class="custom-file-input form-control" id="customFile">
+            <input asp-for="Creation" type="file" id="customFile" class="custom-file-input form-control">
             <span asp-validation-for="Creation" class="text-danger"></span>
+
             <label class="custom-file-label form-control" for="customFile">Choose Creation</label>
         </div>
 
@@ -35,6 +34,7 @@
         <div class="form-group">
             <select asp-for="Privacy" class="form-control text-center">
                 <option>Public</option>
+
                 <option>Private</option>
             </select>
         </div>
@@ -58,11 +58,6 @@
 </div>
 
 @section Scripts {
-    <script>
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
+    <script asp-append-version="true" src="~/js/upload.js"></script>
 }
 

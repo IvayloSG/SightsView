@@ -5,50 +5,56 @@
 }
 
 <br />
-<h1 class="text-center text-dark mb-lg-5">Details</h1>
 
-<form enctype="application/x-www-form-urlencoded">
+<div class="text-dark text-center">
+    <h1>Details</h1>
+</div>
 
-    <div class="form-group">
-        <div class="form-row mb-2">
-            <div class="input-group col-md-2 offset-3">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">f/</div>
+<hr />
+
+<div class="container col-md-6 justify-content-center">
+    <form enctype="application/x-www-form-urlencoded">
+        <div class="form-group">
+            <div class="form-row mb-2">
+                <div class="input-group col-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">f/</div>
+                    </div>
+                    <input type="text" class="form-control bg-white" placeholder="@Model.AperetureView" readonly>
                 </div>
-                <input type="text" class="form-control bg-white" placeholder="@Model.AperetureView" readonly>
+
+                <div class="input-group col-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">SS</div>
+                    </div>
+                    <input type="text" class="form-control bg-white" placeholder="@Model.ShutterSpeedView" readonly>
+                </div>
+
+                <div class="input-group col-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Iso</div>
+                    </div>
+                    <input type="text" class="form-control bg-white" placeholder="@Model.IsoView" readonly>
+                </div>
             </div>
 
-            <div class="input-group col-md-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">SS</div>
-                </div>
-                <input type="text" class="form-control bg-white" placeholder="@Model.ShutterSpeedView" readonly>
+            <div class="form-group mb-2">
+                <textarea placeholder="@Model.NotesView" class="form-control input-group-text bg-white text-center" rows="5" readonly></textarea>
             </div>
 
-            <div class="input-group col-md-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">Iso</div>
+            @if (this.User.Identity.Name == Model.CreatorUserName)
+            {
+                <div class="form-row">
+                    @if (Model.DetailsId == null)
+                    {
+                        <button asp-controller="Details" asp-action="Add" asp-route-id=@Model.Id class="btn btn-dark col-8 offset-2">Add</button>
+                    }
+                    else
+                    {
+                        <button asp-controller="Details" asp-action="Edit" asp-route-id=@Model.Id class="btn btn-dark col-8 offset-2">Edit</button>
+                    }
                 </div>
-                <input type="text" class="form-control bg-white" placeholder="@Model.IsoView" readonly>
-            </div>
+            }
         </div>
-
-        <div class="form-group col-lg-6 offset-3 mb-2">
-            <textarea placeholder="@Model.NotesView" class="form-control input-group-text bg-white text-center" rows="5" readonly></textarea>
-        </div>
-
-        @if (this.User.Identity.Name == Model.CreatorUserName)
-        {
-            <div class="form-row">
-                @if (Model.DetailsId == null)
-                {
-                    <button asp-controller="Details" asp-action="Add" asp-route-id=@Model.Id class="btn btn-dark col-md-4 offset-4">Add</button>
-                }
-                else
-                {
-                    <button asp-controller="Details" asp-action="Edit" asp-route-id=@Model.Id class="btn btn-dark col-md-4 offset-4">Edit</button>
-                }
-            </div>
-        }
-    </div>
-</form>
+    </form>
+</div>

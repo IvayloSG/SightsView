@@ -1,12 +1,13 @@
 ﻿namespace SightsView.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
+    using SightsView.Common;
     using SightsView.Data.Models;
     using SightsView.Services.Contracts;
     using SightsView.Services.Data.Contracts;
@@ -45,17 +46,33 @@
         [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var deleteResponse = await this.creationsService.DeleteCreationAsync(id, userId);
+                var isSuccess = await this.creationsService.DeleteCreationAsync(id, userId);
+                if (!isSuccess)
+                {
+                    return this.RedirectToAction("LoadRedirect", "Creations", new { id = id });
+                }
 
-            return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Index", "Profiles");
+            }
+            catch (NullReferenceException e)
+            {
+                return this.BadRequest(e.Message);
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsDetailsViewModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CreationNotFound, id));
+            }
 
             return this.View(viewModel);
         }
@@ -64,6 +81,11 @@
         public async Task<IActionResult> Equipment(string id)
         {
             var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsEquipmentViewModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CreationNotFound, id));
+            }
 
             return this.View(viewModel);
         }
@@ -72,9 +94,12 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var viewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsEditInputModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CreationNotFound, id));
+            }
 
             viewModel.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
             viewModel.Countries = await this.countriesService.GetSelectListCountriesAsync();
@@ -86,10 +111,6 @@
         [Authorize]
         public async Task<IActionResult> Edit(CreationsEditInputModel input)
         {
-            // TODO: remove SelectListItemCreation after final routing
-            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
-            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
-
             if (!this.ModelState.IsValid)
             {
                 input = await this.creationsService.GetCreationModelByIdAsync<CreationsEditInputModel>(input.Id);
@@ -100,59 +121,83 @@
                 return this.View(input);
             }
 
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            bool isPrivate = false;
-            if (input.Privacy.ToLower() == "private")
+            try
             {
-                isPrivate = true;
-            }
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            int? categoryId = null;
-            if (input.CategoryName != null)
+                bool isPrivate = false;
+                if (input.Privacy.ToLower() == "private")
+                {
+                    isPrivate = true;
+                }
+
+                int? categoryId = null;
+                if (input.CategoryName != null)
+                {
+                    categoryId = int.Parse(input.CategoryName);
+                }
+
+                int? countryId = null;
+                if (input.CountryName != null)
+                {
+                    countryId = int.Parse(input.CountryName);
+                }
+
+                var isSuccess = await this.creationsService.EditCreationByIdAsync(input.Id, input.Title, input.Description, isPrivate, categoryId, countryId, userId);
+
+                return this.RedirectToAction("LoadRedirect", "Creations", new { id = input.Id });
+            }
+            catch (NullReferenceException e)
             {
-                categoryId = int.Parse(input.CategoryName);
+                return this.BadRequest(e.Message);
             }
-
-            int? countryId = null;
-            if (input.CategoryName != null)
-            {
-                countryId = int.Parse(input.CountryName);
-            }
-
-            var response = await this.creationsService.EditCreationByIdAsync(input.Id, input.Title, input.Description, isPrivate, categoryId, countryId, userId);
-
-            return this.View(input);
         }
 
         [Authorize]
         public async Task<IActionResult> Load(string id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var creationViewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsViewModel>(id);
-
-            if (creationViewModel.CreatorId != userId)
+            try
             {
-                creationViewModel.Views++;
-                await this.creationsService.IncreseCreationViewsAsync(id);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var creationViewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsViewModel>(id);
+                if (creationViewModel == null)
+                {
+                    return this.NotFound(
+                        string.Format(ExceptionMessages.CreationNotFound, id));
+                }
+
+                if (creationViewModel.CreatorId != userId)
+                {
+                    creationViewModel.Views++;
+                    await this.creationsService.IncreseCreationViewsAsync(id);
+                }
+
+                var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
+
+                var viewModel = new CreationsLoadViewModel()
+                {
+                    Creation = creationViewModel,
+                    Comments = comments,
+                };
+
+                return this.View(viewModel);
             }
-
-            var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
-
-            var viewModel = new CreationsLoadViewModel()
+            catch (NullReferenceException e)
             {
-                Creation = creationViewModel,
-                Comments = comments,
-            };
-
-            return this.View(viewModel);
+                return this.BadRequest(e.Message);
+            }
         }
 
         [Authorize]
         public async Task<IActionResult> LoadRedirect(string id)
         {
             var creationViewModel = await this.creationsService.GetCreationModelByIdAsync<CreationsViewModel>(id);
+            if (creationViewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CreationNotFound, id));
+            }
 
             var comments = await this.comentsService.GetAllCommentsForCreationAsync<CommentsAllViewModel>(id);
 
@@ -182,10 +227,6 @@
         [Authorize]
         public async Task<IActionResult> Upload(CreationsUploadInputModel input)
         {
-            // TODO: Remove
-            input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
-            input.Countries = await this.countriesService.GetSelectListCountriesAsync();
-
             if (!this.ModelState.IsValid)
             {
                 input.Categories = await this.categoriesService.GetSelectListCategoriesAsync();
@@ -211,8 +252,7 @@
             int categoryId = int.Parse(input.Category);
             if (categoryId == 0)
             {
-                // TODO: Remove hardcoded string
-                var otherCategory = await this.categoriesService.GetCategoryByNameAsync<CategoryViewModel>("Other");
+                var otherCategory = await this.categoriesService.GetCategoryByNameAsync<CategoriesViewModel>(GlobalConstants.CategoryOtherName);
                 categoryId = otherCategory.Id;
             }
 
@@ -228,9 +268,9 @@
             await this.tagsService.CreateTagsAsync(tagNames);
             var tags = await this.tagsService.GetTagsByNameAsync(tagNames);
 
-            var filePath = await this.creationsService.AddCreationInDbAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
+            var creationId = await this.creationsService.AddCreationAsync(input.Title, input.Description, isPrivate, countryId, categoryId, user, input.Creation, tags);
 
-            return this.View(input);
+            return this.RedirectToAction("LoadRedirect", "Creations", new { id = creationId });
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace SightsView.Data.Configurations
 {
-    using SightsView.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SightsView.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

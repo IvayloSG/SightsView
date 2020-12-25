@@ -5,23 +5,28 @@
 }
 
 <br />
-<h1 class="text-center text-dark mb-lg-5">Add new Category</h1>
 
-<form method="post" enctype="application/x-www-form-urlencoded">
+<div class="text-dark text-center">
+    <h1>Add New Category</h1>
+</div>
 
-    <div class="form-group col-md-6 offset-3">
-        <input asp-for="Name" placeholder="Name" class="form-control text-center" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+<hr />
 
-    <div class="form-group col-md-6 offset-3">
-        <textarea asp-for="Description" placeholder="Description text" class="form-control" rows="5"><</textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+<div class="container col-md-6 justify-content-center">
+    <form method="post" enctype="application/x-www-form-urlencoded">
+        <div class="form-group">
+            <input asp-for="Name" placeholder="Name" class="form-control text-center" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-dark col-md-4 offset-4">Add</button>
+        <div class="form-group">
+            <textarea asp-for="Description" placeholder="Description text" class="form-control" rows="5"><</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
 
-</form>
+        <button type="submit" class="btn btn-dark col-8 offset-2">Add</button>
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

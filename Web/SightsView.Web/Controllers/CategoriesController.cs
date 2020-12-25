@@ -1,8 +1,12 @@
 ﻿namespace SightsView.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using SightsView.Common;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Categories;
 
@@ -15,25 +19,35 @@
             this.categoriesService = categoriesService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryViewModel>();
-
-            var viewModel = new CategoriesAllViewModel()
+            try
             {
-                AlphabeticalCategoryList = categories,
-            };
+                var categories = await this.categoriesService.GetAllCategoriesAsync<CategoriesViewModel>();
 
-            return this.View(viewModel);
+                var viewModel = new CategoriesAllViewModel()
+                {
+                    AlphabeticalCategoryList = categories,
+                };
+
+                return this.View(viewModel);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Add(CategoryAddInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -41,50 +55,68 @@
                 return this.View();
             }
 
-            await this.categoriesService.CreateCategoryAsync(input.Name, input.Description);
+            try
+            {
+                await this.categoriesService.CreateCategoryAsync(input.Name, input.Description);
 
-            return this.RedirectToAction(nameof(this.Index));
+                return this.RedirectToAction(nameof(this.Index));
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await this.categoriesService.DeleteCategoryByIdAsync(id);
+
+                return this.RedirectToAction(nameof(this.Index));
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
-            var viewModel = await this.categoriesService.GetCategoryByIdAsync<CategoryViewModel>(id);
+            var viewModel = await this.categoriesService.GetCategoryByIdAsync<CategoriesViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CategoryNotFound, id));
+            }
 
             return this.View(viewModel);
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit(CategoryEditInputModel input)
         {
-            var viewModel = await this.categoriesService.GetCategoryByIdAsync<CategoryViewModel>(input.Id);
             if (!this.ModelState.IsValid)
             {
+                var viewModel = await this.categoriesService.GetCategoryByIdAsync<CategoriesViewModel>(input.Id);
                 return this.View(viewModel);
             }
 
-            var isUpdateSuccessful = await this.categoriesService.UpdateCategoryByIdAsync(input.Id, input.Name, input.Description);
-
-            // TODO: To implement error when update is unsuccessful;
-            if (!isUpdateSuccessful)
+            try
             {
-                return this.View(viewModel);
+                await this.categoriesService.UpdateCategoryByIdAsync(input.Id, input.Name, input.Description);
+
+                return this.RedirectToAction(nameof(this.Index));
             }
-
-            return this.RedirectToAction(nameof(this.Index));
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var isUpdateSuccessful = await this.categoriesService.DeleteCategoryByIdAsync(id);
-
-            // TODO: To implement error when update is unsuccessful;
-            if (!isUpdateSuccessful)
+            catch (Exception e)
             {
-                return this.View();
+                return this.BadRequest(e.Message);
             }
-
-            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

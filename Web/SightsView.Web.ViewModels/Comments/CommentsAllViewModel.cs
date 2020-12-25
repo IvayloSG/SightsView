@@ -1,7 +1,9 @@
 ﻿namespace SightsView.Web.ViewModels.Comments
 {
     using System.Collections.Generic;
+
     using AutoMapper;
+
     using SightsView.Data.Models;
     using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Replies;

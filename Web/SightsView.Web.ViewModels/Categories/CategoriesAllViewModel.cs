@@ -4,6 +4,6 @@
 
     public class CategoriesAllViewModel
     {
-        public IEnumerable<CategoryViewModel> AlphabeticalCategoryList { get; set; }
+        public IEnumerable<CategoriesViewModel> AlphabeticalCategoryList { get; set; }
     }
 }

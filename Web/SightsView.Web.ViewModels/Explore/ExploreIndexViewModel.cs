@@ -11,7 +11,7 @@
 
         public string SearchInput { get; set; }
 
-        public IEnumerable<CategoryViewModel> TopCategories { get; set; }
+        public IEnumerable<CategoriesViewModel> TopCategories { get; set; }
 
         public IEnumerable<CreationsViewModel> Creations { get; set; }
     }

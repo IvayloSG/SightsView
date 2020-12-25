@@ -2,9 +2,9 @@
 {
     using System.Linq;
 
-    using SightsView.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+
+    using SightsView.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

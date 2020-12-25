@@ -2,7 +2,7 @@
 {
     public class LoadInputModel
     {
-        public int CountryId { get; set; }
+        public int ElementId { get; set; }
 
         public int PageNumber { get; set; }
     }

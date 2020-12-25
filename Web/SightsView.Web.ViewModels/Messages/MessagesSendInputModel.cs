@@ -11,6 +11,5 @@
         [Required]
         [StringLength(500, ErrorMessage = GlobalConstants.CommentContentLengthError, MinimumLength = 2)]
         public string Content { get; set; }
-
     }
 }

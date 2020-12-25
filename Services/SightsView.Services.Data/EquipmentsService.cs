@@ -21,7 +21,7 @@
         {
             var equipment = new Equipment()
             {
-                Brand= brand,
+                Brand = brand,
                 Model = model,
                 Accessoaries = accessoaries,
                 Notes = notes,

@@ -11,6 +11,7 @@
         // Fixxed string messages
         public const string NoCountryOption = "Chose country";
         public const string NoCategoryOption = "Chose category for your creation";
+        public const string CategoryOtherName = "Other";
 
         public const string ConfirmationMailSubject = "Please confirm your email";
         public const string MailFrom = "sightsview@gmail.com";

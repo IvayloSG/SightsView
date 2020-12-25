@@ -1,5 +1,4 @@
-﻿
-namespace SightsView.Web.ViewModels.Messages
+﻿namespace SightsView.Web.ViewModels.Messages
 {
     using System;
 

@@ -1,14 +1,12 @@
 ﻿namespace SightsView.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using SightsView.Common;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Countries;
-    using SightsView.Web.ViewModels.Creations;
 
     public class CountriesController : Controller
     {
@@ -23,6 +21,12 @@
         public async Task<IActionResult> Index(int id)
         {
             var name = await this.countriesService.GetCountryNameByIdAsync(id);
+
+            if (name == null)
+            {
+                return this.NotFound(
+                    string.Format(ExceptionMessages.CategoryNotFound, id));
+            }
 
             var viewModel = new CountriesCreationsViewModel()
             {

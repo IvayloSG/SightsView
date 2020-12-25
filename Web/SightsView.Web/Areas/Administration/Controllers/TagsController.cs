@@ -65,6 +65,7 @@
                 await this.tagsRepository.SaveChangesAsync();
                 return this.RedirectToAction(nameof(this.Index));
             }
+
             return this.View(tag);
         }
 

@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using SightsView.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using SightsView.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

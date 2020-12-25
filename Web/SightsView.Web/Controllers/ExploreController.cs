@@ -23,9 +23,10 @@
 
         public async Task<IActionResult> Index(int? id)
         {
+            // TODO: Constant value
             var categoryCount = 3;
 
-            var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoryViewModel>(categoryCount);
+            var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoriesViewModel>(categoryCount);
 
             var currentCategory = id;
 
@@ -53,7 +54,7 @@
             }
 
             var categoryCount = 3;
-            var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoryViewModel>(categoryCount);
+            var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoriesViewModel>(categoryCount);
 
             var formattedInput = input.SearchInput.Replace("#", string.Empty);
             var creationsCount = GlobalConstants.CreationsPerPage;

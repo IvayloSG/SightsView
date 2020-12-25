@@ -4,23 +4,27 @@
     this.ViewData["Title"] = "Edit creation";
 }
 
-<div class="container">
-    <br />
-    <h1 class="text-center text-dark mb-lg-5">Edit your creation</h1>
+<br />
 
+<div class="text-dark text-center">
+    <h1>Edit your Creation</h1>
+</div>
+
+<hr />
+
+<div class="container col-md-6 justify-content-center">
     <form method="post" enctype="application/x-www-form-urlencoded">
-
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <input asp-for="Title" placeholder="@Model.Title" class="form-control text-center" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <textarea asp-for="Description" placeholder="@Model.Description" class="form-control text-center" rows="10"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
+        <div class="form-group">
             <select asp-for="Privacy" class="form-control text-center">
                 @if (Model.Privacy == "Public")
                 {
@@ -35,20 +39,19 @@
             </select>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
-            <select asp-for="CategoryName" class="form-control text-center" asp-items="@Model.Categories">
+        <div class="form-group">
+            <select asp-for="CategoryName" asp-items="@Model.Categories" class="form-control text-center">
                 <option disabled selected>@Model.CategoryName</option>
             </select>
         </div>
 
-        <div class="form-group col-md-6 offset-3">
-            <select asp-for="CountryName" class="form-control text-center" asp-items="@Model.Countries">
+        <div class="form-group">
+            <select asp-for="CountryName" asp-items="@Model.Countries" class="form-control text-center">
                 <option disabled selected>@Model.CountryName</option>
             </select>
         </div>
 
-        <input value="Save Changes" type="submit" class="btn btn-dark col-md-6 offset-3" />
-
+        <button type="submit" class="btn btn-dark col-8 offset-2">Save Changes</button>
     </form>
 </div>
 

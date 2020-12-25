@@ -28,26 +28,19 @@
 
         public async Task<IEnumerable<CountriesViewModel>> GetCountriesWithMostCreationAsync(int countriesCount)
         {
-            try
-            {
-                var topCountries = await this.countriesRepository.AllAsNoTracking()
-                 .Where(x => x.Creations.Count > 0 && x.Creations.Select(c => c.IsPrivate == false).FirstOrDefault())
-                 .OrderByDescending(x => x.Creations.Count)
-                 .Select(x => new CountriesViewModel()
-                 {
-                     Id = x.Id,
-                     Name = x.Name,
-                     DataURL = this.randomiseService.GetRandomElement<Creation>(x.Creations.Where(x => x.IsPrivate == false).ToList()).CreationDataUrl,
-                 })
-                 .Take(countriesCount)
-                 .ToListAsync();
+            var topCountries = await this.countriesRepository.AllAsNoTracking()
+             .Where(x => x.Creations.Count > 0 && x.Creations.Select(c => c.IsPrivate == false).FirstOrDefault())
+             .OrderByDescending(x => x.Creations.Count)
+             .Select(x => new CountriesViewModel()
+             {
+                 Id = x.Id,
+                 Name = x.Name,
+                 DataURL = this.randomiseService.GetRandomElement<Creation>(x.Creations.Where(x => x.IsPrivate == false).ToList()).CreationDataUrl,
+             })
+             .Take(countriesCount)
+             .ToListAsync();
 
-                return topCountries;
-            }
-            catch (System.Exception e)
-            {
-                throw new System.Exception(e.Message);
-            }
+            return topCountries;
         }
 
         public async Task<string> GetCountryNameByIdAsync(int id)

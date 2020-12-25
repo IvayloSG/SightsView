@@ -7,12 +7,11 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Mapping;
-    using SightsView.Web.ViewModels.Comments;
 
     public class CommentsService : ICommentsService
     {
@@ -38,12 +37,18 @@
 
         public async Task<string> DeleteCommentAsync(int commentId, string userId)
         {
-            var comment = await this.commentsRepository.AllAsNoTracking()
+            var comment = await this.commentsRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == commentId);
 
-            if (comment == null || userId != comment.ApplicationUserId)
+            if (comment == null)
             {
-                return null;
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CommentNotFound, commentId));
+            }
+
+            if (userId != comment.ApplicationUserId)
+            {
+                return ExceptionMessages.InvalidUser;
             }
 
             this.commentsRepository.Delete(comment);
@@ -59,7 +64,13 @@
             var comment = await this.commentsRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == commentId);
 
-            if (comment == null || comment.ApplicationUserId != userId)
+            if (comment == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.CommentNotFound, commentId));
+            }
+
+            if (userId != comment.ApplicationUserId)
             {
                 return false;
             }
@@ -72,20 +83,16 @@
             return true;
         }
 
-        public async Task<IEnumerable<T>> GetAllCommentsForCreationAsync<T>(string creationId)
-        {
-            var comments = await this.commentsRepository.AllAsNoTracking()
-                .Where(x => x.CreationId == creationId)
-                .To<T>()
-                .ToListAsync();
-
-            return comments;
-        }
-
         public async Task<T> GetCommentsByIdAsync<T>(int commentId)
             => await this.commentsRepository.All()
-            .Where(x => x.Id == commentId)
-            .To<T>()
-            .FirstOrDefaultAsync();
+               .Where(x => x.Id == commentId)
+               .To<T>()
+               .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetAllCommentsForCreationAsync<T>(string creationId)
+            => await this.commentsRepository.All()
+               .Where(x => x.CreationId == creationId)
+               .To<T>()
+               .ToListAsync();
     }
 }
