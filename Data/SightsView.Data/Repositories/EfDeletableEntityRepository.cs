@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Models;
     using SightsView.Data.Common.Repositories;
 

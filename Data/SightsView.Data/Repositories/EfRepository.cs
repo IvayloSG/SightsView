@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Repositories;
 
     public class EfRepository<TEntity> : IRepository<TEntity>

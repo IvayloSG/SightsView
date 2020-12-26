@@ -8,7 +8,6 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Models;
     using SightsView.Data.Models;
 
@@ -23,8 +22,6 @@
             : base(options)
         {
         }
-
-        public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 

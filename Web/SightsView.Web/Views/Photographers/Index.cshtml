@@ -5,7 +5,6 @@
 }
 
 <ul class="nav nav-pills nav-fill nav-justified mt-md-n2 mb-5">
-
     <li class="nav-item mr-1">
         <a asp-controller="Photographers" asp-action="MostCreations" class="nav-link active bg-dark">Most Creations</a>
     </li>
@@ -21,13 +20,13 @@
     <li class="nav-item">
         <a asp-controller="Photographers" asp-action="Newest" class="nav-link active bg-dark">Newest</a>
     </li>
-
 </ul>
+
+<hr />
 
 @foreach (var photographer in Model.PhotographersList)
 {
     <div class="card mb-2">
-
         <div class="card-header bg-dark">
             <h5 class="bg-dark text-white mt-2">
                 <a asp-controller="Messages" asp-action="Send" asp-route-id=@photographer.Id class="mx-2">
@@ -42,8 +41,6 @@
 
         <div class="card-body">
 
-            <div></div>
-
             <span>
                 <a asp-for data-id="@photographer.Id" class="btn btn-dark">
                     Follow
@@ -52,7 +49,6 @@
             </span>
 
             <span class="row col-md-9 float-lg-right">
-
                 @if (photographer.BestCreationsUrl != null)
                 {
                     <span class="img-thumbnail col-md-4 offset-4 float-lg-right">
@@ -66,17 +62,15 @@
                         <img src="@photographer.RunnerupCreationsUrl" alt="..." class="img-thumbnail">
                     </span>
                 }
-
             </span>
 
             <span class="badge badge-pill badge-light">
-                <img src="\follow.png" alt="icon" style="width: 20px" />
+                <img src="\follow.png" alt="icon" style="width: 20px"/>
                 <span id="@photographer.Id">@photographer.Followers</span>
 
-                <img src="\like.png" alt="icon" style="width: 20px" />
+                <img src="\like.png" alt="icon" style="width: 20px"/>
                 @photographer.LikedCreations
             </span>
-
         </div>
     </div>
 }

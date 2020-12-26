@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -18,7 +17,7 @@
             this.likesRepository = likesRepository;
         }
 
-        public async Task<int> GetLikesCountAsync(string userId, string creationId)
+        public async Task<int> GetLikesCountAsync(string creationId)
         {
             var likes = await this.likesRepository.AllAsNoTracking()
             .Where(x => x.CreationId == creationId).ToListAsync();

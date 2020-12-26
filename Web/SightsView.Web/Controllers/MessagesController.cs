@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Common;
     using SightsView.Services.Data.Contracts;
@@ -27,11 +28,13 @@
             this.emailSender = emailSender;
         }
 
+        [Authorize]
         public async Task<IActionResult> All()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var conversations = await this.messagesService.GetConversationsAsync(userId);
+
             var viewModel = new ConversationsListViewModel()
             {
                 Conversations = conversations,
@@ -40,11 +43,24 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var peerId = await this.messagesService.DeleteMessageAsync(id);
+            try
+            {
+                var currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var peerId = await this.messagesService.DeleteMessageAsync(id, currentUserId);
+                if (peerId == null)
+                {
+                    return this.RedirectToAction(nameof(this.All));
+                }
 
-            return this.RedirectToAction("Load", new { id = peerId });
+                return this.RedirectToAction("Load", new { id = peerId });
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         public async Task<IActionResult> Load(string id)
@@ -79,7 +95,7 @@
 
             if (input.Id == senderId)
             {
-                return this.BadRequest();
+                return this.RedirectToAction(nameof(this.All));
             }
 
             await this.messagesService.SendMessageAsync(senderId, input.Id, input.Content);
@@ -97,8 +113,8 @@
 
             var emailSubject = $"New message from {senderName}";
 
-            await this.emailSender.SendEmailAsync(GlobalConstants.MailFrom, GlobalConstants.MailFromName, receiver.Email, emailSubject, sb.ToString());
-            return this.View();
+            // await this.emailSender.SendEmailAsync(GlobalConstants.MailFrom, GlobalConstants.MailFromName, receiver.Email, emailSubject, sb.ToString());
+            return this.RedirectToAction("Load", new { id = input.Id });
         }
     }
 }

@@ -3,7 +3,6 @@
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration

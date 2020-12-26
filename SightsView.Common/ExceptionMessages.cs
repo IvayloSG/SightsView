@@ -15,5 +15,7 @@
         public const string CreationNotFound = "Creation with id {0} is not found.";
 
         public const string InvalidUser = "Invalid User.";
+
+        public const string MessageNotFound = "Message with Id {0} not found.";
     }
 }

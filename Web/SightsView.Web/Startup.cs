@@ -91,7 +91,6 @@
             services.AddTransient<IEquipmentsService, EquipmentsService>();
             services.AddTransient<IFollowsService, FollowsService>();
             services.AddTransient<IMessagesService, MessagesService>();
-            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IPhotographersService, PhotographersService>();

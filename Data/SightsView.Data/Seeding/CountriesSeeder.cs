@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore.Internal;
-
     using SightsView.Data.Models;
 
     public class CountriesSeeder : ISeeder

@@ -68,9 +68,9 @@
 
                 return this.RedirectToAction("LoadRedirect", "Creations", new { id = creationId });
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException nre)
             {
-                return this.BadRequest(e.Message);
+                return this.BadRequest(nre.Message);
             }
         }
 

@@ -28,7 +28,7 @@
 
             await this.likesService.LikeUnlikeAsync(userId, input.CreationId);
 
-            var likes = await this.likesService.GetLikesCountAsync(userId, input.CreationId);
+            var likes = await this.likesService.GetLikesCountAsync(input.CreationId);
 
             return new PostLikeResponseModel { Likes = likes };
         }

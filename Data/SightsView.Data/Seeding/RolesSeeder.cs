@@ -6,7 +6,6 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
-
     using SightsView.Common;
     using SightsView.Data.Models;
 

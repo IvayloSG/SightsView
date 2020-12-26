@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -22,12 +22,18 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task<string> DeleteMessageAsync(int messageId)
+        public async Task<string> DeleteMessageAsync(int messageId, string currentUserId)
         {
             var message = await this.messagesRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == messageId);
 
             if (message == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.MessageNotFound, messageId));
+            }
+
+            if (currentUserId != message.SenderId)
             {
                 return null;
             }
@@ -41,7 +47,7 @@
         }
 
         public async Task<IEnumerable<MessagesUsernamesViewModel>> GetConversationsAsync(string currentUserId)
-             => await this.messagesRepository.AllAsNoTracking()
+             => await this.messagesRepository.All()
                 .Where(x => x.ReceiverId == currentUserId || x.SenderId == currentUserId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new MessagesUsernamesViewModel()

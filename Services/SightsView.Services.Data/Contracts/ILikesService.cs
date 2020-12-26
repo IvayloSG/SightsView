@@ -6,6 +6,6 @@
     {
         Task LikeUnlikeAsync(string userId, string creationId);
 
-        Task<int> GetLikesCountAsync(string userId, string creationId);
+        Task<int> GetLikesCountAsync(string creationId);
     }
 }
