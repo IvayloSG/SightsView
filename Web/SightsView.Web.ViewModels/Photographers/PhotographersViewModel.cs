@@ -19,7 +19,11 @@
         public int Reputation
             => this.CreationsCount + this.Followers + this.LikedCreations;
 
+        public string BestCreationId { get; set; }
+
         public string BestCreationsUrl { get; set; }
+
+        public string RunnerupCreationsId { get; set; }
 
         public string RunnerupCreationsUrl { get; set; }
     }

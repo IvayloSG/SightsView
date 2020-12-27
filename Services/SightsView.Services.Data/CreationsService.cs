@@ -170,18 +170,36 @@
 
         public async Task<IEnumerable<T>> GetCreationByCountryAsync<T>(int countryId, int pageNumber, int creationsCount)
             => await this.creationsRepository.AllAsNoTracking()
-            .Where(x => x.IsPrivate == false && x.CountryId == countryId)
-            .OrderByDescending(x => x.CreatedOn)
-            .Skip((pageNumber - 1) * creationsCount)
-            .Take(creationsCount)
-            .To<T>()
-            .ToListAsync();
+               .Where(x => x.IsPrivate == false && x.CountryId == countryId)
+               .OrderByDescending(x => x.CreatedOn)
+               .Skip((pageNumber - 1) * creationsCount)
+               .Take(creationsCount)
+               .To<T>()
+               .ToListAsync();
 
         public async Task<T> GetCreationModelByIdAsync<T>(string creationId)
           => await this.creationsRepository.AllAsNoTracking()
                 .Where(x => x.Id == creationId)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetCreationsByCreatorIdAsync<T>(string creatorId, int pageNumber, int creationsCount)
+             => await this.creationsRepository.AllAsNoTracking()
+               .Where(x => x.IsPrivate == false && x.CreatorId == creatorId)
+               .OrderByDescending(x => x.CreatedOn)
+               .Skip((pageNumber - 1) * creationsCount)
+               .Take(creationsCount)
+               .To<T>()
+               .ToListAsync();
+
+        public async Task<IEnumerable<T>> GetCreationsIncudingPrivateByCreatorIdAsync<T>(string creatorId, int pageNumber, int creationsCount)
+             => await this.creationsRepository.AllAsNoTracking()
+               .Where(x => x.CreatorId == creatorId)
+               .OrderByDescending(x => x.CreatedOn)
+               .Skip((pageNumber - 1) * creationsCount)
+               .Take(creationsCount)
+               .To<T>()
+               .ToListAsync();
 
         public async Task<IEnumerable<T>> GetCreationsByNameOrTagAsync<T>(string keyWord, int creationsCount)
            => await this.creationsRepository.AllAsNoTracking()

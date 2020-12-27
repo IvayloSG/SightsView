@@ -17,7 +17,7 @@ function loadAction() {
     };
     $.ajax({
         type: "POST",
-        url: "/api/load",
+        url: "/api/load/LoadMoreCountry",
         data: JSON.stringify(data),
         headers: {
             'X-CSRF-TOKEN': antiForgeryToken
@@ -35,7 +35,7 @@ function loadAction() {
         let container = document.getElementById("gallery");
 
         data.creations.forEach((creation) => {
-            $("#gallery").append(`<div class='pics mb-3 animation all 1'><a href='Creations/Load/${String(creation.id)}'><img class='img-fluid' src='${String(creation.creationDataUrl)}' alt='Card image cap'></a></div>`)
+            $("#gallery").append(`<div class='pics mb-3 animation all 1'><a href='/Creations/Load/${String(creation.id)}'><img class='img-fluid' src='${String(creation.creationDataUrl)}' alt='Card image cap'></a></div>`)
         })
 
         pageNumber++;

@@ -85,7 +85,7 @@
             var currentUser = await this.userManager.GetUserAsync(this.User);
             var userId = currentUser == null ? string.Empty : currentUser.Id;
 
-            var photographersList = await this.photographersService.GetPhotographersWithMostNewestAsync(userId);
+            var photographersList = await this.photographersService.GetPhotographersMostNewestAsync(userId);
 
             var viewModel = new PhotographersLIstViewModel()
             {

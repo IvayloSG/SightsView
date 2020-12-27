@@ -1,6 +1,6 @@
 ﻿namespace SightsView.Web.ViewModels.Load
 {
-    public class LoadInputModel
+    public class LoadCountryInputModel
     {
         public int ElementId { get; set; }
 

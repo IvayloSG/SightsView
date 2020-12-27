@@ -18,7 +18,7 @@
     {
         <div class="card d-md-block mb-2">
             <div class="card-header bg-dark text-white">
-                <a asp-controller="Profiles" asp-action="Index" asp-route-id="@message.SenderId" class="text-white">@message.SenderUserName</a>
+                <a asp-controller="Sights" asp-action="Index" asp-route-id="@message.SenderId" class="text-white">@message.SenderUserName</a>
                 <a asp-controller="Messages" asp-action="Delete" asp-route-id=@message.Id class="btn-sm btn-light float-right" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
             </div>
 
@@ -34,7 +34,7 @@
                 <a asp-controller="Messages" asp-action="Send" asp-route-id=@message.SenderId class="mx-2 float-left">
                     <img src="\sendmessages.png" alt="icon" style="width: 30px" />
                 </a>
-                <a asp-controller="Profiles" asp-action="Index" asp-route-id="@message.SenderId" class="text-white">@message.SenderUserName</a>
+                <a asp-controller="Sights" asp-action="Index" asp-route-id="@message.SenderId" class="text-white">@message.SenderUserName</a>
             </div>
 
             <div class="card-body text-right">

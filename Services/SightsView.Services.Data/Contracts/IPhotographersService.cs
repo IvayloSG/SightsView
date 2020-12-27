@@ -15,7 +15,7 @@
 
         Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostFollowersAsync(string currentUserId);
 
-        Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostNewestAsync(string currentUserId);
+        Task<IEnumerable<PhotographersViewModel>> GetPhotographersMostNewestAsync(string currentUserId);
 
         Task<T> GetPhotographerByIdAsync<T>(string photographerId);
     }

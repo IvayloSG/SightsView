@@ -13,7 +13,7 @@
 
         <div class="card-body">
             <div class="text-center mb-1">
-                <a asp-controller="Profiles" asp-action="Index" asp-route-id="@Model.Creation.CreatorId" class="badge badge-dark float-lg-left mt-1">@Model.Creation.CreatorUserName</a>
+                <a asp-controller="Sights" asp-action="Index" asp-route-id="@Model.Creation.CreatorId" class="badge badge-dark float-lg-left mt-1">@Model.Creation.CreatorUserName</a>
 
                 <span class="badge badge-pill badge-light float-lg-right">
                     <img src="\visibility.png" alt="icon" style="width: 20px" />
@@ -74,7 +74,7 @@
     {
         <div class="card border-dark mb-2">
             <div class="card-header">
-                <a asp-controller="Profiles" asp-action="Index" asp-route-id="@comment.ApplicationUserId" class="text-dark">
+                <a asp-controller="Sights" asp-action="Index" asp-route-id="@comment.ApplicationUserId" class="text-dark">
                     <h6>@comment.ApplicationUserUserName</h6>
                 </a>
             </div>
@@ -108,7 +108,7 @@
                 {
                     <div class="card border-dark mb-1">
                         <div class="card-header">
-                            <a asp-controller="Profiles" asp-action="Index" asp-route-id="@reply.ApplicationUserId" class="text-dark float-right">
+                            <a asp-controller="Sights" asp-action="Index" asp-route-id="@reply.ApplicationUserId" class="text-dark float-right">
                                 <h6>@reply.ApplicationUserUserName</h6>
                             </a>
                         </div>

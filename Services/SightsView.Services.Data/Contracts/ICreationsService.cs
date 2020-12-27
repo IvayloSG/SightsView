@@ -34,6 +34,10 @@
 
         Task<IEnumerable<T>> GetCreationsByNameOrTagAsync<T>(string keyWord, int creationsCount);
 
+        Task<IEnumerable<T>> GetCreationsByCreatorIdAsync<T>(string creatorId, int pageNumber, int creationsCount);
+
+        Task<IEnumerable<T>> GetCreationsIncudingPrivateByCreatorIdAsync<T>(string creatorId, int pageNumber, int creationsCount);
+
         Task<string> GetCreatorIdByCreationIdAsync(string creationId);
 
         Task<T> GetCreationModelByIdAsync<T>(string id);

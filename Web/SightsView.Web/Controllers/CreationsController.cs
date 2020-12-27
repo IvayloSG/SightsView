@@ -56,7 +56,7 @@
                     return this.RedirectToAction("LoadRedirect", "Creations", new { id = id });
                 }
 
-                return this.RedirectToAction("Index", "Profiles");
+                return this.RedirectToAction("Index", "Sights");
             }
             catch (NullReferenceException e)
             {

@@ -35,10 +35,19 @@
                     .SelectMany(y => y.Likes)
                     .Count(),
                 Followers = x.Followers.Count,
+                BestCreationId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().Id,
                 BestCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views).
                     FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views)
+                    .Skip(1)
+                    .FirstOrDefault().Id,
                 RunnerupCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
@@ -68,10 +77,19 @@
                     .SelectMany(y => y.Likes)
                     .Count(),
                 Followers = x.Followers.Count,
+                BestCreationId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().Id,
                 BestCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
-                    .FirstOrDefault().CreationDataUrl,
+                    .Skip(1)
+                    .FirstOrDefault().Id,
                 RunnerupCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
@@ -95,10 +113,19 @@
                     .SelectMany(y => y.Likes)
                     .Count(),
                 Followers = x.Followers.Count,
+                BestCreationId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().Id,
                 BestCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
-                    .FirstOrDefault().CreationDataUrl,
+                    .Skip(1)
+                    .FirstOrDefault().Id,
                 RunnerupCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
@@ -122,10 +149,19 @@
                     .SelectMany(y => y.Likes)
                     .Count(),
                 Followers = x.Followers.Count,
+                BestCreationId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().Id,
                 BestCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
-                    .FirstOrDefault().CreationDataUrl,
+                    .Skip(1)
+                    .FirstOrDefault().Id,
                 RunnerupCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
@@ -135,7 +171,7 @@
             .Take(15)
             .ToListAsync();
 
-        public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostNewestAsync(string currentUserId)
+        public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersMostNewestAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
             .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
             .OrderByDescending(x => x.CreatedOn)
@@ -149,10 +185,19 @@
                     .SelectMany(y => y.Likes)
                     .Count(),
                 Followers = x.Followers.Count,
+                BestCreationId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().Id,
                 BestCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
+                    .ThenByDescending(x => x.Views).
+                    FirstOrDefault().CreationDataUrl,
+                RunnerupCreationsId = x.Creations
+                    .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
-                    .FirstOrDefault().CreationDataUrl,
+                    .Skip(1)
+                    .FirstOrDefault().Id,
                 RunnerupCreationsUrl = x.Creations
                     .OrderByDescending(x => x.Likes.Count)
                     .ThenByDescending(x => x.Views)
