@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;

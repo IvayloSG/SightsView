@@ -254,6 +254,7 @@
                  {
                      Id = x.Id,
                      CreationDataUrl = x.CreationDataUrl,
+                     CreatorUserName = x.Creator.UserName,
                  })
                  .ToListAsync();
         }

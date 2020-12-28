@@ -1,8 +1,5 @@
 ﻿namespace SightsView.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -32,9 +29,13 @@
             return this.View(viewModel);
         }
 
-        public IActionResult EditProfileInformation()
+        public async Task<IActionResult> MySight()
         {
-            return this.View();
+            var currentUser = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = await this.photographersService.GetPhotographerByIdAsync<SightsUserInfoViewModel>(currentUser);
+
+            return this.View(nameof(this.Index), viewModel);
         }
     }
 }

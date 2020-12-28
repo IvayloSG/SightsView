@@ -4,7 +4,6 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Photographers;

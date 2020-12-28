@@ -5,14 +5,14 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
+    using SightsView.Common;
     using SightsView.Services.Contracts;
 
     public class FilePathsService : IFilePathsService
     {
         public string CreateFilePath(string username, string creationId, string creationTitle, IFormFile file)
         {
-            // TODO: Move hard coded string to config
-            var path = @"C:\SightsViewCreations";
+            var path = GlobalConstants.FileSystemPath;
 
             var directoryPath = Path.Combine(path, username);
             if (!Directory.Exists(directoryPath))
@@ -36,7 +36,7 @@
             {
                 using (var memoryStream = new MemoryStream())
                 {
-                    var buffer = new byte[4 * 1024];
+                    var buffer = new byte[GlobalConstants.MemoryStreamBufferSize];
                     var bytesRead = 0;
                     while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                     {

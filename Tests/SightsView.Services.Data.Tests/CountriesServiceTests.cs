@@ -1,16 +1,13 @@
 ﻿namespace SightsView.Services.Data.Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.DependencyInjection;
     using SightsView.Common;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
-    using SightsView.Web.ViewModels.Countries;
     using Xunit;
 
     public class CountriesServiceTests : BaseServiceTests

@@ -13,6 +13,8 @@
 
         Task<T> GetCommentsByIdAsync<T>(int commentId);
 
+        Task<string> GetCreationIdByCommentAsync(int commentId);
+
         Task<IEnumerable<T>> GetAllCommentsForCreationAsync<T>(string creationId);
     }
 }

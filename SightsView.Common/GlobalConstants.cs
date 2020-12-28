@@ -5,7 +5,10 @@
         public const string SystemName = "SightsView";
 
         public const string AdministratorRoleName = "Administrator";
+        public const string AdministratorUserName = "admin";
 
+        public const int TopCategoriesCount = 3;
+        public const int TopCountriesCount = 4;
         public const int CreationsPerPage = 10;
 
         // Fixxed string messages
@@ -16,6 +19,13 @@
         public const string ConfirmationMailSubject = "Please confirm your email";
         public const string MailFrom = "sightsview@gmail.com";
         public const string MailFromName = "SightsView.Common";
+
+        public const string StatusCodePath = "/Home/StatusCode?code={0}";
+
+        public const string FileSystemPath = @"C:\SightsViewCreations";
+        public const int MemoryStreamBufferSize = 4 * 1024;
+
+        public const string TagExtractingRegexPattern = @"#[^\s#]+";
 
         // Validations
         public const string UserNameLengthError = "Username length must be between 2 and 100 characters.";

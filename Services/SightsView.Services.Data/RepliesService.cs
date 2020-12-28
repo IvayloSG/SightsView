@@ -1,10 +1,11 @@
 ﻿namespace SightsView.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
@@ -34,10 +35,16 @@
 
         public async Task<bool> DeleteReplyAsync(int replyId, string userId)
         {
-            var reply = await this.repliesRepository.AllAsNoTracking()
+            var reply = await this.repliesRepository.All()
                  .FirstOrDefaultAsync(x => x.Id == replyId);
 
-            if (reply == null || reply.ApplicationUserId != userId)
+            if (reply == null)
+            {
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.ReplyNotFound, replyId));
+            }
+
+            if (reply.ApplicationUserId != userId)
             {
                 return false;
             }
@@ -48,22 +55,28 @@
             return true;
         }
 
-        public async Task<bool> EditReplyAsync(int replyId, string content, string userId)
+        public async Task<int> EditReplyAsync(int replyId, string content, string userId)
         {
-            var comment = await this.repliesRepository.All()
-     .FirstOrDefaultAsync(x => x.Id == replyId);
+            var reply = await this.repliesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == replyId);
 
-            if (comment == null || comment.ApplicationUserId != userId)
+            if (reply == null)
             {
-                return false;
+                throw new NullReferenceException(string.Format(
+                    ExceptionMessages.ReplyNotFound, replyId));
             }
 
-            comment.Content = content;
+            if (reply.ApplicationUserId != userId)
+            {
+                return 0;
+            }
 
-            this.repliesRepository.Update(comment);
+            reply.Content = content;
+
+            this.repliesRepository.Update(reply);
             await this.repliesRepository.SaveChangesAsync();
 
-            return true;
+            return reply.CommentId;
         }
 
         public async Task<T> GetReplyByIdAsync<T>(int replyId)

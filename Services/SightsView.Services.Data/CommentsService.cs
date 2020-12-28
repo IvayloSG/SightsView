@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -94,5 +93,14 @@
                .Where(x => x.CreationId == creationId)
                .To<T>()
                .ToListAsync();
+
+        public async Task<string> GetCreationIdByCommentAsync(int commentId)
+        {
+            var comment = await this.commentsRepository.AllAsNoTracking()
+                 .FirstOrDefaultAsync(x => x.Id == commentId);
+
+            var result = comment.CreationId;
+            return result;
+        }
     }
 }

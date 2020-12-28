@@ -1,6 +1,5 @@
 ﻿namespace SightsView.Services
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
 

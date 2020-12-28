@@ -233,7 +233,7 @@
                 {
                     Name = "Wildlife",
                     Description = "The genre of photography that focuses on animals and their natural habitat is called wildlife photography. Animal behaviors in wild are also capture by wildlife photographer.",
-                }
+                },
             };
 
             await dbContext.Categories.AddRangeAsync(allCategories);

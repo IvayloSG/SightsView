@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
-
     using SightsView.Web.ViewModels.Countries;
 
     public interface ICountriesService

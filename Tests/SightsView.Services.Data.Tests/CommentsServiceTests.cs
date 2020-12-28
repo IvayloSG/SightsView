@@ -1,9 +1,7 @@
 ﻿namespace SightsView.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -17,8 +15,6 @@
     public class CommentsServiceTests : BaseServiceTests
     {
         private ICommentsService Service => this.ServiceProvider.GetRequiredService<ICommentsService>();
-
-
 
         [Fact]
         public async Task AddCommentAsyncResultTest()
@@ -210,6 +206,24 @@
             Assert.Equal(expectedCount, result.Count());
             Assert.Equal(comment.Id, resultComment.Id);
             Assert.Equal(comment.Content, resultComment.Content);
+        }
+
+        [Fact]
+        public async Task GetCreationIdByCommentIdResultTest()
+        {
+            var comment = new Comment()
+            {
+                Content = "TestContent",
+                CreationId = "7",
+                ApplicationUserId = "13",
+            };
+
+            await this.DbContext.Comments.AddAsync(comment);
+            await this.DbContext.SaveChangesAsync();
+
+            var result = await this.Service.GetCreationIdByCommentAsync(comment.Id);
+
+            Assert.Equal(result, comment.CreationId);
         }
     }
 }

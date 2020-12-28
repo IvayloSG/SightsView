@@ -30,7 +30,7 @@
         <div class="card-header bg-dark">
             <h5 class="bg-dark text-white mt-2">
                 <a asp-controller="Messages" asp-action="Send" asp-route-id=@photographer.Id class="mx-2">
-                    <img src="\sendmessages.png" alt="icon" style="width: 30px" />
+                    <img src="icons/sendmessages.png" alt="icon" style="width: 30px" />
                 </a>
 
                 <a asp-controller="Sights" asp-action="Index" asp-route-id="@photographer.Id" class="text-white">@photographer.Username</a>
@@ -70,10 +70,10 @@
             </div>
 
             <span class="badge badge-pill badge-light">
-                <img src="\follow.png" alt="icon" style="width: 20px" />
+                <img src="icons/follow.png" alt="icon" style="width: 20px" />
                 <span id="@photographer.Id">@photographer.Followers</span>
 
-                <img src="\like.png" alt="icon" style="width: 20px" />
+                <img src="icons/like.png" alt="icon" style="width: 20px" />
                 @photographer.LikedCreations
             </span>
         </div>

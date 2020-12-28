@@ -2,7 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     using SightsView.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>

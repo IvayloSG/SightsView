@@ -93,6 +93,19 @@
         [Authorize]
         public async Task<IActionResult> Edit(CommentsEditViewModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                var viewModel = await this.commentsService.GetCommentsByIdAsync<CommentsEditViewModel>(input.Id);
+
+                if (viewModel == null)
+                {
+                    return this.NotFound(
+                        string.Format(ExceptionMessages.CommentNotFound, input.Id));
+                }
+
+                return this.View(viewModel);
+            }
+
             try
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

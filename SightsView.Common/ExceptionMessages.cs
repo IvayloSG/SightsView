@@ -10,12 +10,14 @@
 
         public const string CategoryNotFound = "Country with id {0} is not found.";
 
-        public const string CommentNotFound = "Unable to find category with id {0}.";
+        public const string CommentNotFound = "Unable to find comment with id {0}.";
 
         public const string CreationNotFound = "Creation with id {0} is not found.";
 
         public const string InvalidUser = "Invalid User.";
 
         public const string MessageNotFound = "Message with Id {0} not found.";
+
+        public const string ReplyNotFound = "Unable to find reply with id {0}.";
     }
 }

@@ -1,13 +1,11 @@
 ﻿namespace SightsView.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-
     using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;

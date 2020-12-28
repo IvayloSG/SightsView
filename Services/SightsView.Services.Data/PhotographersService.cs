@@ -5,14 +5,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
+    using SightsView.Common;
     using SightsView.Data.Common.Repositories;
     using SightsView.Data.Models;
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Mapping;
     using SightsView.Web.ViewModels.Photographers;
 
-    // TODO: Remove hardcoded values
     public class PhotographersService : IPhotographersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> photographersRepository;
@@ -24,7 +23,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetAllPhotographersAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains(GlobalConstants.AdministratorUserName))
             .Select(x => new PhotographersViewModel()
             {
                 Id = x.Id,
@@ -65,7 +64,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostCreationsAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains(GlobalConstants.AdministratorUserName))
             .OrderByDescending(x => x.Creations.Count)
             .Select(x => new PhotographersViewModel()
             {
@@ -101,7 +100,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostFollowersAsync(string currentUserId)
              => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains(GlobalConstants.AdministratorUserName))
             .OrderByDescending(x => x.Followers.Count)
             .Select(x => new PhotographersViewModel()
             {
@@ -137,7 +136,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersWithMostLikesAsync(string currentUserId)
               => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains(GlobalConstants.AdministratorUserName))
             .OrderByDescending(x => x.Creations.SelectMany(y => y.Likes).Count())
             .Select(x => new PhotographersViewModel()
             {
@@ -173,7 +172,7 @@
 
         public async Task<IEnumerable<PhotographersViewModel>> GetPhotographersMostNewestAsync(string currentUserId)
             => await this.photographersRepository.AllAsNoTracking()
-            .Where(x => x.Id != currentUserId && !x.UserName.Contains("admin"))
+            .Where(x => x.Id != currentUserId && !x.UserName.Contains(GlobalConstants.AdministratorUserName))
             .OrderByDescending(x => x.CreatedOn)
             .Select(x => new PhotographersViewModel()
             {

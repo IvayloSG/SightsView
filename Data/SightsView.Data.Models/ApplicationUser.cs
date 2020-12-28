@@ -6,7 +6,6 @@ namespace SightsView.Data.Models
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
-
     using SightsView.Data.Common;
     using SightsView.Data.Common.Models;
 

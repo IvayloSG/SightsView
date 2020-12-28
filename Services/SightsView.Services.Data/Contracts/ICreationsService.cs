@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
-
     using SightsView.Data.Models;
     using SightsView.Web.ViewModels.Creations;
     using SightsView.Web.ViewModels.Tags;

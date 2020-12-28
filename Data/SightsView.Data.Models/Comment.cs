@@ -26,7 +26,6 @@
 
         [Required]
         [MaxLength(DataValidation.CommentContentLength)]
-
         public string Content { get; set; }
 
         public virtual ICollection<Reply> Replies { get; set; }

@@ -12,7 +12,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
+    using SightsView.Common;
     using SightsView.Data;
     using SightsView.Data.Common;
     using SightsView.Data.Common.Repositories;
@@ -25,6 +25,7 @@
     using SightsView.Services.Data.Contracts;
     using SightsView.Services.Mapping;
     using SightsView.Services.Messaging;
+    using SightsView.Web.Hubs;
     using SightsView.Web.ViewModels;
 
     public class Startup
@@ -63,6 +64,7 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddSignalR();
             services.AddControllersWithViews(
                 options =>
                     {
@@ -122,6 +124,7 @@
 
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePagesWithRedirects(GlobalConstants.StatusCodePath);
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -143,6 +146,7 @@
             app.UseEndpoints(
                 endpoints =>
                 {
+                    endpoints.MapHub<ChatHub>("/chat");
                     endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();

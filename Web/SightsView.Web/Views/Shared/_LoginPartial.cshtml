@@ -8,8 +8,14 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Chat">
+                <img src="/icons/chat.png" alt="icon" style="width: 20px" />
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="All">
-                <img src="\mail.png" alt="icon" style="width: 20px" />
+                <img src="/icons/mail.png" alt="icon" style="width: 20px" />
             </a>
         </li>
 
@@ -20,8 +26,8 @@
         <li class="nav-item dropdown">
             <a class="nav-link text-dark" href="#" id="nav-inner-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pofile</a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="nav-inner-primary_dropdown_1">
-                <a class="dropdown-item text-white bg-dark"  title="Manage">@(this.User.Identity.Name)</a>
-                <a class="dropdown-item" asp-area="" asp-controller="Sights" asp-action="Index">My Sight</a>
+                <a class="dropdown-item text-white bg-dark" title="Manage">@(this.User.Identity.Name)</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Sights" asp-action="MySight">My Sight</a>
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Edit Profile</a>
             </div>
         </li>

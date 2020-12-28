@@ -16,26 +16,26 @@
                 <a asp-controller="Sights" asp-action="Index" asp-route-id="@Model.Creation.CreatorId" class="badge badge-dark float-lg-left mt-1">@Model.Creation.CreatorUserName</a>
 
                 <span class="badge badge-pill badge-light float-lg-right">
-                    <img src="\visibility.png" alt="icon" style="width: 20px" />
+                    <img src="~/icons/visibility.png" alt="icon" style="width: 20px" />
                     @Model.Creation.Views
                 </span>
 
                 <a asp-controller="Creations" asp-action="Equipment" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
-                    <img src="~/camera.png" alt="icon" style="width: 20px" />
+                    <img src="~/icons/camera.png" alt="icon" style="width: 20px" />
                 </a>
 
                 <a asp-controller="Creations" asp-action="Details" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
-                    <img src="~/info.png" alt="icon" style="width: 20px" />
+                    <img src="~/icons/info.png" alt="icon" style="width: 20px" />
                 </a>
 
                 @if (this.User.Identity.Name == Model.Creation.CreatorUserName ||
                     this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     <a href="#" class="badge badge-pill badge-light float-lg-right" data-toggle="modal" data-target="#btn">
-                        <img src="~/blackdelete.png" alt="icon" style="width: 20px" />
+                        <img src="~/icons/blackdelete.png" alt="icon" style="width: 20px" />
                     </a>
                     <a asp-controller="Creations" asp-action="Edit" asp-route-id=@Model.Creation.Id class="badge badge-pill badge-light float-lg-right">
-                        <img src="~/blackedit.png" alt="icon" style="width: 20px" />
+                        <img src="~/icons/blackedit.png" alt="icon" style="width: 20px" />
                     </a>
                 }
             </div>
@@ -54,7 +54,7 @@
                 <a asp-for class="btn btn-dark text-center col-md-5" onclick="goBack()">Close</a>
 
                 <button asp-for class="btn btn-dark float-right" onclick="likeAction()">
-                    <img src="~/heart.png" alt="icon" style="width: 20px" />
+                    <img src="~/icons/heart.png" alt="icon" style="width: 20px" />
                     <span id="likes" class="badge badge-light">@Model.Creation.LikesCount</span>
                 </button>
 
@@ -91,11 +91,11 @@
                 {
                     <div class="mx-2">
                         <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" class="mx-1 float-right" onclick="return confirm('Are you sure you want to delete?');">
-                            <img src="~/blackdelete.png" alt="icon" style="width: 27px" />
+                            <img src="~/icons/blackdelete.png" alt="icon" style="width: 27px" />
                         </a>
 
                         <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="float-right">
-                            <img src="~/blackedit.png" alt="icon" style="width: 27px" />
+                            <img src="~/icons/blackedit.png" alt="icon" style="width: 27px" />
                         </a>
                     </div>
                 }
@@ -123,11 +123,11 @@
                             {
                                 <div class="mx-2">
                                     <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" class="float-right mx-1" onclick="return confirm('Are you sure you want to delete?');">
-                                        <img src="~/blackdelete.png" alt="icon" style="width: 25px" />
+                                        <img src="~/icons/blackdelete.png" alt="icon" style="width: 25px" />
                                     </a>
 
                                     <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="float-right">
-                                        <img src="~/blackedit.png" alt="icon" style="width: 25px" />
+                                        <img src="~/icons/blackedit.png" alt="icon" style="width: 25px" />
                                     </a>
                                 </div>
                             }

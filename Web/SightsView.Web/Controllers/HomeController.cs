@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Common;
     using SightsView.Services.Data.Contracts;
@@ -22,7 +23,6 @@
 
         public async Task<IActionResult> Index()
         {
-            // TODO: Take categories count from config
             int countOfCategories = 4;
             int countOfCreations = GlobalConstants.CreationsPerPage;
             var topCountries = await this.countriesService.GetCountriesWithMostCreationAsync(countOfCategories);
@@ -35,6 +35,12 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult Chat()
+        {
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

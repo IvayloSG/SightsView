@@ -5,7 +5,6 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Likes;
 

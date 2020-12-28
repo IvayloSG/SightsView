@@ -1,6 +1,5 @@
 ﻿namespace SightsView.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -23,8 +22,7 @@
 
         public async Task<IActionResult> Index(int? id)
         {
-            // TODO: Constant value
-            var categoryCount = 3;
+            var categoryCount = GlobalConstants.TopCategoriesCount;
 
             var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoriesViewModel>(categoryCount);
 
@@ -53,7 +51,7 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            var categoryCount = 3;
+            var categoryCount = GlobalConstants.TopCategoriesCount;
             var topCategories = await this.categoriesService.GetTopCategoriesAsync<CategoriesViewModel>(categoryCount);
 
             var formattedInput = input.SearchInput.Replace("#", string.Empty);

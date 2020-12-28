@@ -660,5 +660,125 @@
             var ex = await Assert.ThrowsAsync<NullReferenceException>(
           () => this.Service.IncreseCreationViewsAsync(creationId));
         }
+
+        [Fact]
+        public async Task GetCreationsByCreatorIdResultTest()
+        {
+            var creation = new Creation()
+            {
+                Title = "TestCreation",
+                IsPrivate = false,
+                CategoryId = 1,
+                CountryId = 1,
+                CreatorId = "13",
+            };
+
+            var creationTwo = new Creation()
+            {
+                Title = "TestCreationTwo",
+                IsPrivate = true,
+                CategoryId = 2,
+                CountryId = 1,
+                CreatorId = "13",
+            };
+
+            var creationThree = new Creation()
+            {
+                Title = "TestCreationThree",
+                IsPrivate = false,
+                CategoryId = 3,
+                CountryId = 2,
+                CreatorId = "13",
+            };
+
+            var creationFour = new Creation()
+            {
+                Title = "TestCreationThree",
+                IsPrivate = false,
+                CategoryId = 3,
+                CountryId = 1,
+                CreatorId = "12",
+            };
+
+            await this.DbContext.Creations.AddAsync(creation);
+            await this.DbContext.Creations.AddAsync(creationTwo);
+            await this.DbContext.Creations.AddAsync(creationThree);
+            await this.DbContext.Creations.AddAsync(creationFour);
+            await this.DbContext.SaveChangesAsync();
+
+            var creatorId = "13";
+            var pageNumber = 1;
+            var creationsCount = 3;
+
+            var result = await this.Service.GetCreationsByCreatorIdAsync<CreationsTestViewModel>(creatorId, pageNumber, creationsCount);
+            var resultList = result.ToList();
+            var expectedFirstElement = resultList[0];
+
+            var expectedCount = 2;
+
+            Assert.Equal(expectedCount, result.Count());
+            Assert.Equal(creationThree.CreatorId, expectedFirstElement.CreatorId);
+            Assert.Equal(creationThree.CategoryId, expectedFirstElement.CategoryId);
+        }
+
+        [Fact]
+        public async Task GetCreationsByCreatorIdIncludingPrvateResultTest()
+        {
+            var creation = new Creation()
+            {
+                Title = "TestCreation",
+                IsPrivate = false,
+                CategoryId = 1,
+                CountryId = 1,
+                CreatorId = "13",
+            };
+
+            var creationTwo = new Creation()
+            {
+                Title = "TestCreationTwo",
+                IsPrivate = true,
+                CategoryId = 2,
+                CountryId = 1,
+                CreatorId = "13",
+            };
+
+            var creationThree = new Creation()
+            {
+                Title = "TestCreationThree",
+                IsPrivate = false,
+                CategoryId = 3,
+                CountryId = 2,
+                CreatorId = "13",
+            };
+
+            var creationFour = new Creation()
+            {
+                Title = "TestCreationThree",
+                IsPrivate = false,
+                CategoryId = 3,
+                CountryId = 1,
+                CreatorId = "12",
+            };
+
+            await this.DbContext.Creations.AddAsync(creation);
+            await this.DbContext.Creations.AddAsync(creationTwo);
+            await this.DbContext.Creations.AddAsync(creationThree);
+            await this.DbContext.Creations.AddAsync(creationFour);
+            await this.DbContext.SaveChangesAsync();
+
+            var creatorId = "13";
+            var pageNumber = 1;
+            var creationsCount = 3;
+
+            var result = await this.Service.GetCreationsIncudingPrivateByCreatorIdAsync<CreationsTestViewModel>(creatorId, pageNumber, creationsCount);
+            var resultList = result.ToList();
+            var expectedFirstElement = resultList[0];
+
+            var expectedCount = 3;
+
+            Assert.Equal(expectedCount, result.Count());
+            Assert.Equal(creationThree.CreatorId, expectedFirstElement.CreatorId);
+            Assert.Equal(creationThree.CategoryId, expectedFirstElement.CategoryId);
+        }
     }
 }

@@ -43,7 +43,7 @@
                 ShutterSpeed = "TestShutterSpeed",
                 ISO = "TestIso",
                 TipAndTricks = "TestNotes",
-                Creations = new List<Creation>() { new Creation() { Id = "13"} },
+                Creations = new List<Creation>() { new Creation() { Id = "13" } },
             };
 
             await this.DbContext.Details.AddAsync(details);

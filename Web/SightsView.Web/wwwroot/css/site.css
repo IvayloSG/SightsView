@@ -81,16 +81,27 @@ hr {
     column-width: 33%;
 }
 
-    .gallery .pics {
-        -webkit-transition: all 350ms ease;
-        transition: all 350ms ease;
-    }
+.gallery .pics {
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+}
 
-    .gallery .animation {
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
+.gallery .animation {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    right: 0px;
+    padding-bottom: 0;
+    color: #fff;
+    text-align: left;
+    padding-left: 2%;
+}
 
 @media (max-width: 450px) {
     .gallery {

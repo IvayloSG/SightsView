@@ -26,6 +26,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="img-thumbnail mb-3 mt-3">
                             <img src="@country.DataURL" alt="..." class="img-thumbnail">
+
                             <a asp-controller="Countries" asp-action="Index" asp-route-id=@country.Id asp-for class="btn btn-dark text-center col-md-12">@country.Name</a>
                         </div>
                     </div>
@@ -40,6 +41,7 @@
 </div>
 
 <hr />
+
 <br />
 
 <div class="gallery" id="gallery">
@@ -48,23 +50,11 @@
         <div class="pics mb-3 animation all 1">
             <a asp-controller="Creations" asp-action="Load" asp-route-id=@creation.Id>
                 <img class="img-fluid" src="@creation.CreationDataUrl" alt="Card image cap">
+
+                <div class="carousel-caption">
+                    <h6>@creation.CreatorUserName</h6>
+                </div>
             </a>
         </div>
     }
 </div>
-
-@section Scripts {
-    <script>
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
-
-    <script>
-        $(document).on('click', '.img', function () {
-            $('#modal .modal-body').html($('.img').clone()[0]);
-            $('#modal').modal('show');
-        })
-    </script>
-}

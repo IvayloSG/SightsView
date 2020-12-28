@@ -1,10 +1,9 @@
 ﻿namespace SightsView.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using SightsView.Data.Models;
@@ -69,7 +68,6 @@
             var ex = await Assert.ThrowsAsync<NullReferenceException>(
               () => this.Service.DeleteMessageAsync(messageId, userId));
         }
-
 
         [Fact]
         public async Task GetConversationResulttest()
