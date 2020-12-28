@@ -32,7 +32,7 @@
         <div class="card d-md-block mb-2">
             <div class="card-header bg-dark text-white text-right">
                 <a asp-controller="Messages" asp-action="Send" asp-route-id=@message.SenderId class="mx-2 float-left">
-                    <img src="icons/sendmessages.png" alt="icon" style="width: 30px" />
+                    <img src="~/icons/sendmessages.png" alt="icon" style="width: 30px" />
                 </a>
                 <a asp-controller="Sights" asp-action="Index" asp-route-id="@message.SenderId" class="text-white">@message.SenderUserName</a>
             </div>

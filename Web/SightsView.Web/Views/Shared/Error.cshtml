@@ -12,9 +12,9 @@
         @if (@Model.StatusCode == "404")
         {
             <div class="col-8 offset-2 mb-1">
-                <img src="\pics\NotFound.jpg" alt="icon" style="width: 100%" />
+                <img src="/pics/NotFound.jpg" alt="icon" style="width: 100%" />
 
-                <h3 class="mt-0 text-danger">We are sorry, but the page you requested was not found, but you can check our Home Page.</h3>
+                <h3 class="mt-0 text-danger">We are sorry, but this page was not found! You can check our Home Page.</h3>
 
                 <a asp-controller="Home" asp-action="Index" type="submit" class="btn btn-block btn-dark">Home Page Teleport</a>
             </div>
@@ -22,10 +22,12 @@
         else
         {
             <div class="col-8 offset-2 mb-1">
-                <h1>Error</h1>
-            </div>
+                <img src="/pics/Error.png" alt="icon" style="width: 100%" />
 
-            <h2 class="mt-0">An error occurred while processing your request.</h2>
+                <h3 class="mt-0 text-danger">Ups, something unforeseen has just happaned :( Please checkout home page, while we are working hard to resolve it..</h3>
+
+                <a asp-controller="Home" asp-action="Index" type="submit" class="btn btn-block btn-dark">Home Page Teleport</a>
+            </div>
         }
         <a asp-area="@area" asp-action="Index" asp-controller="Home" class="home-btn text-white">Go Home</a>
     </div>

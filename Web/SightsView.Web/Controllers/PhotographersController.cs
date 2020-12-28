@@ -1,7 +1,7 @@
 ﻿namespace SightsView.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Data.Models;
@@ -19,6 +19,7 @@
             this.userManager = userManager;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
@@ -34,6 +35,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> MostCreations()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
@@ -49,6 +51,7 @@
             return this.View(nameof(this.Index), viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> MostLikes()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
@@ -64,6 +67,7 @@
             return this.View(nameof(this.Index), viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> MostFollowers()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
@@ -79,6 +83,7 @@
             return this.View(nameof(this.Index), viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Newest()
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);

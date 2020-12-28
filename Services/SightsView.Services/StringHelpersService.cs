@@ -2,13 +2,14 @@
 {
     using System;
     using System.IO;
+    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
     using SightsView.Common;
     using SightsView.Services.Contracts;
 
-    public class FilePathsService : IFilePathsService
+    public class StringHelpersService : IStringHelpersService
     {
         public string CreateFilePath(string username, string creationId, string creationTitle, IFormFile file)
         {
@@ -53,6 +54,18 @@
             string imageDataURL = string.Format("data:image/jpg;base64,{0}", url);
 
             return imageDataURL;
+        }
+
+        public string GetEmailContent(string receiverUserName, string sendrUserName, string messageContent)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<p1>Dear {receiverUserName},</p1>");
+            sb.AppendLine("<br />");
+            sb.AppendLine($"<p1>You have recieved a new message from {sendrUserName}:<p1>");
+            sb.AppendLine("<br />");
+            sb.AppendLine($"<p1>{messageContent}</p1>");
+
+            return sb.ToString();
         }
     }
 }

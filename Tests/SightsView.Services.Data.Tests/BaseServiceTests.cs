@@ -55,7 +55,7 @@
             services.AddTransient<ITagsExtractingService, TagsExtractingService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IPhotographersService, PhotographersService>();
-            services.AddTransient<IFilePathsService, FilePathsService>();
+            services.AddTransient<IStringHelpersService, StringHelpersService>();
             services.AddTransient<IRandomiseService, RandomiseService>();
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<IRepliesService, RepliesService>();

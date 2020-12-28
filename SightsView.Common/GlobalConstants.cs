@@ -9,12 +9,13 @@
 
         public const int TopCategoriesCount = 3;
         public const int TopCountriesCount = 4;
-        public const int CreationsPerPage = 10;
+        public const int CreationsPerPage = 30;
 
         // Fixxed string messages
         public const string NoCountryOption = "Chose country";
         public const string NoCategoryOption = "Chose category for your creation";
         public const string CategoryOtherName = "Other";
+        public const string MessageEmailSubject = "New message from {0}";
 
         public const string ConfirmationMailSubject = "Please confirm your email";
         public const string MailFrom = "sightsview@gmail.com";

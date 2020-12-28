@@ -56,6 +56,7 @@
             return this.RedirectToAction("LoadRedirect", "Creations", new { id = creationId });
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

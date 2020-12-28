@@ -21,6 +21,7 @@
             this.creationsService = creationsService;
         }
 
+        [Authorize]
         public IActionResult Add(string id)
         {
             // TODO: Make a redirect to edit action in case equipment exists
@@ -67,6 +68,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             var viewModel = await this.creationsService.GetCreationModelByIdAsync<DetailsEditInputModel>(id);
@@ -80,6 +82,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(DetailsEditInputModel input)
         {
             try

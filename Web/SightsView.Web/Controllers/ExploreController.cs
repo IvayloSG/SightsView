@@ -1,7 +1,7 @@
 ﻿namespace SightsView.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Common;
     using SightsView.Services.Data.Contracts;
@@ -20,6 +20,7 @@
             this.creationsService = creationsService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(int? id)
         {
             var categoryCount = GlobalConstants.TopCategoriesCount;
@@ -44,6 +45,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Search(ExploreIndexViewModel input)
         {
             if (string.IsNullOrWhiteSpace(input.SearchInput))

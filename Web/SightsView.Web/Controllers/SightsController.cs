@@ -3,6 +3,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SightsView.Services.Data.Contracts;
     using SightsView.Web.ViewModels.Sights;
@@ -16,6 +17,7 @@
             this.photographersService = photographersService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(string id)
         {
             var currentUser = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -29,6 +31,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> MySight()
         {
             var currentUser = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
