@@ -9,7 +9,7 @@
 
         public const int TopCategoriesCount = 3;
         public const int TopCountriesCount = 4;
-        public const int CreationsPerPage = 30;
+        public const int CreationsPerPage = 10;
 
         // Fixxed string messages
         public const string NoCountryOption = "Chose country";
@@ -60,6 +60,7 @@
         public const string MaxFileSizeAttributeErrorr = "Maximum allowed file size is {0}MB.";
 
         public const string AllowedImageExtensionError = "Creation format is not supported.";
+        public const int MaxFileSize = 8 * 1024 * 1024;
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg", ".bmp" };
     }
 }

@@ -122,11 +122,11 @@
                                  this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
                                 <div class="mx-2">
-                                    <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" class="float-right mx-1" onclick="return confirm('Are you sure you want to delete?');">
+                                    <a asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="float-right mx-1" onclick="return confirm('Are you sure you want to delete?');">
                                         <img src="~/icons/blackdelete.png" alt="icon" style="width: 25px" />
                                     </a>
 
-                                    <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.Id" class="float-right">
+                                    <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="float-right">
                                         <img src="~/icons/blackedit.png" alt="icon" style="width: 25px" />
                                     </a>
                                 </div>

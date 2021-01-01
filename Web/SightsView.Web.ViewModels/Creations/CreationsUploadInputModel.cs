@@ -27,7 +27,7 @@
 
         [Required]
         [AllowedImageExtensions]
-        [MaxFileSize(8 * 1024 * 1024)]
+        [MaxFileSize(GlobalConstants.MaxFileSize)]
         public IFormFile Creation { get; set; }
 
         public string Tags { get; set; }

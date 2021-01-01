@@ -5,7 +5,6 @@
 
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc.Rendering;
-
     using SightsView.Common;
     using SightsView.Data.Models;
     using SightsView.Services.Mapping;
